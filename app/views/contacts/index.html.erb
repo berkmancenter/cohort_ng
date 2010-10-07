@@ -1,0 +1,14 @@
+<div class="contacts-index">
+  <h1>Contacts</h1>
+  <% if @contacts.blank? %>
+    <h2>None found.</h2>
+  <% else %>
+    <h2><%= @contacts.length %> total</h2>
+    <ul>
+    <% @contacts.each do|c| %>
+      <li><%= c.first_name  %></li>
+    <% end %>
+    </ul>
+
+  <% end %>
+</div>

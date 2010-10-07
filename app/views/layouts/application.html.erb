@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CohortNg</title>
+    <%= stylesheet_link_tag 'custom-theme/jquery-ui-1.8.5.custom.css' %>
+    <%= stylesheet_link_tag 'reset' %>
+    <%= stylesheet_link_tag 'grid' %>
+    <%= formtastic_stylesheet_link_tag  %>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag 'jquery-1.4.2.min.js' %>
+    <%= javascript_include_tag 'jquery.form.js' %>
+    <%= javascript_include_tag 'jquery-ui-1.8.5.custom.min.js' %>
+    <%= javascript_include_tag 'application.js' %>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div class="container_12">
+      <div class="header">
+        <div class="grid_8"><h1>Cohort NG</h1></div>
+        <div class="grid_4">search goes here</div>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="container_12">
+      <div class="body">
+        <div class="grid_2">
+          <%= render :partial => 'shared/actions' %>
+        </div>
+        <div class="grid_10">
+          <div class="main">
+          <%= yield %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>

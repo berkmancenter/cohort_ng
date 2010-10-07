@@ -1,0 +1,13 @@
+<%= semantic_form_for(@contact) do |f| -%>
+
+  <div id="error" class="ui-state-error" style="display: none;"></div>
+
+  <%= f.inputs :name => 'About' do %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :birthday, :required => false, :input_html => {:class => "datepicker"} %>
+  <% end  %>
+
+  <%= f.buttons %>
+
+<% end  -%>
