@@ -6,7 +6,7 @@
     <h2><%= @contacts.length %> total</h2>
     <ul>
     <% @contacts.each do|c| %>
-      <li><%= c.first_name  %></li>
+      <li><%= c.first_name  %> <%= c.birthday %></li>
     <% end %>
     </ul>
 

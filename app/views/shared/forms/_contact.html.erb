@@ -1,12 +1,23 @@
 <%= semantic_form_for(@contact) do |f| -%>
 
+  <% @contact.emails.build %>
+  <% @contact.emails.build %>
+
   <div id="error" class="ui-state-error" style="display: none;"></div>
 
   <%= f.inputs :name => 'About' do %>
     <%= f.input :first_name %>
     <%= f.input :last_name %>
-    <%= f.input :birthday, :required => false, :input_html => {:class => "datepicker"} %>
+    <%= f.input :birthday, :required => false, :input_html => {:class => "datepicker"}, :hint => 'In YYYY-MM-DD format' %>
   <% end  %>
+
+  <%= f.semantic_fields_for :email do |email| %>
+    <%= email.inputs :name => 'Email' do %>
+      <%= email.input :email %>
+      <%= email.input :email_type, :collection => ['Work','Home','Other'] %>
+      <%= email.input :is_primary, :as => :boolean %>
+    <% end %>
+  <% end %>
 
   <%= f.buttons %>
 

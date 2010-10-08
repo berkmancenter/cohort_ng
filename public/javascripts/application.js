@@ -1,5 +1,16 @@
 jQuery.noConflict();
 
+jQuery.extend({
+    initDateControl: function(){
+        jQuery('.datepicker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            minDate: "-100Y",
+            dateFormat: 'yy-mm-dd'
+        });
+    }
+});
+
 jQuery(document).ready(function(){
 
     jQuery('.actions').css('min-height', jQuery('.main').height());
@@ -28,27 +39,21 @@ jQuery(document).ready(function(){
                     });
             
                 });
-
                 jQuery(dialogNode).dialog({
                     show: 'explode',
                     hide: 'explode',
                     modal: true,
                     width: 500,
-                    height: 400
+                    height: 400,
+                    open: function(){
+                        jQuery.initDateControl();
+                    },
+                    close: function(){
+                        jQuery(dialogNode).remove();
+                    }
                 });
             }
-
         });
-
-    });
-    
-    jQuery('.datepicker').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        minDate: "-100Y",
-        dateFormat: 'yy-mm-dd'
     });
 
 });
-
-

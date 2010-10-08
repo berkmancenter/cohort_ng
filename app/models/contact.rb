@@ -13,5 +13,5 @@ class Contact
   many :emails
   many :log_items
   many :notes
-  
+   
 end
