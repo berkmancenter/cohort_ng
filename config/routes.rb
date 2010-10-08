@@ -4,6 +4,8 @@ CohortNg::Application.routes.draw do
 
   get "contact_query/yours"
 
+  get "contact_query/new"
+
   get "contact_query/all"
 
   get "contact_query/todo"

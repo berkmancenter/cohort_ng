@@ -1,6 +1,10 @@
 <h1><%= title %></h1>
-<ul>
-  <% @contacts.each do |c| %>
-    <li><%= c.first_name %> <%= c.last_name %></li>
-  <% end %>
-</ul>
+<% unless @contacts.blank? %>
+  <ul>
+    <% @contacts.each do |c| %>
+      <li><%= c.first_name %> <%= c.last_name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <h2>None found.</h2>
+<% end %>

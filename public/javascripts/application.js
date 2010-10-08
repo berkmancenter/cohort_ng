@@ -19,6 +19,7 @@ jQuery(document).ready(function(){
                     jQuery(dialogNode).find('form').ajaxSubmit({
                         dataType: 'script',
                         success: function(){
+                            jQuery.updateContactLists();
                             jQuery(dialogNode).dialog('close');
                         },
                         error: function(xhr){
