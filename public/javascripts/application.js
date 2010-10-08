@@ -1,21 +1,9 @@
 jQuery.noConflict();
 
-jQuery.extend({
-    initDateControl: function(){
-        jQuery('.datepicker').datepicker({
-            changeMonth: true,
-            changeYear: true,
-            minDate: "-100Y",
-            dateFormat: 'yy-mm-dd'
-        });
-    }
-});
-
 jQuery(document).ready(function(){
-
     jQuery('.actions').css('min-height', jQuery('.main').height());
     jQuery('.accordion').accordion();
-
+    jQuery.updateContactLists();
     jQuery('a.dialog').click(function(e){
         e.preventDefault();
         jQuery.ajax({

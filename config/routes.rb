@@ -1,5 +1,17 @@
 CohortNg::Application.routes.draw do
 
+  get "contact_query/recent"
+
+  get "contact_query/yours"
+
+  get "contact_query/all"
+
+  get "contact_query/todo"
+
+  get "base/index"
+
+  root :to => "base#index"
+
   resources :contacts
 
   # The priority is based upon order of creation:

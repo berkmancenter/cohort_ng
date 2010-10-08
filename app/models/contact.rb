@@ -13,5 +13,8 @@ class Contact
   many :emails
   many :log_items
   many :notes
+
+  before_create {|c| c.created_at = c.updated_at = Time.now }
+  before_save {|c| c.updated_at = Time.now }
    
 end

@@ -10,6 +10,7 @@
     <%= javascript_include_tag 'jquery-1.4.2.min.js' %>
     <%= javascript_include_tag 'jquery.form.js' %>
     <%= javascript_include_tag 'jquery-ui-1.8.5.custom.min.js' %>
+    <%= javascript_include_tag 'cohort-jquery-extensions.js' %>
     <%= javascript_include_tag 'application.js' %>
     <%= csrf_meta_tag %>
   </head>
@@ -25,10 +26,10 @@
 
     <div class="container_12">
       <div class="body">
-        <div class="grid_2">
+        <div class="grid_3">
           <%= render :partial => 'shared/actions' %>
         </div>
-        <div class="grid_10">
+        <div class="grid_9">
           <div class="main">
           <%= yield %>
           </div>
