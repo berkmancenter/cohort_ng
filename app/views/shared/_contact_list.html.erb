@@ -5,6 +5,7 @@
       <li><%= c.first_name %> <%= c.last_name %></li>
     <% end %>
   </ul>
+  <%= will_paginate(@contacts) %>
 <% else %>
   <h2>None found.</h2>
 <% end %>

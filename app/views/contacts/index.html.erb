@@ -8,7 +8,7 @@
     <% @contacts.each do|c| %>
       <li><%= c.first_name  %> <%= c.birthday %></li>
     <% end %>
-    </ul>
-
+  </ul>
+  <%= will_paginate(@contacts) %>
   <% end %>
 </div>

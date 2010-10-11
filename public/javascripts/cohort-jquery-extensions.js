@@ -2,6 +2,9 @@ jQuery.extend({
     rootPath: function(){
       return '/'
     },
+    spinnerNode: function(spinnerNamespace){
+      jQuery('<img class="spinner-' + spinnerNamespace + '" src="' + jQuery.rootPath() + 'images/ajax-loader.gif" />');
+    },
     initDateControl: function(){
         jQuery('.datepicker').datepicker({
             changeMonth: true,
@@ -24,6 +27,12 @@ jQuery.extend({
             dataType: 'script',
             cache: false,
             url: jQuery.rootPath() + 'contact_query/' + listType,
+            beforeSend: function(){
+              jQuery('.contact-list').filter('.' + listType).html(jQuery.spinnerNode(listType));
+            },
+            error: function(){
+              jQuery('.contact-list').filter('.' + listType).html('There seems to have been a problem! < fail whale >. Please try again later.');
+            },
             success: function(html){
               jQuery('.contact-list').filter('.' + listType).html(html);
             }

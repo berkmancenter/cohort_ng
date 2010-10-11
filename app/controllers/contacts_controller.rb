@@ -1,6 +1,11 @@
 class ContactsController < ApplicationController
+
   def index
-    @contacts = Contact.all
+    @contacts = Contact.paginate(:page => params[:page], :per_page => params[:per_page])
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html { }
+    end
   end
 
   def show
