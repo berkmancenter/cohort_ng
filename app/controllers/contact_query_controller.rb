@@ -1,4 +1,4 @@
-class ContactQueryController < ApplicationController
+class ContactQueryController < BaseController
 
   def recent
     @contacts = Contact.paginate(:order => 'updated_at desc', :page => params[:page], :per_page => params[:per_page])
