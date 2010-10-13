@@ -28,15 +28,34 @@ jQuery.extend({
             cache: false,
             url: jQuery.rootPath() + 'contact_query/' + listType,
             beforeSend: function(){
-              jQuery('.contact-list').filter('.' + listType).html(jQuery.spinnerNode(listType));
+              jQuery('.' + listType).html(jQuery.spinnerNode(listType));
             },
             error: function(){
-              jQuery('.contact-list').filter('.' + listType).html('There seems to have been a problem! < fail whale >. Please try again later.');
+              jQuery('.' + listType).html('There seems to have been a problem! < fail whale >. Please try again later.');
             },
             success: function(html){
-              jQuery('.contact-list').filter('.' + listType).html(html);
+              jQuery('.' + listType).html(html);
+              jQuery.observeListPagination(listType);
             }
          });
      }); 
-    }
+    },
+
+    observeListPagination: function(listType){
+      jQuery('.' + listType + ' .pagination a').click(function(e){
+                e.preventDefault();
+                jQuery.ajax({
+                  type: 'GET',
+                  url: jQuery(this).attr('href'),
+                  dataType: 'script',
+                  beforeSend: function(){
+                    jQuery('.' + listType).html(jQuery.spinnerNode(listType));
+                  },
+                  success: function(html){
+                    jQuery('.' + listType).html(html);
+                    jQuery.observeListPagination(listType);
+                  }
+                });
+              });
+                           }
 });
