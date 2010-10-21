@@ -1,5 +1,15 @@
 CohortNg::Application.routes.draw do
 
+  resources :users
+
+  resources :log_items
+
+  resources :notes
+
+  resources :addresses
+
+  resources :emails
+
   get "contact_query/recent"
 
   get "contact_query/yours"

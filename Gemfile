@@ -1,20 +1,15 @@
 require 'rubygems'
-require 'mongo'
 source 'http://gemcutter.org'
 
 gem "rails", "3.0.0"
-gem "mongo_mapper"
 gem "formtastic", '1.1.0'
 gem "will_paginate", "~> 3.0.pre2"
+gem 'pg', '~> 0.9.0'
+gem "authlogic", "2.1.6"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-if defined?(BSON_C)
-  warn 'BSON_C is in there.'
-end
-
-
+#
 # Use unicorn as the web server
 # gem 'unicorn'
 

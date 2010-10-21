@@ -1,11 +1,15 @@
-class Address
-  include MongoMapper::EmbeddedDocument
-  key :address_1, String, :required => true
-  key :address_2, String
-  key :city, String, :required => true
-  key :state, String
-  key :postal_code, String
-  key :country, :string, :required => true
-  key :updated_at, Time
-  key :created_at, Time
+class Address < ActiveRecord::Base
+  belongs_to :contact, :validate => true
+
+  ADDRESS_TYPES = {'unknown' => 'Unknown', 'personal' => 'Personal', 'work' => 'Work'}
+  validates_inclusion_of :address_type, :in => ADDRESS_TYPES.keys
+
+  def self.address_type_options_for_select
+    options = []
+    ADDRESS_TYPES.keys.each{|type|
+      options << [ADDRESS_TYPES[type], type]
+    }
+    return options
+  end
+
 end

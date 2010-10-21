@@ -1,11 +1,17 @@
-class LogItem
-  include MongoMapper::Document
+class LogItem < ActiveRecord::Base
+  LOG_ITEM_TYPES = {'update' => 'Update', 'warning' => 'Warning', 'error' => 'Error', 'contact' => 'Contact'}
 
-  key :contact_id, ObjectId
-  key :user_id, ObjectId
-  key :log_entry, String
-  key :updated_at, Time
-  key :created_at, Time
+  validates_inclusion_of :log_item_type, :in => LOG_ITEM_TYPES.keys
 
+  belongs_to :user, :validate => true
+  belongs_to :contact, :validate => true
+
+  def self.log_item_type_options_for_select
+    options = []
+    LOG_ITEM_TYPES.keys.each{|type|
+      options << [LOG_ITEM_TYPES[type], type]
+    }
+    return options
+  end
   
 end

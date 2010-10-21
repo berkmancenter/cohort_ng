@@ -2,10 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 # Pick the frameworks you want:
 # require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "active_resource/railtie"
-require "rails/test_unit/railtie"
+require "rails/all"
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
@@ -42,6 +39,6 @@ module CohortNg
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :password_confirmation]
   end
 end

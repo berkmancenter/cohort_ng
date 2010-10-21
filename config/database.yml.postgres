@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: cohort_ng_development
+  pool: 5
+  username: djcp
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: cohort_ng_testing
+  pool: 5
+  username: djcp
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: cohort_ng_production
+  pool: 5
+  username: djcp
+  password:

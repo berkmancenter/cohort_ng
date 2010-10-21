@@ -1,12 +1,12 @@
-class User
-  include MongoMapper::Document
+class User < ActiveRecord::Base
+  include CohortModelExtensions
 
-  key :username, String, :required => true
-  key :email, String, :required => true
-  key :password_hash, String
+  acts_as_authentic
+  has_many :notes, :dependent => :destroy
+  has_many :log_items, :dependent => :destroy
 
-  many :notes
-  many :groups
-  many :contacts
+  validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+
+  validates_uniqueness_of :login
 
 end

@@ -1,0 +1,2 @@
+class LogItemsController < ApplicationController
+end

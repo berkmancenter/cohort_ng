@@ -1,11 +1,6 @@
-class Note
-  include MongoMapper::Document
+class Note < ActiveRecord::Base
   include CohortModelExtensions
+  belongs_to :user
+  belongs_to :contact
 
-  key :contact_id, ObjectId, :index => true
-  key :user_id, ObjectId, :index => true
-  key :note, String, :required => true
-  key :updated_at, Time, :index => true
-  key :created_at, Time, :index => true
-  
 end
