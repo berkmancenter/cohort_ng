@@ -2,7 +2,16 @@ jQuery.extend({
     rootPath: function(){
       return '/'
     },
-    spinnerNode: function(spinnerNamespace){
+    showGlobalSpinnerNode: function(){
+      jQuery('#spinner').show();
+    },
+    hideGlobalSpinnerNode: function(){
+      jQuery('#spinner').hide();
+    },
+    showMajorError: function(xhr){
+      jQuery('<div></div>').html(xhr.responseText).dialog({modal: true}).dialog('open');
+    },
+    interiorSpinnerNode: function(spinnerNamespace){
       jQuery('<img class="spinner-' + spinnerNamespace + '" src="' + jQuery.rootPath() + 'images/ajax-loader.gif" />');
     },
     initDateControl: function(){
@@ -28,7 +37,7 @@ jQuery.extend({
             cache: false,
             url: jQuery.rootPath() + 'contact_query/' + listType,
             beforeSend: function(){
-              jQuery('.' + listType).html(jQuery.spinnerNode(listType));
+              jQuery('.' + listType).html(jQuery.interiorSpinnerNode(listType));
             },
             error: function(){
               jQuery('.' + listType).html('There seems to have been a problem! < fail whale >. Please try again later.');
@@ -49,7 +58,7 @@ jQuery.extend({
                   url: jQuery(this).attr('href'),
                   dataType: 'script',
                   beforeSend: function(){
-                    jQuery('.' + listType).html(jQuery.spinnerNode(listType));
+                    jQuery('.' + listType).html(jQuery.interiorSpinnerNode(listType));
                   },
                   success: function(html){
                     jQuery('.' + listType).html(html);

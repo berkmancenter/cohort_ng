@@ -1,8 +1,8 @@
 class CreateNotes < ActiveRecord::Migration
   def self.up
     create_table :notes do |t|
-      t.text :note, :null => false, :limit => 4.kilobytes
-      t.string :note_type
+      t.string :note, :null => false, :limit => 4.kilobytes
+      t.string :note_type, :limit => 50, :default => 'general'
       t.references :user
       t.references :contact
 

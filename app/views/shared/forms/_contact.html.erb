@@ -11,7 +11,7 @@
     <%= f.input :birthday, :required => false, :input_html => {:class => "datepicker"}, :hint => 'In YYYY-MM-DD format' %>
   <% end  %>
 
-  <%= f.semantic_fields_for :email do |email| %>
+  <%= f.semantic_fields_for :emails do |email| %>
     <%= email.inputs :name => 'Email' do %>
       <%= email.input :email %>
       <%= email.input :email_type, :collection => ['Work','Home','Other'] %>

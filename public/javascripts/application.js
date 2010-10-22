@@ -10,7 +10,15 @@ jQuery(document).ready(function(){
             cache: false,
             dataType: 'script',
             url: jQuery(this).attr('href'),
+            beforeSend: function(){
+              jQuery.showGlobalSpinnerNode();
+            },
+            error: function(xhr){
+              jQuery.hideGlobalSpinnerNode();
+              jQuery.showMajorError(xhr); 
+            },
             success: function(html){
+                jQuery.hideGlobalSpinnerNode();
                 var dialogNode = jQuery('<div></div>');
                 jQuery(dialogNode).append(html);
 
