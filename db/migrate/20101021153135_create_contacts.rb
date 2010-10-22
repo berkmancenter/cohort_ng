@@ -1,8 +1,8 @@
 class CreateContacts < ActiveRecord::Migration
   def self.up
     create_table :contacts do |t|
-      t.string :first_name, :limit => 100
-      t.string :last_name, :limit => 100
+      t.string :first_name, :limit => 100, :null => false
+      t.string :last_name, :limit => 100, :null => false
       t.date :birthday
       t.boolean :active, :default => true
       t.boolean :deleted, :default => false

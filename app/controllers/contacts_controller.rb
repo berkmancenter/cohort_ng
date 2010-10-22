@@ -30,8 +30,8 @@ class ContactsController < ApplicationController
         format.js { render :layout => false}
         format.html {redirect_to :action => :index}
       else
-        format.js { render :text => "We couldn't add that contact. <br />#{@contact.errors.full_messages.join('<br/>')}" } 
-          format.html { render :action => :new }
+        format.js { render :text => "We couldn't add that contact. <br />#{@contact.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
+        format.html { render :action => :new }
       end
     end
   end
