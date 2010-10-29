@@ -39,13 +39,13 @@ jQuery.extend({
                 cache: false,
                 url: jQuery.rootPath() + 'contact_query/' + listType,
                 beforeSend: function(){
-                    jQuery('.' + listType).html(jQuery.interiorSpinnerNode(listType));
+                    jQuery('.contact-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
                 },
                 error: function(){
-                    jQuery('.' + listType).html('There seems to have been a problem! < fail whale >. Please try again later.');
+                    jQuery('.contact-list.' + listType).html('There seems to have been a problem! < fail whale >. Please try again later.');
                 },
                 success: function(html){
-                    jQuery('.' + listType).html(html);
+                    jQuery('.contact-list.' + listType).html(html);
                     jQuery.observeListPagination(listType);
                 }
             });
@@ -53,17 +53,17 @@ jQuery.extend({
     },
 
     observeListPagination: function(listType){
-        jQuery('.' + listType + ' .pagination a').click(function(e){
+        jQuery('.contact-list.' + listType + ' .pagination a').click(function(e){
             e.preventDefault();
             jQuery.ajax({
                 type: 'GET',
                 url: jQuery(this).attr('href'),
                 dataType: 'script',
                 beforeSend: function(){
-                    jQuery('.' + listType).html(jQuery.interiorSpinnerNode(listType));
+                    jQuery('.contact-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
                 },
                 success: function(html){
-                    jQuery('.' + listType).html(html);
+                    jQuery('.contact-list.' + listType).html(html);
                     jQuery.observeListPagination(listType);
                 }
             });
