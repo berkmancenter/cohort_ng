@@ -1,0 +1,11 @@
+<h1><%= title %></h1>
+<% unless @notes.blank? %>
+  <ul>
+    <% @notes.each do |n| %>
+      <li><%= n.note %></li>
+    <% end %>
+  </ul>
+  <%= will_paginate(@notes) %>
+<% else %>
+  <h2>None found.</h2>
+<% end %>

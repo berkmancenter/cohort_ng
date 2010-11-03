@@ -24,8 +24,8 @@ jQuery.extend({
             dateFormat: 'yy-mm-dd'
         });
     },
-    updateContactLists: function(){
-        jQuery('.contact-list').each(function(contactListNode){
+    updateLists: function(objectType){
+        jQuery('.' + objectType + '-list').each(function(listNode){
             var listType = 'recent';
             if(jQuery(this).hasClass('recent')){
                 listType = 'recent';
@@ -37,34 +37,34 @@ jQuery.extend({
             jQuery.ajax({
                 dataType: 'script',
                 cache: false,
-                url: jQuery.rootPath() + 'contact_query/' + listType,
+                url: jQuery.rootPath() + objectType + '_query/' + listType,
                 beforeSend: function(){
-                    jQuery('.contact-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
+                    jQuery('.' + objectType + '-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
                 },
                 error: function(){
-                    jQuery('.contact-list.' + listType).html('There seems to have been a problem! < fail whale >. Please try again later.');
+                    jQuery('.' + objectType + '-list.' + listType).html('There seems to have been a problem! < fail whale >. Please try again later.');
                 },
                 success: function(html){
-                    jQuery('.contact-list.' + listType).html(html);
-                    jQuery.observeListPagination(listType);
+                    jQuery('.' + objectType + '-list.' + listType).html(html);
+                    jQuery.observeListPagination(objectType,listType);
                 }
             });
         });
     },
 
-    observeListPagination: function(listType){
-        jQuery('.contact-list.' + listType + ' .pagination a').click(function(e){
+    observeListPagination: function(objectType,listType){
+        jQuery('.' + objectType + '-list.' + listType + ' .pagination a').click(function(e){
             e.preventDefault();
             jQuery.ajax({
                 type: 'GET',
                 url: jQuery(this).attr('href'),
                 dataType: 'script',
                 beforeSend: function(){
-                    jQuery('.contact-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
+                    jQuery('.' + objectType + '-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
                 },
                 success: function(html){
-                    jQuery('.contact-list.' + listType).html(html);
-                    jQuery.observeListPagination(listType);
+                    jQuery('.' + objectType + '-list.' + listType).html(html);
+                    jQuery.observeListPagination(objectType,listType);
                 }
             });
         });

@@ -1,8 +1,8 @@
-<h1><%= title %></h1>
+<h1><%=h title %></h1>
 <% unless @contacts.blank? %>
   <ul>
     <% @contacts.each do |c| %>
-      <li><%= c.first_name %> <%= c.last_name %></li>
+      <li><%=h c.first_name %> <%=h c.last_name %></li>
     <% end %>
   </ul>
   <%= will_paginate(@contacts) %>

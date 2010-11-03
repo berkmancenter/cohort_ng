@@ -3,7 +3,8 @@ jQuery.noConflict();
 jQuery(document).ready(function(){
     jQuery('.actions').css('min-height', jQuery('.main').height());
     jQuery('.accordion').accordion();
-    jQuery.updateContactLists();
+    jQuery.updateLists('contact');
+    jQuery.updateLists('note');
     jQuery('a.dialog').click(function(e){
         e.preventDefault();
         jQuery.ajax({
