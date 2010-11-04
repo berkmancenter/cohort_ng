@@ -6,9 +6,9 @@ namespace :cohort do
     end
     
     (1..50).each do |i|
-      c = Contact.all(:order => 'random()', :limit => 1)
-      #FIXME
-#      n = Note.
+      c = Contact.first(:order => 'random()')
+      u = User.system_user
+      n = Note.create(:note => "Note #{i}", :contact => c, :user => u)
     end
 
 

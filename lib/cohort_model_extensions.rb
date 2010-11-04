@@ -17,6 +17,13 @@ module CohortModelExtensions
         end
       end
 
+      def check_if_deleteable
+        if self.respond_to?(:deleteable) && self.deleteable == false
+          self.errors.add_to_base("This #{self.class.to_s.downcase} can't be deleted.")
+          return false
+        end
+      end
+
       def is_true
         true
       end
