@@ -5,13 +5,13 @@ class NoteQueryController < BaseController
   end
 
   def upcoming
-    @notes = Note.paginate(:conditions => ['user_id = ?'], :order => 'due_date desc', :page => params[:page], :per_page => params[:per_page])
-    negotiate_list_query_response('note','Your todos')
+    @notes = Note.paginate(:conditions => ['user_id = ?',current_user], :order => 'due_date desc', :page => params[:page], :per_page => params[:per_page])
+    negotiate_list_query_response('note','Your to-dos')
   end
 
   def all_upcoming
     @notes = Note.paginate(:order => 'due_date desc', :page => params[:page], :per_page => params[:per_page])
-    negotiate_list_query_response('note','All todos')
+    negotiate_list_query_response('note','All to-dos')
   end
 
   def priority

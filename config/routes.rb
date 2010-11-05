@@ -3,6 +3,8 @@ CohortNg::Application.routes.draw do
   get "note_query/new"
 
   get "note_query/upcoming"
+  
+  get "note_query/all_upcoming"
 
   get "note_query/priority"
 

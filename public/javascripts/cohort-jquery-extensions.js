@@ -33,6 +33,10 @@ jQuery.extend({
                 listType = 'yours';
             } else if(jQuery(this).hasClass('new')){
                 listType = 'new';
+            } else if(jQuery(this).hasClass('upcoming')){
+                listType = 'upcoming';
+            } else if(jQuery(this).hasClass('all_upcoming')){
+                listType = 'all_upcoming';
             }
             jQuery.ajax({
                 dataType: 'script',
