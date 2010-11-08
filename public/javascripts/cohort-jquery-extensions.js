@@ -51,8 +51,22 @@ jQuery.extend({
                 success: function(html){
                     jQuery('.' + objectType + '-list.' + listType).html(html);
                     jQuery.observeListPagination(objectType,listType);
+                    jQuery.observeListItems(objectType,listType);
                 }
             });
+        });
+    },
+
+    observeListItems: function(objectType, listType){
+        jQuery('.' + objectType + '-list.' + listType + ' li').bind({
+          mouseover: function(e){
+            var elId = jQuery(this).attr('id').split('-')[0];
+            jQuery(this).append('<span class="floating-control" id="control-' + objectType + '-' + elId + '">edit</a>');
+          },
+          mouseout: function(e){
+            var elId = jQuery(this).attr('id').split('-')[0];
+            jQuery('#control-' + objectType + '-' + elId).remove();
+          }
         });
     },
 
@@ -69,6 +83,7 @@ jQuery.extend({
                 success: function(html){
                     jQuery('.' + objectType + '-list.' + listType).html(html);
                     jQuery.observeListPagination(objectType,listType);
+                    jQuery.observeListItems(objectType,listType);
                 }
             });
         });

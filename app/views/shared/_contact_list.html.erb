@@ -2,7 +2,7 @@
 <% unless @contacts.blank? %>
   <ul>
     <% @contacts.each do |c| %>
-      <li><%=h c.first_name %> <%=h c.last_name %></li>
+      <li id="contact-<%= c.id %>"><%=h c.first_name %> <%=h c.last_name %></li>
     <% end %>
   </ul>
   <%= will_paginate(@contacts) %>
