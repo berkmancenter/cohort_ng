@@ -48,4 +48,5 @@ legend{
 
 .floating-control{
   float: right;
+  display: none;
 }

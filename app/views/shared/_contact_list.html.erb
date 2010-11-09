@@ -2,7 +2,7 @@
 <% unless @contacts.blank? %>
   <ul>
     <% @contacts.each do |c| %>
-      <li id="contact-<%= c.id %>"><%=h c.first_name %> <%=h c.last_name %></li>
+      <li id="contact-<%= c.id %>"><%=h c.first_name %> <%=h c.last_name %><span class="floating-control control-contact-<%= c.id %>"><%= link_to('edit',edit_contact_path(c)) %> <%= link_to('del',contact_path(c), :method => :delete) %></span></li>
     <% end %>
   </ul>
   <%= will_paginate(@contacts) %>

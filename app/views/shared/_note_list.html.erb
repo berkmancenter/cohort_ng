@@ -2,7 +2,7 @@
 <% unless @notes.blank? %>
   <ul>
     <% @notes.each do |n| %>
-      <li><%= n.note %></li>
+      <li><%= n.note %><span class="floating-control control-note-<%= n.id %>"><%= link_to('edit', edit_note_path(n)) %> <%= link_to('del',note_path(n), :method => :delete) %></span></li>
     <% end %>
   </ul>
   <%= will_paginate(@notes) %>
