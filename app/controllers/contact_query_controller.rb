@@ -20,4 +20,10 @@ class ContactQueryController < BaseController
   def all
   end
 
+  def autofill
+    #TODO - implement sunspot
+    @contacts = Contact.active.paginate(:conditions => ['first_name = ? or last_name = ?', params[:q], params[:q]])
+    render :json => @contacts
+  end
+
 end
