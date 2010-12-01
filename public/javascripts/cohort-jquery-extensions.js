@@ -49,9 +49,10 @@ jQuery.extend({
                     jQuery('.' + objectType + '-list.' + listType).html('There seems to have been a problem! < fail whale >. Please try again later.');
                 },
                 success: function(html){
-                    jQuery('.' + objectType + '-list.' + listType).html(html);
-                    jQuery.observeListPagination(objectType,listType);
-                    jQuery.observeListItems(objectType,listType);
+                  jQuery('.' + objectType + '-list.' + listType).html(html);
+                  jQuery.observeListPagination(objectType,listType);
+                  jQuery.observeListItems(objectType,listType);
+                  jQuery.observeDialogItem('.' + objectType + '-list.' + listType +' a.dialog');
                 }
             });
         });
@@ -85,5 +86,59 @@ jQuery.extend({
                 }
             });
         });
+    },
+    observeDialogItem: function(rootClass){
+        jQuery(rootClass).click(function(e){
+        e.preventDefault();
+        jQuery.ajax({
+            cache: false,
+            dataType: 'script',
+            url: jQuery(this).attr('href'),
+            beforeSend: function(){
+                jQuery.showGlobalSpinnerNode();
+            },
+            error: function(xhr){
+                jQuery.hideGlobalSpinnerNode();
+                jQuery.showMajorError(xhr);
+            },
+            success: function(html){
+                jQuery.hideGlobalSpinnerNode();
+                var dialogNode = jQuery('<div></div>');
+                jQuery(dialogNode).append(html);
+                jQuery(dialogNode).dialog({
+                    show: 'explode',
+                    hide: 'explode',
+                    modal: true,
+                    width: 'auto',
+                    height: 'auto',
+                    position: 'top',
+                    buttons: {
+                        Cancel: function(){
+                            jQuery(dialogNode).dialog(close);
+                            jQuery(dialogNode).remove();
+                        },
+                        Submit: function(){
+                            jQuery(dialogNode).find('form').ajaxSubmit({
+                                dataType: 'script',
+                                success: function(){
+                                    jQuery.updateLists('contact');
+                                    jQuery(dialogNode).dialog('close');
+                                },
+                                error: function(xhr){
+                                    jQuery('#error').show().html(xhr.responseText);
+                                }
+                            });
+                        }
+                    },
+                    open: function(){
+                        jQuery.initDateControl();
+                    },
+                    close: function(){
+                        jQuery(dialogNode).remove();
+                    }
+                });
+            }
+        });
+      });
     }
 });

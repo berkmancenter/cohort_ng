@@ -18,9 +18,6 @@ class ContactsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def create
     @contact = Contact.new
     @contact.attributes = params[:contact]
@@ -36,7 +33,27 @@ class ContactsController < ApplicationController
     end
   end
 
+  def edit
+    @contact = Contact.find(params[:id])
+    respond_to do|format|
+      format.js { render :template => 'contacts/new', :layout => false}
+      format.html {}
+    end
+  end
+
   def update
+    @contact = Contact.find(params[:id])
+    @contact.attributes = params[:contact]
+    respond_to do|format|
+      if @contact.save
+        flash[:notice] = "Updated that contact"
+        format.js { render :layout => false}
+        format.html {redirect_to :action => :index}
+      else
+        format.js { render :text => "We couldn't update that contact. <br />#{@contact.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
+        format.html { render :action => :edit }
+      end
+    end
   end
 
   def destroy
