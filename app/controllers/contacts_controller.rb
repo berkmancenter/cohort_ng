@@ -1,4 +1,5 @@
 class ContactsController < ApplicationController
+
   def index
     @contacts = Contact.paginate(:page => params[:page], :per_page => params[:per_page])
     respond_to do |format|
@@ -47,7 +48,7 @@ class ContactsController < ApplicationController
     respond_to do|format|
       if @contact.save
         flash[:notice] = "Updated that contact"
-        format.js { render :layout => false}
+        format.js { render :text => nil }
         format.html {redirect_to :action => :index}
       else
         format.js { render :text => "We couldn't update that contact. <br />#{@contact.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
@@ -57,6 +58,18 @@ class ContactsController < ApplicationController
   end
 
   def destroy
+    @contact = Contact.find(params[:id])
+    respond_to do |format|
+      if @contact.destroy
+        flash[:notice] = "Removed that contact"
+        format.js { render :text => nil }
+        format.html {redirect_to :action => :index}
+      else 
+        flash[:notice] = "We couldn't remove that contact"
+        format.js { render :text => "We couldn't remove that contact. <br />#{@contact.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
+        format.html { render :action => :index }
+      end
+    end
   end
 
 end

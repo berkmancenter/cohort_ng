@@ -53,9 +53,51 @@ jQuery.extend({
                   jQuery.observeListPagination(objectType,listType);
                   jQuery.observeListItems(objectType,listType);
                   jQuery.observeDialogItem('.' + objectType + '-list.' + listType +' a.dialog');
+                  jQuery.observeDestroyControls('.' + objectType + '-list.' + listType +' a.delete',objectType);
                 }
             });
         });
+    },
+
+    observeDestroyControls: function(rootClass,objectType){
+      jQuery(rootClass).click(function(e){
+        e.preventDefault();
+        var destroyUrl = jQuery(this).attr('href');
+        var confirmNode = jQuery('<div><p>Are you sure you want to delete this item?</p></div>');
+        jQuery(confirmNode).dialog({
+          title: 'Delete this item?',
+          modal: true,
+          buttons: {
+            Cancel: function(){
+              jQuery(confirmNode).dialog('close');
+            },
+            'Yes, delete it': function(){
+              jQuery.ajax({
+                cache: false,
+                type: 'POST',
+                url: destroyUrl,
+                dataType: 'script',
+                data: {'_method': 'delete'},
+                beforeSend: function(){
+                  jQuery.showGlobalSpinnerNode();
+                },
+                error: function(xhr){
+                  jQuery.hideGlobalSpinnerNode();
+                  jQuery.showMajorError(xhr);
+                },
+                success: function(){
+                  jQuery.hideGlobalSpinnerNode();
+                  jQuery.updateLists(objectType);
+                  jQuery(confirmNode).dialog('close');
+                }
+              });
+            }
+          },
+          close: function(){
+            jQuery(confirmNode).remove();
+          }
+        }).dialog('open');
+      });
     },
 
     observeListItems: function(objectType, listType){
@@ -114,7 +156,7 @@ jQuery.extend({
                     position: 'top',
                     buttons: {
                         Cancel: function(){
-                            jQuery(dialogNode).dialog(close);
+                            jQuery(dialogNode).dialog('close');
                             jQuery(dialogNode).remove();
                         },
                         Submit: function(){
