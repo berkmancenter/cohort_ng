@@ -17,11 +17,14 @@ jQuery.extend({
         jQuery('<img class="spinner-' + spinnerNamespace + '" src="' + jQuery.rootPath() + 'images/ajax-loader.gif" />');
     },
     initDateControl: function(){
-        jQuery('.datepicker').datepicker({
+      jQuery('.datepicker').each(function(){
+        var dateRange = (jQuery(this).attr('id').match(/birth/)) ? 'c-115:c' : '-10y:+10y';
+        jQuery(this).datepicker({
             changeMonth: true,
             changeYear: true,
-            yearRange: 'c-115:c',
+            yearRange: dateRange,
             dateFormat: 'yy-mm-dd'
+          });
         });
     },
     updateLists: function(objectType){
@@ -103,9 +106,11 @@ jQuery.extend({
     observeListItems: function(objectType, listType){
         jQuery('.' + objectType + '-list.' + listType + ' li').bind({
           mouseover: function(e){
+            jQuery(this).addClass('hover');
             jQuery(this).find('.floating-control').show();
           },
           mouseout: function(e){
+            jQuery(this).removeClass('hover');
             jQuery(this).find('.floating-control').hide();
           }
         });
@@ -164,6 +169,7 @@ jQuery.extend({
                                 dataType: 'script',
                                 success: function(){
                                     jQuery.updateLists('contact');
+                                    jQuery.updateLists('note');
                                     jQuery(dialogNode).dialog('close');
                                 },
                                 error: function(xhr){

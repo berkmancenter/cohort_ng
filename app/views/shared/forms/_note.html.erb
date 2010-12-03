@@ -1,0 +1,10 @@
+<%= semantic_form_for(@note) do |f| -%>
+  <div id="error" class="ui-state-error ui-corner-all ui-widget" style="display: none;"></div>
+  <%= f.inputs do %>
+    <%= f.input :note_type, :collection => Note.note_type_options_for_select %>
+    <%= f.input :note, :as => :text %>
+    <%= f.input :priority, :as => :select, :collection => (0..100).to_a, :hint => '1 is high, 100 is low.' %>
+    <%= f.input :due_date, :as => :string, :input_html => {:class => 'datepicker'}, :hint => 'In YYYY-MM-DD format' %>
+    <%= f.input :contact_id, :as => :hidden %>
+  <% end %>
+<% end %>
