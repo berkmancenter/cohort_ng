@@ -1,8 +1,12 @@
 body{
     background-color: #e4e4e4;
     font-family: verdana, sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.4em;
+}
+
+.clear{
+  clear: both;
 }
 
 h1, h2, h3{
@@ -31,6 +35,12 @@ h3{
     float: left;
 }
 
+.list{
+  margin-bottom: 1em;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
+}
 .actions{
     background-color: #cccccc;
     color: black;

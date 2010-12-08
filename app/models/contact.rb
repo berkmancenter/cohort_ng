@@ -1,5 +1,6 @@
 class Contact < ActiveRecord::Base
   include CohortModelExtensions
+  include TaggingExtensions
   belongs_to :user
   
   has_many :addresses, :dependent => :destroy
@@ -17,5 +18,9 @@ class Contact < ActiveRecord::Base
     }
 
   scope :active, :conditions => {:active => true, :deleted => false}
+
+  def to_s
+    "#{(first_name.blank?) ? '' : first_name + ' '}#{last_name}"
+  end
    
 end

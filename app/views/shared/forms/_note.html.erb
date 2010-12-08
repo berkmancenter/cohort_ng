@@ -1,4 +1,5 @@
 <%= semantic_form_for(@note) do |f| -%>
+  <p><strong> on: </strong> <%= @note.contact %></p>
   <div id="error" class="ui-state-error ui-corner-all ui-widget" style="display: none;"></div>
   <%= f.inputs do %>
     <%= f.input :note_type, :collection => Note.note_type_options_for_select %>

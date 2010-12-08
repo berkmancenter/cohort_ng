@@ -10,7 +10,17 @@ namespace :cohort do
       u = User.system_user
       n = Note.create(:note => "Note #{i}", :contact => c, :user => u)
     end
+  end
 
-
+  desc 'create berkman tags'
+  task(:berkman_tag_contexts => :environment) do
+    tags = YAML.load(File.open('data/tag_structure.yml'))
+    tags.keys.each do|context|
+      context_obj = TagContext.create!(
+        :name => context, 
+        :context => context.downcase.gsub(/\s/,'_'),
+        :object_tagged => 'Contact'
+      )
+    end
   end
 end

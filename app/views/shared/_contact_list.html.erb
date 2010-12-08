@@ -1,8 +1,8 @@
-<h1><%=h title %></h1>
+<h1><%= title %></h1>
 <% unless @contacts.blank? %>
   <ul>
     <% @contacts.each do |c| %>
-      <li id="contact-<%= c.id %>"><%=h c.first_name %> <%=h c.last_name %><span class="floating-control control-contact-<%= c.id %>"><%= link_to('add note',new_note_path(:contact_id => c.id),:class => 'dialog') %> <%= link_to('edit',edit_contact_path(c),:class => 'dialog') %> <%= link_to('del',contact_path(c), :method => :delete, :class => 'delete') %></span></li>
+      <li id="contact-<%= c.id %>"><%= c %> <span class="floating-control control-contact-<%= c.id %>"><%= link_to('add note',new_note_path(:contact_id => c.id),:class => 'dialog') %> <%= link_to('edit',edit_contact_path(c),:class => 'dialog') %> <%= link_to('del',contact_path(c), :method => :delete, :class => 'delete') %></span></li>
     <% end %>
   </ul>
   <%= will_paginate(@contacts) %>

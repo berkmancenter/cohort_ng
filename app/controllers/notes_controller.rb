@@ -47,4 +47,19 @@ class NotesController < ApplicationController
     end
   end
 
+  def destroy
+    @note = Note.find(params[:id])
+    respond_to do |format|
+      if @note.destroy
+        flash[:notice] = "Removed that note"
+        format.js { render :text => nil }
+        format.html {redirect_to :action => :index}
+      else 
+        flash[:notice] = "We couldn't remove that note"
+        format.js { render :text => "We couldn't remove that note. <br />#{@note.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
+        format.html { render :action => :index }
+      end
+    end
+  end
+
 end
