@@ -1,0 +1,2 @@
+class TagContextsController < BaseController
+end
