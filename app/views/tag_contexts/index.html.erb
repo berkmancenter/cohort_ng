@@ -1,0 +1,14 @@
+<div class="tag_contexts-index">
+  <h1>Tag Contexts</h1>
+  <% if @tag_contexts.blank? %>
+    <h2>None found.</h2>
+  <% else %>
+    <h2><%= @tag_contexts.length %> total</h2>
+    <ul>
+      <% @tag_contexts.each do |tc| %>
+        <li><%= link_to(tc.name, tc) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+

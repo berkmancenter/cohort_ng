@@ -22,6 +22,14 @@ h3{
     font-size: 16px;
 }
 
+dt{
+  font-weight: bold;
+}
+dd{
+  margin-left: 2em;
+  margin-bottom: .5em;
+}
+
 #right-header-container{
   min-height: 15px;
 }
