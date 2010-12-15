@@ -16,9 +16,10 @@ namespace :cohort do
   task(:berkman_tag_contexts => :environment) do
     tags = YAML.load(File.open('data/tag_structure.yml'))
     tags.keys.each do|context|
+      puts "Creating Context: #{context}"
       context_obj = TagContext.create!(
         :name => context, 
-        :context => context.downcase.gsub(/\s/,'_'),
+        :context => context.downcase.gsub(/[^a-z\d_]/,' ').gsub(/\s+/,'_'),
         :object_tagged => 'Contact'
       )
     end

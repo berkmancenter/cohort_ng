@@ -39,7 +39,9 @@ jQuery.extend({
             } else if(jQuery(this).hasClass('upcoming')){
                 listType = 'upcoming';
             } else if(jQuery(this).hasClass('all_upcoming')){
-                listType = 'all_upcoming';
+              listType = 'all_upcoming';
+            } else if(jQuery(this).hasClass('all')){
+              listType = 'all';
             }
             jQuery.ajax({
                 dataType: 'script',
@@ -104,7 +106,8 @@ jQuery.extend({
     },
 
     observeListItems: function(objectType, listType){
-        jQuery('.' + objectType + '-list.' + listType + ' li').bind({
+      var classToObserve = '.' + objectType + '-list.' + listType + ' li';
+        jQuery(classToObserve).bind({
           mouseover: function(e){
             jQuery(this).addClass('hover');
             jQuery(this).find('.floating-control').show();

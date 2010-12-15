@@ -1,5 +1,7 @@
 CohortNg::Application.routes.draw do
 
+  get "tag_context_query/all"
+
   get "note_query/new"
 
   get "note_query/upcoming"

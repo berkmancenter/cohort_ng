@@ -1,4 +1,4 @@
-<div class="tag_contexts-index">
+<div class="tag_context-list all grid_3" id="tag_contexts-index">
   <h1>Tag Contexts</h1>
   <% if @tag_contexts.blank? %>
     <h2>None found.</h2>
@@ -6,9 +6,8 @@
     <h2><%= @tag_contexts.length %> total</h2>
     <ul>
       <% @tag_contexts.each do |tc| %>
-        <li><%= link_to(tc.name, tc) %></li>
+        <li><%= link_to(tc, tc) %> <span class="floating-control control-tag_context-<%= tc.id %>"><%= link_to('edit', edit_tag_context_url(tc), :class => 'dialog') %> <%= link_to('del', tag_context_url(tc), :method => :delete, :class => 'delete') %></span></li>
       <% end %>
     </ul>
   <% end %>
 </div>
-
