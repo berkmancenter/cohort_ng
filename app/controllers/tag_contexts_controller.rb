@@ -1,7 +1,7 @@
 class TagContextsController < BaseController
 
   def index
-    @tag_contexts = TagContext.all
+    @tag_contexts = TagContext.all(:order => :position)
     respond_to do |format|
       format.js { render :layout => false }
       format.html { }

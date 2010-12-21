@@ -2,7 +2,7 @@ body{
     background-color: #e4e4e4;
     font-family: verdana, sans-serif;
     font-size: 11px;
-    line-height: 1.4em;
+    line-height: 1.6em;
 }
 
 .clear{
@@ -71,3 +71,19 @@ legend{
 .hover{
   background-color: #e4e4e4;
 }
+
+/* for jquery.tag.suggestions */
+span.tagMatches {
+    display: block;
+    margin: 10px;
+}
+
+span.tagMatches span, .layers span{
+    padding: 2px;
+    margin-right: 4px;
+    background-color: #0000AB;
+    color: #fff;
+    cursor: default;
+}
+/* for jquery.tag.suggestions */
+

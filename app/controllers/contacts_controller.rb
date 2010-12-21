@@ -8,6 +8,13 @@ class ContactsController < ApplicationController
     end
   end
 
+  def autocomplete_for
+    render :json => Contact.autocomplete_for(
+      ((params[:context].blank?) ? :tags : params[:context]),
+      params[:tag]
+    )
+  end
+
   def show
   end
 
