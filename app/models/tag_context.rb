@@ -7,10 +7,6 @@ class TagContext < ActiveRecord::Base
   # Must be unique for each object tagged.
   validates_uniqueness_of :context, :scope => :object_tagged
 
-#  def to_param
-#    "#{id}-#{name}"
-#  end
-
   def to_s
     "#{name}"
   end

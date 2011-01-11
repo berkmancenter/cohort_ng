@@ -155,6 +155,10 @@ jQuery.extend({
                 jQuery.hideGlobalSpinnerNode();
                 var dialogNode = jQuery('<div></div>');
                 jQuery(dialogNode).append(html);
+                var hiddenElements = jQuery(dialogNode).find('.collapsable ol').hide();
+                jQuery(dialogNode).find('.collapsable legend').addClass('collapse-control').click(function(e){
+                  jQuery(hiddenElements).toggle();
+                });
                 jQuery(dialogNode).dialog({
                     show: 'explode',
                     hide: 'explode',

@@ -7,13 +7,13 @@ module TaggingExtensions
     end
 
     model.instance_eval do
-#      taggable_contexts = TagContext.all(:conditions => {:object_tagged => model.to_s}).collect{|tc| tc.context.to_sym}
+      taggable_contexts = TagContext.all(:conditions => {:object_tagged => model.to_s}).collect{|tc| tc.context.to_sym}
 
-#      if taggable_contexts.blank?
-#        to_class_eval = [:tags] 
-#      end
+      if taggable_contexts.blank?
+        taggable_contexts = [:tags] 
+      end
 
-      acts_as_taggable_on
+      acts_as_taggable_on taggable_contexts
 
       def autocomplete_for(context = :tags, query_term = nil)
         return [] if query_term.blank?
