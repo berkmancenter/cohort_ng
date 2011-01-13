@@ -10,7 +10,7 @@
     <%= f.input :birthday, :as => 'string', :required => false, :input_html => {:class => "datepicker"}, :hint => 'In YYYY-MM-DD format' %>
   <% end  %>
 
-  <%= f.inputs :name => 'Tags', :class => 'collapsable' do %>
+  <%= f.inputs :name => '&#9654; Tags', :class => 'collapsable' do %>
     <%= render :partial => 'shared/forms/tag_contexts', :locals => {:f => f, :tc => TagContext.all(:conditions => {:object_tagged => 'Contact'}, :order => :position), :type => 'Contact'} %>
   <% end %>
 

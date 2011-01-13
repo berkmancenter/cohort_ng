@@ -2,7 +2,7 @@ body{
     background-color: #e4e4e4;
     font-family: verdana, sans-serif;
     font-size: 11px;
-    line-height: 1.6em;
+    line-height: 1.8em;
 }
 
 .clear{
@@ -86,4 +86,8 @@ span.tagMatches span, .layers span{
     cursor: default;
 }
 /* for jquery.tag.suggestions */
+
+.collapsable-control{
+  cursor: pointer;
+}
 

@@ -156,8 +156,15 @@ jQuery.extend({
                 var dialogNode = jQuery('<div></div>');
                 jQuery(dialogNode).append(html);
                 var hiddenElements = jQuery(dialogNode).find('.collapsable ol').hide();
-                jQuery(dialogNode).find('.collapsable legend').addClass('collapse-control').click(function(e){
-                  jQuery(hiddenElements).toggle();
+                jQuery(dialogNode).find('.collapsable legend').addClass('collapsable-control').click(function(e){
+                  e.preventDefault();
+                  if(jQuery(hiddenElements).is(':visible')){
+                    jQuery('.collapsable legend').html(jQuery('.collapsable legend').html().replace('&#9664;','&#9654;'));
+                    jQuery(hiddenElements).hide();
+                  } else {
+                    jQuery('.collapsable legend').html(jQuery('.collapsable legend').html().replace('▶','&#9644;'));
+                    jQuery(hiddenElements).show();
+                  }
                 });
                 jQuery(dialogNode).dialog({
                     show: 'explode',
