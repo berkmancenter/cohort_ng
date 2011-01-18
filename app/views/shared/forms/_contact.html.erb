@@ -1,6 +1,7 @@
 <%= semantic_form_for(@contact) do |f| -%>
 
   <% @contact.emails.build %> 
+  <% @contact.addresses.build %> 
 
   <div id="error" class="ui-state-error ui-corner-all ui-widget" style="display: none;"></div>
 
@@ -14,12 +15,27 @@
     <%= render :partial => 'shared/forms/tag_contexts', :locals => {:f => f, :tc => TagContext.all(:conditions => {:object_tagged => 'Contact'}, :order => :position), :type => 'Contact'} %>
   <% end %>
 
-  <%= f.semantic_fields_for :emails do |email| %>
-    <%= email.inputs :name => 'Email' do %>
-      <%= email.input :email %>
+  <%= f.inputs :name => '&#9654; Email Addresses', :class => 'collapsable' do %>
+    <%= f.semantic_fields_for :emails do |email| %>
+      <%= email.input :email, :label => ((email.object.new_record?) ? 'New Email' : 'Email') %>
       <%= email.input :email_type, :collection => Email.email_type_options_for_select %>
-      <%= email.input :is_primary, :as => :boolean %>
+      <%= email.input :is_primary, :as => :boolean, :label => 'Primary email address?' %>
+      <% unless email.object.new_record? %>
+        <%= email.input :_destroy, :as => :boolean, :label => 'Delete?' %>
+      <% end %>
     <% end %>
-  <% end %>  
+  <% end %>
+
+  <%= f.inputs :name => '&#9654; Addresses', :class => 'collapsable' do %>
+    <%= f.semantic_fields_for :addresses do |add| %>
+      <%= add.input :address_type, :collection => Address.address_type_options_for_select %>
+      <%= add.input :address_1, :label => 'Address line 1' %>
+      <%= add.input :address_2, :label => 'Address line 2' %>
+      <%= add.inputs :city, :state, :postal_code %>
+      <% unless add.object.new_record? %>
+        <%= email.input :_destroy, :as => :boolean, :label => 'Delete?' %>
+      <% end %>
+    <% end %>
+  <% end %>
 
 <% end  -%>

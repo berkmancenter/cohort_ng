@@ -14,7 +14,7 @@ jQuery.extend({
         }).dialog('open');
     },
     interiorSpinnerNode: function(spinnerNamespace){
-        jQuery('<img class="spinner-' + spinnerNamespace + '" src="' + jQuery.rootPath() + 'images/ajax-loader.gif" />');
+        return jQuery('<img class="spinner-' + spinnerNamespace + '" src="' + jQuery.rootPath() + 'images/ajax-loader.gif" />');
     },
     initDateControl: function(){
       jQuery('.datepicker').each(function(){
@@ -155,16 +155,20 @@ jQuery.extend({
                 jQuery.hideGlobalSpinnerNode();
                 var dialogNode = jQuery('<div></div>');
                 jQuery(dialogNode).append(html);
-                var hiddenElements = jQuery(dialogNode).find('.collapsable ol').hide();
-                jQuery(dialogNode).find('.collapsable legend').addClass('collapsable-control').click(function(e){
-                  e.preventDefault();
-                  if(jQuery(hiddenElements).is(':visible')){
-                    jQuery('.collapsable legend').html(jQuery('.collapsable legend').html().replace('&#9664;','&#9654;'));
-                    jQuery(hiddenElements).hide();
-                  } else {
-                    jQuery('.collapsable legend').html(jQuery('.collapsable legend').html().replace('▶','&#9644;'));
-                    jQuery(hiddenElements).show();
-                  }
+
+                jQuery(dialogNode).find('.collapsable').each(function(){
+                  var toggleControl = jQuery(this).find('legend');
+                  var hiddenElements = jQuery(this).find('ol').hide();
+                  jQuery(toggleControl).addClass('collapsable-control').click(function(e){
+                    e.preventDefault();
+                    if(jQuery(hiddenElements).is(':visible')){
+                      jQuery(toggleControl).html(jQuery(toggleControl).html().replace('▼','▶'));
+                      jQuery(hiddenElements).hide();
+                    } else {
+                      jQuery(toggleControl).html(jQuery(toggleControl).html().replace('▶','▼'));
+                      jQuery(hiddenElements).show();
+                    }
+                  });
                 });
                 jQuery(dialogNode).dialog({
                     show: 'explode',
@@ -180,7 +184,10 @@ jQuery.extend({
                         },
                         Submit: function(){
                             jQuery(dialogNode).find('form').ajaxSubmit({
-                                dataType: 'script',
+                              dataType: 'script',
+                              beforeSend: function(){
+                                jQuery('.ui-dialog .ui-dialog-buttonset').prepend(jQuery.interiorSpinnerNode('foo'));
+                              },
                                 success: function(){
                                     jQuery.updateLists('contact');
                                     jQuery.updateLists('note');

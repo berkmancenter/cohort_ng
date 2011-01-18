@@ -91,3 +91,10 @@ span.tagMatches span, .layers span{
   cursor: pointer;
 }
 
+li{
+  line-height: 1.2em;
+}
+
+form.formtastic fieldset > ol > li {
+  margin-bottom: .75em;
+}

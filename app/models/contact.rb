@@ -3,10 +3,10 @@ class Contact < ActiveRecord::Base
   include TaggingExtensions
   belongs_to :user
   
-  has_many :addresses, :dependent => :destroy
-  has_many :emails, :dependent => :destroy
-  has_many :log_items, :dependent => :destroy
-  has_many :notes, :dependent => :destroy
+  has_many :addresses, :dependent => :destroy, :order => :id
+  has_many :emails, :dependent => :destroy, :order => :id
+  has_many :log_items, :dependent => :destroy, :order => :created_at
+  has_many :notes, :dependent => :destroy, :order => :created_at
 
   accepts_nested_attributes_for :emails,
     :allow_destroy => true,
@@ -16,6 +16,10 @@ class Contact < ActiveRecord::Base
         true
       end
     }
+
+  accepts_nested_attributes_for :addresses,
+    :allow_destroy => true,
+    :reject_if => :all_blank
 
   scope :active, :conditions => {:active => true, :deleted => false}
 
