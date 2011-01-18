@@ -4,10 +4,22 @@
     <li><div class="label">Birthday:</div> <%= @contact.birthday %></li>
   <% end %>
 
+  <% TagContext.on_contacts.each do |tc| %>
+    <% #FIXME %>
+  <% end %>
+
   <% unless @contact.emails.blank? %>
+    <li class="emails">
+    <%= render :partial => 'shared/lines/email', :collection => @contact.emails %>
+    </li>
+    <li class="clear"></li>
   <% end %>
 
   <% unless @contact.addresses.blank? %>
+    <li class="addresses">
+    <%= render :partial => 'shared/lines/address', :collection => @contact.addresses %>
+    </li>
+    <li class="clear"></li>
   <% end %>
 
 </ul>

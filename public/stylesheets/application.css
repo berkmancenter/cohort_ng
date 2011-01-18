@@ -98,3 +98,38 @@ li{
 form.formtastic fieldset > ol > li {
   margin-bottom: .75em;
 }
+
+.emails .email, .addresses .address{
+  float: left;
+  margin-right: 10px;
+  padding: 5px;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  height: 1.5em;
+}
+
+.emails .primary{
+  background-color: #e4e4e4; 
+}
+
+.addresses, .emails, .address, .email{
+  margin-top: 5px;
+}
+
+.addresses .address{
+  height: 5em;
+}
+
+.addresses .address_type{
+  font-weight: bold;
+}
+
+.formtastic fieldset.block{
+  border: 1px solid #cccccc;
+  margin: 5px 5px 10px 5px;
+  padding: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  
+}

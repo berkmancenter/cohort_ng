@@ -8,6 +8,10 @@ class Contact < ActiveRecord::Base
   has_many :log_items, :dependent => :destroy, :order => :created_at
   has_many :notes, :dependent => :destroy, :order => :created_at
 
+  def self.per_page
+    25
+  end
+
   accepts_nested_attributes_for :emails,
     :allow_destroy => true,
     :reject_if => proc {|att|
@@ -19,7 +23,11 @@ class Contact < ActiveRecord::Base
 
   accepts_nested_attributes_for :addresses,
     :allow_destroy => true,
-    :reject_if => :all_blank
+    :reject_if => proc {|att|
+    if att['address_1'].blank? || att['country'].blank?
+      true
+    end
+  }
 
   scope :active, :conditions => {:active => true, :deleted => false}
 

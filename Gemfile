@@ -2,12 +2,13 @@ require 'rubygems'
 source 'http://gemcutter.org'
 
 gem "rails", "3.0.3"
-gem "formtastic", '1.1.0'
+gem "formtastic", '1.2.3'
 gem "will_paginate", "~> 3.0.pre2"
 gem 'pg', '~> 0.9.0'
 gem "authlogic", "2.1.6"
 #gem 'sunspot_rails', '1.2.rc4'
 gem 'acts-as-taggable-on', '2.0.6'
+gem 'carmen', '0.2.4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

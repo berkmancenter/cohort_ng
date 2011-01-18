@@ -2,7 +2,7 @@ class CreateEmails < ActiveRecord::Migration
   def self.up
     create_table :emails do |t|
       t.string :email, :limit => 150, :null => false
-      t.string :email_type, :limit => 50, :default => 'work'
+      t.string :email_type, :limit => 50, :default => 'unknown'
       t.boolean :is_primary, :null => true      
       t.references :contact
 

@@ -1,0 +1,3 @@
+<div class="email<%= (email.is_primary) ? ' primary' : '' %>">
+  <%= mail_to(email.email) %>, <%= email.email_type %>
+</div>

@@ -6,7 +6,7 @@ one:
   city: MyString
   state: MyString
   postal_code: MyString
-  country: MyString
+  iso_ccode: MyString
 
 two:
   address_1: MyString
@@ -14,4 +14,4 @@ two:
   city: MyString
   state: MyString
   postal_code: MyString
-  country: MyString
+  iso_ccode: MyString

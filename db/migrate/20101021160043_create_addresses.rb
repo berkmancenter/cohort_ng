@@ -7,11 +7,11 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :city, :limit => 100
       t.string :state, :limit => 100
       t.string :postal_code, :limit => 30
-      t.string :country, :limit => 50, :null => false
+      t.string :country, :limit => 2, :null => false
       t.references :contact
       t.timestamps
     end
-    [:contact_id, :address_1, :city, :state, :postal_code, :country].each do|col|
+    [:contact_id, :address_1, :city, :state, :postal_code, :country, :address_type].each do|col|
       add_index :addresses, col
     end
   end
