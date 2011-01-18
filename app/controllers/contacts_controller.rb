@@ -16,6 +16,11 @@ class ContactsController < ApplicationController
   end
 
   def show
+    @contact = Contact.find(params[:id])
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html {}
+    end
   end
 
   def new

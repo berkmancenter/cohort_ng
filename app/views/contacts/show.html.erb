@@ -1,2 +1,14 @@
-<h1>Contacts#show</h1>
-<p>Find me in app/views/contacts/show.html.erb</p>
+<h1><%= @contact %></h1>
+<ul>
+  <% unless @contact.birthday.blank? %>
+    <li><div class="label">Birthday:</div> <%= @contact.birthday %></li>
+  <% end %>
+
+  <% unless @contact.emails.blank? %>
+  <% end %>
+
+  <% unless @contact.addresses.blank? %>
+  <% end %>
+
+</ul>
+
