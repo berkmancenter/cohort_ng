@@ -1,0 +1,12 @@
+<div class="note">
+  <% unless note.priority.blank? %>
+    <div class="priority">
+      <%= note.priority %>
+    </div>
+  <% end %>
+  <% unless note.due_date.blank? %>
+    <div class="due_date">
+      <%= note.due_date %>
+    </div>
+  <% end %>
+</div>

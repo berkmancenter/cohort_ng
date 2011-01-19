@@ -133,6 +133,8 @@ jQuery.extend({
                     jQuery('.' + objectType + '-list.' + listType).html(html);
                     jQuery.observeListPagination(objectType,listType);
                     jQuery.observeListItems(objectType,listType);
+                    jQuery.observeDialogItem('.' + objectType + '-list.' + listType +' a.dialog');
+                    jQuery.observeDestroyControls('.' + objectType + '-list.' + listType +' a.delete',objectType);
                 }
             });
         });
@@ -174,7 +176,8 @@ jQuery.extend({
                     show: 'explode',
                     hide: 'explode',
                     modal: true,
-                    width: 'auto',
+                    width: 500,
+                    minWidth: 400,
                     height: 'auto',
                     position: 'top',
                     buttons: {

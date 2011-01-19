@@ -50,4 +50,19 @@
     <% end %>
   <% end %>
 
+  <%= f.inputs :name => '&#9654; Notes ' + ((f.object.notes.size > 0) ? "(#{f.object.notes.size})" : '' ), :class => 'collapsable' do %>
+    <% @contact.notes.build %> 
+    <%= f.semantic_fields_for :notes do |note| %>
+      <%= f.inputs :class => 'block' do %>
+        <% if note.object.new_record? %>
+          <h3>New Note</h3>
+        <% end %>
+        <%= render :partial => 'shared/forms/note_fields', :locals => {:f => note } %>
+        <% unless note.object.new_record? %>
+          <%= note.input :_destroy, :as => :boolean, :label => 'Delete?' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
 <% end %>

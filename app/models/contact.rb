@@ -29,6 +29,14 @@ class Contact < ActiveRecord::Base
     end
   }
 
+  accepts_nested_attributes_for :notes,
+    :allow_destroy => true,
+    :reject_if => proc {|att|
+    if att['note'].blank? 
+      true
+    end
+  }
+
   scope :active, :conditions => {:active => true, :deleted => false}
 
   def to_s
