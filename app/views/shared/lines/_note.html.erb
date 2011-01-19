@@ -1,12 +1,18 @@
 <div class="note">
-  <% unless note.priority.blank? %>
-    <div class="priority">
-      <%= note.priority %>
-    </div>
-  <% end %>
-  <% unless note.due_date.blank? %>
-    <div class="due_date">
-      <%= note.due_date %>
-    </div>
-  <% end %>
+  <div class="meta">
+    <% unless note.priority.blank? %>
+      <div class="priority">
+        <%= note.priority %>
+      </div>
+    <% end %>
+    <% unless note.due_date.blank? %>
+      <div class="due_date">
+        <%= note.due_date_display %>
+      </div>
+    <% end %>
+  </div>
+  <div class="note_content">
+    <%= note.note %>
+  </div>
+  <%= link_to('edit', edit_note_path(note), :class => 'dialog') %>
 </div>

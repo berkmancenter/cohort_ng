@@ -99,7 +99,7 @@ form.formtastic fieldset > ol > li {
   margin-bottom: .75em;
 }
 
-.emails .email, .addresses .address{
+.emails .email, .addresses .address, .notes .note{
   float: left;
   margin-right: 10px;
   padding: 5px;
@@ -113,12 +113,41 @@ form.formtastic fieldset > ol > li {
   background-color: #e4e4e4; 
 }
 
-.addresses, .emails, .address, .email{
+.addresses, .emails, .address, .email, .notes, .note{
   margin-top: 5px;
 }
 
 .addresses .address{
   height: 5em;
+}
+
+.notes .note{
+  background-color: #FCF0AD;
+  height: 8em;
+  -moz-box-shadow: 3px 3px 4px #000;
+  -webkit-box-shadow: 3px 3px 4px #000;
+  box-shadow: 3px 3px 4px #000;
+  min-width: 150px;
+  max-width: 400px;
+  overflow: auto;
+}
+
+.note .meta{
+  float: left;
+  margin: 3px 10px 10px 3px;
+  border: 1px #cccccc;
+  padding: 5px;
+  border-style: none solid solid none;
+}
+
+.note .priority{
+  font-family: georgia, serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.note .due_date {
+  font-size: 10px;
 }
 
 .addresses .address_type{
