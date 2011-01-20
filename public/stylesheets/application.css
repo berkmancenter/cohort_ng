@@ -99,6 +99,9 @@ form.formtastic fieldset > ol > li {
   margin-bottom: .75em;
 }
 
+.emails, .addresses, .notes{
+  line-height: 1.6em;
+}
 .emails .email, .addresses .address, .notes .note{
   float: left;
   margin-right: 10px;
@@ -160,5 +163,4 @@ form.formtastic fieldset > ol > li {
   padding: 5px;
   border-radius: 5px;
   -moz-border-radius: 5px;
-  
 }

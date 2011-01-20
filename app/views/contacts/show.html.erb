@@ -22,11 +22,8 @@
     <li class="clear"></li>
   <% end %>
 
-  <% unless @contact.notes.blank? %>
-    <li class="notes">
-    <%= render :partial => 'shared/lines/note', :collection => @contact.notes %>
-    </li>
-  <% end %>
+  <div class="list note-list contact" id="contact-<%= @contact.id %>">
+  </div>
 
 </ul>
 

@@ -10,6 +10,8 @@ CohortNg::Application.routes.draw do
 
   get "note_query/priority"
 
+  get 'note_query/contact/:id'
+
   resources :tag_contexts
 
   resources :users

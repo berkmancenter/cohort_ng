@@ -14,6 +14,18 @@ class NoteQueryController < BaseController
     negotiate_list_query_response('note','All to-dos')
   end
 
+  def contact
+    @notes = Note.paginate(:conditions => ['user_id => ?', params[:id]], :page => params[:page], :per_page => params[:per_page])
+    respond_to do |format|
+      format.js {
+        render :partial => "shared/contact_note_list" 
+      }
+      format.html {
+        render :partial => "shared/contact_note_list", :layout => true 
+      }
+    end
+  end
+
   def priority
   end
 

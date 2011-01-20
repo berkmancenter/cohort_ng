@@ -1,0 +1,8 @@
+<% unless @notes.blank? %>
+  <li class="notes">
+    <%= render :partial => 'shared/lines/note', :collection => @notes %>
+    <%= will_paginate(@notes) %>
+  </li>
+<% else %>
+  <h2>None found.</h2>
+<% end %>
