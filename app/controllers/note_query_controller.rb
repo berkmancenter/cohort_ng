@@ -15,7 +15,7 @@ class NoteQueryController < BaseController
   end
 
   def contact
-    @notes = Note.paginate(:conditions => ['user_id => ?', params[:id]], :page => params[:page], :per_page => params[:per_page])
+    @notes = Note.paginate(:conditions => ['contact_id = ?', params[:id]], :page => params[:page], :per_page => params[:per_page])
     respond_to do |format|
       format.js {
         render :partial => "shared/contact_note_list" 

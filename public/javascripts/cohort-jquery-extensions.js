@@ -29,7 +29,8 @@ jQuery.extend({
     },
     updateLists: function(objectType){
         jQuery('.' + objectType + '-list').each(function(listNode){
-            var listType = 'recent';
+          var listType = 'recent';
+          var elementId = false;
             if(jQuery(this).hasClass('recent')){
                 listType = 'recent';
             } else if(jQuery(this).hasClass('yours')){
@@ -40,13 +41,16 @@ jQuery.extend({
                 listType = 'upcoming';
             } else if(jQuery(this).hasClass('all_upcoming')){
               listType = 'all_upcoming';
+            } else if(jQuery(this).hasClass('contact')){
+              listType = 'contact';
+              elementId = jQuery(this).attr('id').split(/\-/)[1];
             } else if(jQuery(this).hasClass('all')){
               listType = 'all';
             }
             jQuery.ajax({
                 dataType: 'script',
                 cache: false,
-                url: jQuery.rootPath() + objectType + '_query/' + listType,
+                url: jQuery.rootPath() + objectType + '_query/' + listType + ((elementId) ? '/' + elementId : '' ),
                 beforeSend: function(){
                     jQuery('.' + objectType + '-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
                 },
@@ -57,7 +61,8 @@ jQuery.extend({
                   jQuery('.' + objectType + '-list.' + listType).html(html);
                   jQuery.observeListPagination(objectType,listType);
                   jQuery.observeListItems(objectType,listType);
-                  jQuery.observeDialogItem('.' + objectType + '-list.' + listType +' a.dialog');
+                  jQuery.observeDialogForm('.' + objectType + '-list.' + listType +' a.dialog-form');
+                  jQuery.observeDialogShow('.' + objectType + '-list.' + listType +' a.dialog-show');
                   jQuery.observeDestroyControls('.' + objectType + '-list.' + listType +' a.delete',objectType);
                 }
             });
@@ -133,13 +138,54 @@ jQuery.extend({
                     jQuery('.' + objectType + '-list.' + listType).html(html);
                     jQuery.observeListPagination(objectType,listType);
                     jQuery.observeListItems(objectType,listType);
-                    jQuery.observeDialogItem('.' + objectType + '-list.' + listType +' a.dialog');
+                    jQuery.observeDialogForm('.' + objectType + '-list.' + listType +' a.dialog-form');
                     jQuery.observeDestroyControls('.' + objectType + '-list.' + listType +' a.delete',objectType);
                 }
             });
         });
-    },
-    observeDialogItem: function(rootClass){
+      },
+      observeDialogShow: function(rootClass){
+        jQuery(rootClass).click(function(e){
+          e.preventDefault();
+          jQuery.ajax({
+            cache: false,
+            dataType: 'script',
+            url: jQuery(this).attr('href'),
+            beforeSend: function(){
+              jQuery.showGlobalSpinnerNode();
+            },
+            error: function(xhr){
+              jQuery.hideGlobalSpinnerNode();
+              jQuery.showMajorError(xhr);
+            },
+            success: function(html){
+              jQuery.hideGlobalSpinnerNode();
+              var dialogNode = jQuery('<div></div>');
+              jQuery(dialogNode).append(html);
+              //FIXME - get lists updating properly in a dialog.
+              jQuery(dialogNode).dialog({
+                show: 'explode',
+                hide: 'explode',
+                modal: true,
+                width: 500,
+                minWidth: 400,
+                height: 'auto',
+                position: 'top',
+                buttons: {
+                  Close: function(){
+                    jQuery(dialogNode).dialog('close');
+                    jQuery(dialogNode).remove();
+                  },
+                }
+              });
+              alert('updating notes!');
+              jQuery.updateLists('note');
+            }
+          });
+        });
+
+      },
+    observeDialogForm: function(rootClass){
         jQuery(rootClass).click(function(e){
         e.preventDefault();
         jQuery.ajax({
