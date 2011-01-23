@@ -6,7 +6,7 @@
     <h2><%= @tag_contexts.length %> total</h2>
     <ul>
       <% @tag_contexts.each do |tc| %>
-        <li><%= link_to(tc, tc) %> <span class="floating-control control-tag_context-<%= tc.id %>"><%= link_to('edit', edit_tag_context_url(tc), :class => 'dialog-form') %> <%= link_to('del', tag_context_url(tc), :method => :delete, :class => 'delete') %></span></li>
+        <li><%= link_to(tc, tc) %> <span class="floating-control control-tag_context-<%= tc.id %>"><%= link_to('edit', edit_tag_context_url(tc), :class => 'dialog-form') %> <%= link_to('del', tag_context_url(tc), :method => :delete, :class => 'delete delete-tag_context') %></span></li>
       <% end %>
     </ul>
   <% end %>

@@ -59,19 +59,21 @@ jQuery.extend({
                 },
                 success: function(html){
                   jQuery('.' + objectType + '-list.' + listType).html(html);
-                  jQuery.observeListPagination(objectType,listType);
-                  jQuery.observeListItems(objectType,listType);
-                  jQuery.observeDialogForm('.' + objectType + '-list.' + listType +' a.dialog-form');
-                  jQuery.observeDialogShow('.' + objectType + '-list.' + listType +' a.dialog-show');
-                  jQuery.observeDestroyControls('.' + objectType + '-list.' + listType +' a.delete',objectType);
                 }
             });
         });
     },
 
-    observeDestroyControls: function(rootClass,objectType){
-      jQuery(rootClass).click(function(e){
+    observeDestroyControls: function(){
+      jQuery('a.delete').live('click', function(e){
         e.preventDefault();
+        var objectType = '';
+        var classList = jQuery(this).attr('class').split(/\s+/)
+        jQuery(classList).each(function(index, item){
+          if(item.match(/^delete\-/i)){
+            objectType = item.split('-')[1];
+          }
+        });
         var destroyUrl = jQuery(this).attr('href');
         var confirmNode = jQuery('<div><p>Are you sure you want to delete this item?</p></div>');
         jQuery(confirmNode).dialog({
@@ -110,42 +112,40 @@ jQuery.extend({
       });
     },
 
-    observeListItems: function(objectType, listType){
-      var classToObserve = '.' + objectType + '-list.' + listType + ' li';
-        jQuery(classToObserve).bind({
-          mouseover: function(e){
+      observeListItems: function(){
+        jQuery('.list li').live('mouseover mouseout', function(e){
+          if(e.type == 'mouseover'){
             jQuery(this).addClass('hover');
             jQuery(this).find('.floating-control').show();
-          },
-          mouseout: function(e){
+          }
+          if(e.type == 'mouseout'){
             jQuery(this).removeClass('hover');
             jQuery(this).find('.floating-control').hide();
           }
         });
-    },
+      },
 
-    observeListPagination: function(objectType,listType){
-        jQuery('.' + objectType + '-list.' + listType + ' .pagination a').click(function(e){
-            e.preventDefault();
-            jQuery.ajax({
-                type: 'GET',
-                url: jQuery(this).attr('href'),
-                dataType: 'script',
-                beforeSend: function(){
-                    jQuery('.' + objectType + '-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
-                },
-                success: function(html){
-                    jQuery('.' + objectType + '-list.' + listType).html(html);
-                    jQuery.observeListPagination(objectType,listType);
-                    jQuery.observeListItems(objectType,listType);
-                    jQuery.observeDialogForm('.' + objectType + '-list.' + listType +' a.dialog-form');
-                    jQuery.observeDestroyControls('.' + objectType + '-list.' + listType +' a.delete',objectType);
-                }
-            });
+      observeListPagination: function(){
+        jQuery('.pagination a').live('click',function(e){
+          var paginationTarget = jQuery(this).closest('.list');
+          e.preventDefault();
+          jQuery.ajax({
+            type: 'GET',
+            cache: false,
+            url: jQuery(this).attr('href'),
+            dataType: 'script',
+            beforeSend: function(){
+              jQuery(paginationTarget).html(jQuery.interiorSpinnerNode('foo'));
+            },
+            success: function(html){
+              jQuery(paginationTarget).html(html);
+            }
+          });
         });
       },
+
       observeDialogShow: function(rootClass){
-        jQuery(rootClass).click(function(e){
+        jQuery(rootClass).live('click',function(e){
           e.preventDefault();
           jQuery.ajax({
             cache: false,
@@ -178,7 +178,7 @@ jQuery.extend({
                   },
                 }
               });
-              alert('updating notes!');
+              //FIXME
               jQuery.updateLists('note');
             }
           });
@@ -186,7 +186,7 @@ jQuery.extend({
 
       },
     observeDialogForm: function(rootClass){
-        jQuery(rootClass).click(function(e){
+        jQuery(rootClass).live('click',function(e){
         e.preventDefault();
         jQuery.ajax({
             cache: false,
