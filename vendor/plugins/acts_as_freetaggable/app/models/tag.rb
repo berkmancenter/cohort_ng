@@ -1,0 +1,106 @@
+class Tag < ActiveRecord::Base
+#  unloadable
+
+  validates_presence_of :title
+  validates_length_of :title, :maximum => 200
+  validates_length_of :description, :maximum => 1000, :allow_blank => true
+  # Where things have gone/moved to
+  # #validate no longer needed due to acts_as_category
+  # before_destroy :forbid... is now before_destroy :removable?
+  # #descendants replaces #get_all_children and #recurse_for_children
+  # #ancestors replaces #my_parents and #recurse_for_parents
+
+  has_ancestry
+
+  before_destroy :removable?, :correct_sibling_position
+#  before_save :update_tag_path
+
+  def removable?
+    self.removable
+  end
+
+  def hierarchical_title #may also need #name_for_display
+    self.ancestors.reverse.push(self).collect{|t| t.title}.join(' -> ')
+  end
+
+  def move_up
+    if self.position > 1 # We can't move something up if its at the top!
+      tag_above = self.siblings.reject { |tag| tag.position != self.position - 1}[0]
+      self.position, tag_above.position = tag_above.position, self.position
+      [self,tag_above].each(&:save)
+    end
+  end
+
+  def move_down
+    if self.position < self.siblings.last.position
+      tag_below = self.siblings.reject { |tag| tag.position != self.position + 1}[0]
+      self.position, tag_below.position = tag_below.position, self.position
+      [self,tag_below].each(&:save)
+      return true
+    end
+  end
+
+  def depth
+    self.ancestors.length
+  end
+
+  def first?
+    self.position == 1
+  end
+
+  def last?
+    self.position > (self.siblings.map(&:position).max || 0)
+  end
+  # Not quite efficient yet, just does the job
+  def self.parent_select_options
+    options = [['-- No Parent --', nil]]
+    Tag.recurse_for_parent_select_options(Tag.roots,options)
+    return options
+  end
+
+  private
+
+  def update_tag_path
+    self.tag_path = hierarchical_title
+  end
+
+  def self.recurse_for_parent_select_options(nodes,options)
+    nodes.each do |node|
+      prefix = node.depth > 0 ? ' -' * node.depth + ' ' : ''
+      options << [ prefix + node.title, node.id]
+      Tag.recurse_for_parent_select_options(node.children,options)
+    end
+  end
+
+  def correct_sibling_position
+    if( not last? ) #i.e. there are tags above me in position
+      correctees = siblings.find_all do |sibling|
+        sibling.position > self.position
+      end
+      correctees.each do |sibling|
+        sibling.position -= 1
+        sibling.save
+      end
+    end
+  end
+end
+
+#
+# class Tag < ActiveRecord::Base
+
+#   def self.create_auto_tag(reason = 'Import')
+#     Tag.create(:tag => "Autotag: #{reason} - #{Time.now.to_s(:long)}", :parent => self.get_autotag_root_tag)
+#   end
+#
+#   def self.get_special_root_tag
+#     self.find(:first, :conditions => ['tag = ? and parent_id is null','Special'])
+#   end
+#
+#   def self.get_uncategorized_root_tag
+#     self.find(:first, :conditions => ['tag = ? and parent_id is null','Uncategorized'])
+#   end
+#
+#   def self.get_autotag_root_tag
+#     self.find(:first, :conditions => ['tag = ? and parent_id =?','Autotags',self.get_special_root_tag.id])
+#   end
+
