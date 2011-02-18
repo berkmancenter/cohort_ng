@@ -1,8 +1,9 @@
 class Contact < ActiveRecord::Base
   include CohortModelExtensions
-#  include TaggingExtensions
-  
-  acts_as_taggable_on
+
+  acts_as_taggable
+
+  include TaggingExtensions
 
   belongs_to :user
   

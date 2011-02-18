@@ -7,17 +7,9 @@ module TaggingExtensions
     end
 
     model.instance_eval do
-      taggable_contexts = TagContext.all(:conditions => {:object_tagged => model.to_s}).collect{|tc| tc.context.to_sym}
-
-      if taggable_contexts.blank?
-        taggable_contexts = [:tags] 
-      end
-
-      acts_as_taggable_on taggable_contexts
-
-      def autocomplete_for(context = :tags, query_term = nil)
+      def autocomplete_for(query_term = nil, context = :tags)
         return [] if query_term.blank?
-        self.find_by_sql(['select distinct(tags.name) from tags left join taggings on tags.id = taggings.tag_id where taggable_type = ? and context = ? and tags.name like ? order by tags.name',self.name,context.to_s,"#{query_term}%"]).collect{|t|t.name}
+        ids = ActsAsTaggableOn::Tag.all(:conditions => ['name ' + ((connection.adapter_name == 'PostgreSQL') ? 'ilike' : 'like') + ' ?', "#{query_term.downcase}%"]).collect{|t|t.hierarchical_name}
       end
     end
 

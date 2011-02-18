@@ -10,6 +10,7 @@ gem "authlogic", "2.1.6"
 gem 'carmen', '0.2.4'
 gem 'ancestry', '1.2.0'
 gem 'acts_as_list', '0.1.2'
+gem 'acts-as-taggable-on', '2.0.6'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
