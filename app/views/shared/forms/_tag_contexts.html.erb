@@ -1,3 +1,0 @@
-<% tc.each do |tag_context| %>
-  <%= f.input("#{tag_context.context.singularize}_list", :as => :string, :label => tag_context.name, :input_html => {:class => 'tagSuggestContainer'}) %>
-<% end %>

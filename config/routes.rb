@@ -1,7 +1,5 @@
 CohortNg::Application.routes.draw do
 
-  get "tag_context_query/all"
-
   get "note_query/new"
 
   get "note_query/upcoming"
@@ -11,8 +9,6 @@ CohortNg::Application.routes.draw do
   get "note_query/priority"
 
   match 'note_query/contact/:id' => 'note_query#contact'
-
-  resources :tag_contexts
 
   resources :users
 

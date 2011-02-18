@@ -240,7 +240,6 @@ jQuery.extend({
                                 success: function(){
                                     jQuery.updateLists('contact');
                                     jQuery.updateLists('note');
-                                    jQuery.updateLists('tag_context');
                                     jQuery(dialogNode).dialog('close');
                                 },
                                 error: function(xhr){

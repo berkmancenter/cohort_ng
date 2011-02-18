@@ -1,7 +1,9 @@
 class Contact < ActiveRecord::Base
   include CohortModelExtensions
 #  include TaggingExtensions
-  acts_as_freetaggable
+  
+  acts_as_taggable_on
+
   belongs_to :user
   
   has_many :addresses, :dependent => :destroy, :order => :id

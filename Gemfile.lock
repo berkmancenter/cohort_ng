@@ -28,7 +28,9 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
-    acts-as-taggable-on (2.0.6)
+    acts_as_list (0.1.2)
+    ancestry (1.2.0)
+      activerecord (>= 2.1.0)
     arel (2.0.6)
     authlogic (2.1.6)
       activesupport
@@ -78,7 +80,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts-as-taggable-on (= 2.0.6)
+  acts_as_list (= 0.1.2)
+  ancestry (= 1.2.0)
   authlogic (= 2.1.6)
   carmen (= 0.2.4)
   formtastic (= 1.2.3)

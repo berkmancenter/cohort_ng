@@ -11,7 +11,7 @@
   <% end  %>
 
   <%= f.inputs :name => '&#9654; Tags', :class => 'collapsable' do %>
-    <%= render :partial => 'shared/forms/tag_contexts', :locals => {:f => f, :tc => TagContext.on_contacts, :type => 'Contact'} %>
+    TBD
   <% end %>
 
   <%= f.inputs :name => '&#9654; Email Addresses ' + ((f.object.emails.size > 0) ? "(#{f.object.emails.size})" : '' ), :class => 'collapsable' do %>
