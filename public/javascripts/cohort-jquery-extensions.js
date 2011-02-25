@@ -218,11 +218,6 @@ jQuery.extend({
                     }
                   });
                 });
-                jQuery('.tag_list').tagSuggest({
-                  url: jQuery.rootPath() + 'contacts/autocomplete_tags',
-                  separator: ', ',
-                  delay: 500
-                });
                 jQuery(dialogNode).dialog({
                     show: 'explode',
                     hide: 'explode',
@@ -254,7 +249,12 @@ jQuery.extend({
                         }
                     },
                     open: function(){
-                        jQuery.initDateControl();
+                      jQuery('.tag_list').tagSuggest({
+                        url: jQuery.rootPath() + 'contacts/autocomplete_tags',
+                        separator: ', ',
+                        delay: 500
+                      });
+                      jQuery.initDateControl();
                     },
                     close: function(){
                         jQuery(dialogNode).remove();

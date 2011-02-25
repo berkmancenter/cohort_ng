@@ -16,6 +16,19 @@ class Contact < ActiveRecord::Base
     25
   end
 
+  def hierarchical_tag_list
+    tags.collect{|t|t.hierarchical_name}.join(', ')
+  end
+
+  def hierarchical_tag_list=(tags_to_set)
+    split_tags = tags_to_set.split(/, /)
+    taggings_to_add = []
+    split_tags.each do |t|
+      taggings_to_add << ActsAsTaggableOn::Tagging.new(:tag => ActsAsTaggableOn::Tag.first( :conditions => {:name => t.split(/ : /)[-1]}), :taggable => self, :context => 'tags' )
+    end
+    self.taggings = taggings_to_add
+  end
+
   accepts_nested_attributes_for :emails,
     :allow_destroy => true,
     :reject_if => proc {|att|

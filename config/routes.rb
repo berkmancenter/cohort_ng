@@ -34,6 +34,7 @@ CohortNg::Application.routes.draw do
 
   root :to => "base#index"
 
+  match 'contacts/autocomplete_tags' => 'contacts#autocomplete_tags'
   resources :contacts
 
   # The priority is based upon order of creation:

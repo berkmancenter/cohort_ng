@@ -34,6 +34,11 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new
     @contact.attributes = params[:contact]
+    @contact.hierarchical_tag_list = params[:contact][:hierarchical_tag_list]
+    logger.warn('Params: ' + params[:contact].inspect)
+    logger.warn('Attributes: ' + @contact.attributes.inspect)
+    logger.warn('Tags: ' + @contact.tags.inspect)
+
     respond_to do|format|
       if @contact.save
         flash[:notice] = "Added that contact"

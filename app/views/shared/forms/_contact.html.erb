@@ -11,7 +11,7 @@
   <% end  %>
 
   <%= f.inputs :name => '&#9654; Tags', :class => 'collapsable' do %>
-    <%= f.input :tag_list, :as => 'string', :input_html => {:size => 40, :class => 'tag_list'}, :hint => 'a comma separated list of tags.' %>
+    <%= f.input :hierarchical_tag_list, :as => 'text', :input_html => {:rows => 5, :cols => 40, :class => 'tag_list'}, :hint => 'a comma separated list of tags.', :label => 'Tag list' %>
   <% end %>
 
   <%= f.inputs :name => '&#9654; Email Addresses ' + ((f.object.emails.size > 0) ? "(#{f.object.emails.size})" : '' ), :class => 'collapsable' do %>

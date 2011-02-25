@@ -78,12 +78,17 @@ span.tagMatches {
     margin: 10px;
 }
 
-span.tagMatches span, .layers span{
+span.tagMatches span{
     padding: 2px;
     margin-right: 4px;
-    background-color: #0000AB;
-    color: #fff;
+    background-color: #e4e4e4;
+    color: black;
     cursor: default;
+    border: 1px solid black;
+    font-size: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 /* for jquery.tag.suggestions */
 
