@@ -17,14 +17,20 @@ class Contact < ActiveRecord::Base
   end
 
   def hierarchical_tag_list
-    tags.collect{|t|t.hierarchical_name}.join(', ')
+    tags.collect{|t|t.hierarchical_name(' :: ')}.join(', ')
   end
 
   def hierarchical_tag_list=(tags_to_set)
-    split_tags = tags_to_set.split(/, /)
+    split_tags = tags_to_set.split(/,/)
     taggings_to_add = []
     split_tags.each do |t|
-      taggings_to_add << ActsAsTaggableOn::Tagging.new(:tag => ActsAsTaggableOn::Tag.first( :conditions => {:name => t.split(/ : /)[-1]}), :taggable => self, :context => 'tags' )
+      parent_tag = nil
+      t.split("::").each do|subtag|
+        #So we need to start from the parent and iterate upwards.
+        current_tag = ActsAsTaggableOn::Tag.find_or_create_by_name(subtag.strip, :parent => parent_tag)
+        parent_tag = current_tag
+      end
+      taggings_to_add << ActsAsTaggableOn::Tagging.new(:tag => parent_tag, :taggable => self, :context => 'tags' )
     end
     self.taggings = taggings_to_add
   end
