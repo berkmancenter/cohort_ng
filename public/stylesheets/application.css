@@ -76,11 +76,12 @@ legend{
 span.tagMatches {
     display: block;
     margin: 10px;
+    float: left;
 }
 
 span.tagMatches span{
     padding: 2px;
-    margin-right: 4px;
+    margin: 0px 4px 1px 0px;
     background-color: #e4e4e4;
     color: black;
     cursor: default;
@@ -89,6 +90,14 @@ span.tagMatches span{
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    display: block;
+    float: left;
+    line-height: 1.1em;
+}
+
+span.existingTags span{
+  padding-left: 15px;
+  background: url('../images/remove.png') 2px 2px no-repeat #e4e4e4;
 }
 /* for jquery.tag.suggestions */
 

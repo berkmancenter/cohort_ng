@@ -33,11 +33,12 @@ class ContactsController < ApplicationController
 
   def create
     @contact = Contact.new
+    params[:contact].delete(:hierarchical_tags_for_edit)
     @contact.attributes = params[:contact]
     @contact.hierarchical_tag_list = params[:contact][:hierarchical_tag_list]
-    logger.warn('Params: ' + params[:contact].inspect)
-    logger.warn('Attributes: ' + @contact.attributes.inspect)
-    logger.warn('Tags: ' + @contact.tags.inspect)
+#    logger.warn('Params: ' + params[:contact].inspect)
+#    logger.warn('Attributes: ' + @contact.attributes.inspect)
+#    logger.warn('Tags: ' + @contact.tags.inspect)
 
     respond_to do|format|
       if @contact.save
@@ -61,6 +62,7 @@ class ContactsController < ApplicationController
 
   def update
     @contact = Contact.find(params[:id])
+    params[:contact].delete(:hierarchical_tags_for_edit)
     @contact.attributes = params[:contact]
     respond_to do|format|
       if @contact.save

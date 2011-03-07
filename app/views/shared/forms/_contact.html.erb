@@ -11,7 +11,17 @@
   <% end  %>
 
   <%= f.inputs :name => '&#9654; Tags', :class => 'collapsable' do %>
-    <%= f.input :hierarchical_tag_list, :as => 'text', :input_html => {:rows => 5, :cols => 40, :class => 'tag_list'}, :hint => 'a comma separated list of tags.', :label => 'Tag list' %>
+    <% unless f.object.new_record? %>
+      <span class="tagMatches existingTags">
+      <% f.object.tags.each do |t| %>
+        <span id="tag_<%= t.id %>"><%= t.hierarchical_name(' :: ') %></span>
+      <% end %>
+    </span>
+    <div class="clear"></div>
+    <% end %>
+    <%= f.input :hierarchical_tags_for_edit, :value => '', :as => 'text', :input_html => {:rows => 5, :cols => 40, :class => 'tag_list'}, :hint => 'a comma separated list of tags.', :label => 'Tag list' %>
+    <div class="clear"></div>
+    <%= f.input :hierarchical_tag_list, :as => :hidden %>
   <% end %>
 
   <%= f.inputs :name => '&#9654; Email Addresses ' + ((f.object.emails.size > 0) ? "(#{f.object.emails.size})" : '' ), :class => 'collapsable' do %>

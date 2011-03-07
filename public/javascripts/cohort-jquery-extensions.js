@@ -167,7 +167,7 @@ jQuery.extend({
                 show: 'explode',
                 hide: 'explode',
                 modal: true,
-                width: 500,
+                width: 600,
                 minWidth: 400,
                 height: 'auto',
                 position: 'top',
@@ -222,7 +222,7 @@ jQuery.extend({
                     show: 'explode',
                     hide: 'explode',
                     modal: true,
-                    width: 500,
+                    width: 600,
                     minWidth: 400,
                     height: 'auto',
                     position: 'top',
@@ -232,23 +232,41 @@ jQuery.extend({
                             jQuery(dialogNode).remove();
                         },
                         Submit: function(){
-                            jQuery(dialogNode).find('form').ajaxSubmit({
-                              dataType: 'script',
-                              beforeSend: function(){
-                                jQuery('.ui-dialog .ui-dialog-buttonset').prepend(jQuery.interiorSpinnerNode('foo'));
-                              },
-                                success: function(){
-                                    jQuery.updateLists('contact');
-                                    jQuery.updateLists('note');
-                                    jQuery(dialogNode).dialog('close');
-                                },
-                                error: function(xhr){
-                                    jQuery('#error').show().html(xhr.responseText);
-                                }
+                          if(jQuery(dialogNode.find('form').hasClass('contact'))){
+                            var tagList = jQuery('#contact_hierarchical_tags_for_edit').val().split(/\s+?,\s+?/);
+                            jQuery('.existingTags span').each(function(){
+                              tagList.push(jQuery(this).html());
                             });
+                            tagList = jQuery.grep(tagList,function(n,i){
+                              return(n);
+                            });
+                            jQuery('#contact_hierarchical_tag_list').val(tagList.join(','));
+                          }
+                          jQuery(dialogNode).find('form').ajaxSubmit({
+                            dataType: 'script',
+                            beforeSend: function(){
+                              jQuery('.ui-dialog .ui-dialog-buttonset').prepend(jQuery.interiorSpinnerNode('foo'));
+                            },
+                            success: function(){
+                              jQuery.updateLists('contact');
+                              jQuery.updateLists('note');
+                              jQuery(dialogNode).dialog('close');
+                            },
+                            error: function(xhr){
+                              jQuery('#error').show().html(xhr.responseText);
+                            }
+                          });
                         }
                     },
                     open: function(){
+                      jQuery('.existingTags span').bind({
+                        click: function(){
+                          jQuery(this).remove();
+                        },
+                        mouseover: function(){
+                          jQuery(this).css('cursor','pointer');
+                        }
+                      });
                       jQuery('.tag_list').tagSuggest({
                         url: jQuery.rootPath() + 'contacts/autocomplete_tags',
                         separator: ', ',

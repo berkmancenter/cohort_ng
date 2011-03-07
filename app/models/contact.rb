@@ -16,6 +16,10 @@ class Contact < ActiveRecord::Base
     25
   end
 
+  def hierarchical_tags_for_edit
+    ''
+  end
+
   def hierarchical_tag_list
     tags.collect{|t|t.hierarchical_name(' :: ')}.join(', ')
   end
@@ -24,11 +28,26 @@ class Contact < ActiveRecord::Base
     split_tags = tags_to_set.split(/,/)
     taggings_to_add = []
     split_tags.each do |t|
+      logger.warn("Split tag: #{t}")
+      next if t.blank?
       parent_tag = nil
       t.split("::").each do|subtag|
+        logger.warn("Subtag: #{subtag}")
+        logger.warn('Parent tag:' +  parent_tag.inspect)
+        next if subtag.blank?
         #So we need to start from the parent and iterate upwards.
-        current_tag = ActsAsTaggableOn::Tag.find_or_create_by_name(subtag.strip, :parent => parent_tag)
+        # If the tag exists and at this level, don't do anything.
+        # FIXME - make this work properly with null
+        current_tag = ActsAsTaggableOn::Tag.first(:conditions => ['lower(name) = ? and ancestry = ?', subtag.strip.downcase,((parent_tag.blank?) ? nil : parent_tag.ancestry)])
+        # It doesn't exist. Create it.
+        logger.warn('current tag according to find' + current_tag.inspect)
+        if current_tag.blank?
+          logger.warn('current tag does not exist')
+          current_tag = ActsAsTaggableOn::Tag.create(:name => subtag.strip, :parent => parent_tag)
+        end
+        logger.warn('current tag: ' +  current_tag.inspect)
         parent_tag = current_tag
+        logger.warn('current tag at end of loop: ' +  current_tag.inspect)
       end
       taggings_to_add << ActsAsTaggableOn::Tagging.new(:tag => parent_tag, :taggable => self, :context => 'tags' )
     end
