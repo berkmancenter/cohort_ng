@@ -28,17 +28,33 @@ class Contact < ActiveRecord::Base
     split_tags = tags_to_set.split(/,/)
     taggings_to_add = []
     split_tags.each do |t|
+      t = t.strip
       logger.warn("Split tag: #{t}")
       next if t.blank?
       parent_tag = nil
       t.split("::").each do|subtag|
+        subtag = subtag.strip
+        next if subtag.blank?
         logger.warn("Subtag: #{subtag}")
         logger.warn('Parent tag:' +  parent_tag.inspect)
-        next if subtag.blank?
         #So we need to start from the parent and iterate upwards.
         # If the tag exists and at this level, don't do anything.
-        # FIXME - make this work properly with null
-        current_tag = ActsAsTaggableOn::Tag.first(:conditions => ['lower(name) = ? and ancestry = ?', subtag.strip.downcase,((parent_tag.blank?) ? nil : parent_tag.ancestry)])
+        # I get that this looks verbose - but apparently using the "lower" function as a key makes ActiveRecord
+        # quote the column name incorrectly.
+
+        conditions = ['lower(name) = ?' ]
+        values = [subtag.strip.downcase]
+        if parent_tag.nil?
+          logger.warn('SRSLY - parent tag is null? ' + parent_tag.inspect)
+          conditions << 'ancestry is ?'
+          values << nil
+        else
+          logger.warn('parent tag is not null: ' + parent_tag.inspect)
+          conditions << 'ancestry = ?'
+          values << parent_tag.ancestry
+        end
+        current_tag = ActsAsTaggableOn::Tag.first(:conditions => [conditions.join(' AND '), values].flatten)
+
         # It doesn't exist. Create it.
         logger.warn('current tag according to find' + current_tag.inspect)
         if current_tag.blank?
