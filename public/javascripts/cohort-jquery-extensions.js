@@ -55,7 +55,7 @@ jQuery.extend({
                     jQuery('.' + objectType + '-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
                 },
                 error: function(){
-                    jQuery('.' + objectType + '-list.' + listType).html('There seems to have been a problem! < fail whale >. Please try again later.');
+                    jQuery('.' + objectType + '-list.' + listType).html('There seems to have been a problem! fail whale here. Please try again later.');
                 },
                 success: function(html){
                   jQuery('.' + objectType + '-list.' + listType).html(html);
@@ -261,7 +261,7 @@ jQuery.extend({
                     open: function(){
                       jQuery('.existingTags span').bind({
                         click: function(){
-                          jQuery(this).remove();
+                          jQuery(this).hide('slow', function(){jQuery(this).remove()});
                         },
                         mouseover: function(){
                           jQuery(this).css('cursor','pointer');

@@ -4,9 +4,7 @@
     <li><div class="label">Birthday:</div> <%= @contact.birthday %></li>
   <% end %>
 
-  <% TagContext.on_contacts.each do |tc| %>
-    <% #FIXME %>
-  <% end %>
+  <%= render :partial => 'shared/tag_list', :object => @contact.tags %> 
 
   <% unless @contact.emails.blank? %>
     <li class="emails">
@@ -26,4 +24,3 @@
   </div>
 
 </ul>
-

@@ -10,14 +10,9 @@
     <%= f.input :birthday, :as => 'string', :required => false, :input_html => {:class => "datepicker"}, :hint => 'In YYYY-MM-DD format' %>
   <% end  %>
 
-  <%= f.inputs :name => '&#9654; Tags', :class => 'collapsable' do %>
+  <%= f.inputs :name => '&#9654; Tags ' + ((f.object.tags.length > 0 ) ? "(#{f.object.tags.length})" : ''), :class => 'collapsable' do %>
     <% unless f.object.new_record? %>
-      <span class="tagMatches existingTags">
-      <% f.object.tags.each do |t| %>
-        <span id="tag_<%= t.id %>"><%= t.hierarchical_name(' :: ') %></span>
-      <% end %>
-    </span>
-    <div class="clear"></div>
+      <%= render :partial => 'shared/tag_list', :object => f.object.tags %>
     <% end %>
     <%= f.input :hierarchical_tags_for_edit, :value => '', :as => 'text', :input_html => {:rows => 5, :cols => 40, :class => 'tag_list'}, :hint => 'a comma separated list of tags.', :label => 'Tag list' %>
     <div class="clear"></div>

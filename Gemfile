@@ -6,7 +6,7 @@ gem "formtastic", '1.2.3'
 gem "will_paginate", "~> 3.0.pre2"
 gem 'pg', '~> 0.9.0'
 gem "authlogic", "2.1.6"
-#gem 'sunspot_rails', '1.2.rc4'
+gem 'sunspot_rails', '1.2.1'
 gem 'carmen', '0.2.4'
 gem 'ancestry', '1.2.0'
 gem 'acts_as_list', '0.1.2'
@@ -26,7 +26,10 @@ gem 'acts-as-taggable-on', '2.0.6'
 
 # Bundle the extra gems:
 # gem 'bj'
-# gem 'nokogiri'
+
+#Apparently this is a "hidden requirement" of sunspot_rails
+gem 'nokogiri'
+
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 

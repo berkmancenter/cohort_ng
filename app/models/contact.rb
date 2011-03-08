@@ -12,8 +12,22 @@ class Contact < ActiveRecord::Base
   has_many :log_items, :dependent => :destroy, :order => :created_at
   has_many :notes, :dependent => :destroy, :order => :created_at
 
+  searchable(:include => [:addresses, :emails, :notes, :tags]) do
+    text :first_name, :boost => 2
+    text :last_name, :boost => 2
+    string :hierarchical_tag_list
+    string :hierarchical_tags, :multiple => true
+    time :birthday
+    boolean :active
+    boolean :deleted
+  end
+
   def self.per_page
     25
+  end
+
+  def hierarchical_tags
+    tags.collect{|t| t.hierarchical_name(' :: ')}
   end
 
   def hierarchical_tags_for_edit
@@ -26,7 +40,7 @@ class Contact < ActiveRecord::Base
 
   def hierarchical_tag_list=(tags_to_set)
     split_tags = tags_to_set.split(/,/)
-    taggings_to_add = []
+    tags_to_add = []
     split_tags.each do |t|
       t = t.strip
       logger.warn("Split tag: #{t}")
@@ -51,7 +65,7 @@ class Contact < ActiveRecord::Base
         else
           logger.warn('parent tag is not null: ' + parent_tag.inspect)
           conditions << 'ancestry = ?'
-          values << parent_tag.ancestry
+          values << parent_tag.path_ids.join('/')
         end
         current_tag = ActsAsTaggableOn::Tag.first(:conditions => [conditions.join(' AND '), values].flatten)
 
@@ -65,9 +79,10 @@ class Contact < ActiveRecord::Base
         parent_tag = current_tag
         logger.warn('current tag at end of loop: ' +  current_tag.inspect)
       end
-      taggings_to_add << ActsAsTaggableOn::Tagging.new(:tag => parent_tag, :taggable => self, :context => 'tags' )
+      tags_to_add <<  parent_tag
     end
-    self.taggings = taggings_to_add
+    tags_to_add = tags_to_add.uniq.compact
+    self.taggings = tags_to_add.collect{|t| ActsAsTaggableOn::Tagging.new(:tag => t, :taggable => self, :context => 'tags')}
   end
 
   accepts_nested_attributes_for :emails,

@@ -95,7 +95,7 @@ span.tagMatches span{
     line-height: 1.1em;
 }
 
-span.existingTags span{
+.formtastic span.existingTags span{
   padding-left: 15px;
   background: url('../images/remove.png') 2px 2px no-repeat #e4e4e4;
 }
