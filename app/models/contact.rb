@@ -15,6 +15,8 @@ class Contact < ActiveRecord::Base
   searchable(:include => [:addresses, :emails, :notes, :tags]) do
     text :first_name, :boost => 2
     text :last_name, :boost => 2
+    text :notes
+    text :hierarchical_tag_list
     string :hierarchical_tag_list
     string :hierarchical_tags, :multiple => true
     time :birthday
@@ -81,6 +83,8 @@ class Contact < ActiveRecord::Base
       end
       tags_to_add <<  parent_tag
     end
+
+    #So technically this re-creates the taggings on each save. This means each save that invokes this method increments the IDs in the taggings table.
     tags_to_add = tags_to_add.uniq.compact
     self.taggings = tags_to_add.collect{|t| ActsAsTaggableOn::Tagging.new(:tag => t, :taggable => self, :context => 'tags')}
   end

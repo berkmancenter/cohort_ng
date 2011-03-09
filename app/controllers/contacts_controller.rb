@@ -8,17 +8,6 @@ class ContactsController < ApplicationController
     end
   end
 
-  def autocomplete_tags
-    @tags = Sunspot.new_search(ActsAsTaggableOn::Tag)
-    @tags.build do
-      text_fields{
-        with(:hierarchical_name_for_indexing).starting_with(params[:tag])
-      }
-    end
-    @tags.execute!
-    render :json => @tags.hits.collect{|t| t.stored(:hierarchical_name_for_indexing)}.flatten
-  end
-
   def show
     @contact = Contact.find(params[:id])
     respond_to do |format|

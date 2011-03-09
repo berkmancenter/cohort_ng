@@ -30,11 +30,13 @@ CohortNg::Application.routes.draw do
 
   get "contact_query/todo"
 
+  get "contact_query/search"
+
   get "base/index"
 
   root :to => "base#index"
 
-  match 'contacts/autocomplete_tags' => 'contacts#autocomplete_tags'
+  match 'contact_query/autocomplete_tags' => 'contact_query#autocomplete_tags'
   resources :contacts
 
   # The priority is based upon order of creation:

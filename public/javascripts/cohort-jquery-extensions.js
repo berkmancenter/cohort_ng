@@ -268,7 +268,7 @@ jQuery.extend({
                         }
                       });
                       jQuery('.tag_list').tagSuggest({
-                        url: jQuery.rootPath() + 'contacts/autocomplete_tags',
+                        url: jQuery.rootPath() + 'contact_query/autocomplete_tags',
                         separator: ', ',
                         delay: 500
                       });
