@@ -1,4 +1,5 @@
 <div class="contact search">
   <h1>Contacts</h1>
-  <h2><%= @contacts.hits.count %> displayed of <%= @contacts.total %></h2> 
+  <% @contacts = @contact_query.results %>
+  <%= render :partial => "shared/contact_list",  :locals => {:title => "#{@contact_query.hits.count} displayed of #{@contact_query.total}"} %>
 </div>

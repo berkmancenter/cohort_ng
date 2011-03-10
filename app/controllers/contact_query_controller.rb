@@ -12,8 +12,8 @@ class ContactQueryController < BaseController
   end
 
   def search
-    @contacts = Sunspot.new_search(Contact)
-    @contacts.build do
+    @contact_query = Sunspot.new_search(Contact)
+    @contact_query.build do
       unless params[:q].blank?
         keywords params[:q]
       end
@@ -21,11 +21,11 @@ class ContactQueryController < BaseController
       with :deleted, false
       paginate :page => params[:page], :per_page => cookies[:per_page] || nil
     end
-    @contacts.execute!
+    @contact_query.execute!
     respond_to do |format|
       format.html 
-      format.js { render :json => @contacts }
-      format.xml  { render :xml => @contacts }
+      format.js { render :layout => false }
+      format.xml  { render :xml => @contact_query }
     end
   end
 
