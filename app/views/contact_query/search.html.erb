@@ -1,5 +1,10 @@
-<div class="contact search">
-  <h1>Contacts</h1>
-  <% @contacts = @contact_query.results %>
-  <%= render :partial => "shared/contact_list",  :locals => {:title => "#{@contact_query.hits.count} displayed of #{@contact_query.total}"} %>
-</div>
+<% unless request.xhr? %>
+  <div class="contact search">
+    <div class="list">
+    <% end %>
+    <% @contacts = @contact_query.results %>
+    <%= render :partial => "shared/contact_list",  :locals => {:title => "#{@contact_query.hits.count} displayed of #{@contact_query.total}"} %>
+    <% unless request.xhr? %>
+    </div>
+  </div>
+<% end %>
