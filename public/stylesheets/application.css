@@ -5,6 +5,9 @@ body{
     line-height: 1.8em;
 }
 
+form{
+  display: inline;
+}
 .clear{
   clear: both;
 }
@@ -49,6 +52,12 @@ dd{
   max-height: 400px;
   overflow: auto;
 }
+
+.search .list{
+  max-height: none;
+  width: 400px;
+}
+
 .actions{
     background-color: #cccccc;
     color: black;

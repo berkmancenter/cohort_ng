@@ -16,6 +16,9 @@ jQuery.extend({
     interiorSpinnerNode: function(spinnerNamespace){
         return jQuery('<img class="spinner-' + spinnerNamespace + '" src="' + jQuery.rootPath() + 'images/ajax-loader.gif" />');
     },
+    hideInteriorSpinnerNode: function(spinnerNamespace){
+        jQuery('.spinner-' + spinnerNamespace).remove();
+    },
     initDateControl: function(){
       jQuery('.datepicker').each(function(){
         var dateRange = (jQuery(this).attr('id').match(/birth/)) ? 'c-115:c' : '-10y:+10y';
@@ -135,7 +138,11 @@ jQuery.extend({
             url: jQuery(this).attr('href'),
             dataType: 'script',
             beforeSend: function(){
-              jQuery(paginationTarget).html(jQuery.interiorSpinnerNode('foo'));
+              jQuery(paginationTarget).html(jQuery.interiorSpinnerNode('updatePagination'));
+            },
+            error: function(xhr){
+              jQuery.hideInteriorSpinnerNode('updatePagination');
+              jQuery.showMajorError(xhr);
             },
             success: function(html){
               jQuery(paginationTarget).html(html);
@@ -232,7 +239,7 @@ jQuery.extend({
                             jQuery(dialogNode).remove();
                         },
                         Submit: function(){
-                          if(jQuery(dialogNode.find('form').hasClass('contact'))){
+                          if(jQuery(dialogNode).find('form').hasClass('contact')){
                             var tagList = jQuery('#contact_hierarchical_tags_for_edit').val().split(/\s+?,\s+?/);
                             jQuery('.existingTags span').each(function(){
                               tagList.push(jQuery(this).html());
@@ -245,7 +252,7 @@ jQuery.extend({
                           jQuery(dialogNode).find('form').ajaxSubmit({
                             dataType: 'script',
                             beforeSend: function(){
-                              jQuery('.ui-dialog .ui-dialog-buttonset').prepend(jQuery.interiorSpinnerNode('foo'));
+                              jQuery('.ui-dialog .ui-dialog-buttonset').prepend(jQuery.interiorSpinnerNode('objectEdit'));
                             },
                             success: function(){
                               jQuery.updateLists('contact');
@@ -254,6 +261,7 @@ jQuery.extend({
                             },
                             error: function(xhr){
                               jQuery('#error').show().html(xhr.responseText);
+                              jQuery.hideInteriorSpinnerNode('objectEdit');
                             }
                           });
                         }

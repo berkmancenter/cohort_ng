@@ -19,13 +19,13 @@ class ContactQueryController < BaseController
       end
       with :active, true
       with :deleted, false
-      paginate :page => params[:page], :per_page => cookies[:per_page] || nil
+      paginate :page => params[:page], :per_page => cookies[:per_page] || Contact.per_page
     end
     @contact_query.execute!
     respond_to do |format|
       format.html 
-      format.js { render :layout => false }
-      format.xml  { render :xml => @contact_query }
+      format.js { render :partial => 'search_results', :locals => { :contact_query => @contact_query } }
+      format.xml  { render :xml => @contact_query.results }
     end
   end
 
