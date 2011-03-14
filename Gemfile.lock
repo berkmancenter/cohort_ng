@@ -44,6 +44,8 @@ GEM
       activesupport
     builder (2.1.2)
     carmen (0.2.4)
+    carrierwave (0.5.2)
+      activesupport (~> 3.0)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
@@ -122,6 +124,7 @@ DEPENDENCIES
   ancestry (= 1.2.0)
   authlogic (= 2.1.6)
   carmen (= 0.2.4)
+  carrierwave
   formtastic (= 1.2.3)
   nokogiri
   pg (~> 0.9.0)

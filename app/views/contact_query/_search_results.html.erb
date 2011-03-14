@@ -1,10 +1,10 @@
-<% unless contact_query.results.blank? %>
+<% unless contact_query.blank? || contact_query.results.blank? %>
   <h1>Search for "<%= params[:q] %>"</h1>
-  <h3><%= page_entries_info @contact_query.results %></h3>
+  <h3><%= page_entries_info contact_query.results %></h3>
   <ul>
     <%= render :partial => 'shared/lines/contact', :collection => contact_query.results %>
   </ul>
-  <%= will_paginate(@contact_query.results) %>
+  <%= will_paginate(contact_query.results) %>
 <% else %>
   <h2>None found.</h2>
 <% end %>
