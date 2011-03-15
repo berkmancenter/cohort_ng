@@ -3,7 +3,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(:contact_id => params[:contact_id])
     respond_to do|format|
       format.js { render :layout => false}
-      format.html {}
+      format.html { }
     end
   end
 
@@ -15,7 +15,7 @@ class DocumentsController < ApplicationController
       if @document.save
         flash[:notice] = "Added that document"
         format.js { render :text => ''}
-        format.html {redirect_to :action => :index}
+        format.html {redirect_to params[:_redirect]}
       else
         format.js { render :text => "We couldn't add that document. <br />#{@document.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
         format.html { render :action => :new }

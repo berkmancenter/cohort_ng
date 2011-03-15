@@ -1,0 +1,5 @@
+<%= f.input :name %>
+<%= f.input :document_type, :collection => Document.document_type_options_for_select %>
+<%= f.input :description, :as => :text, :input_html => {:rows => 5 } %>
+<%= f.input :file_attachment, :as => :file %>
+<%= f.buttons %>

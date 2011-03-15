@@ -5,6 +5,25 @@ body{
     line-height: 1.8em;
 }
 
+.flash{
+  border: 2px solid;
+  width: 80%;
+  margin: 2px auto;
+  padding: 3px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+.flash-notice{
+  color: blue;
+  border-color: blue;
+}
+
+.flash-error{
+  color: red;
+  border-color: red;
+}
+
 form{
   display: inline;
 }

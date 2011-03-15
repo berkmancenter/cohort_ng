@@ -9,6 +9,10 @@ module CohortModelExtensions
 
         to_validate = rec.class.columns.reject{|col| ! [:string,:text].include?(col.type)}
         to_validate.each do|val_col|
+
+          # don't apply the checks to carrierwave columns, this causes "limit exceeded" issues.
+          next if val_col.name == 'file_attachment'
+
           validates_length_of val_col.name.to_sym, :maximum => val_col.limit, :allow_blank => val_col.null
           if ! val_col.null
             validates_presence_of val_col.name.to_sym

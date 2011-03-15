@@ -1,0 +1,9 @@
+<%= semantic_form_for(@document, :html => {:multipart => true}) do |f| -%>
+  <p><strong> on: </strong> <%= @document.contact %></p>
+  <div id="error" class="ui-state-error ui-corner-all ui-widget" style="display: none;"></div>
+  <%= f.inputs do %>
+    <%= render :partial => 'shared/forms/document_fields', :locals => {:f => f } %>
+    <%= f.input :contact_id, :as => :hidden %>
+  <% end %>
+  <%= hidden_field_tag :_redirect, ((params[:_redirect].blank?) ? request.referer : params[:_redirect]) %>
+<% end %>
