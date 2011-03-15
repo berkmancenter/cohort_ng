@@ -10,6 +10,8 @@ CohortNg::Application.routes.draw do
 
   match 'note_query/contact/:id' => 'note_query#contact'
 
+  resources :documents
+
   resources :users
 
   resources :log_items
