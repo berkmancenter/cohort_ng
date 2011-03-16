@@ -1,6 +1,6 @@
 class Document < ActiveRecord::Base
   include CohortModelExtensions
-  DOCUMENT_TYPES = {'general' => 'General', 'profile_photo' => 'Profile Photo', 'pgp_public_key' => 'PGP Public key', 'ssh_public_key' => 'SSH public key'}
+  DOCUMENT_TYPES = {'' => '-- Choose one --','general' => 'General', 'profile_photo' => 'Profile Photo', 'pgp_public_key' => 'PGP Public key', 'ssh_public_key' => 'SSH public key'}
 
   belongs_to :user, :validate => true
   belongs_to :contact, :validate => true

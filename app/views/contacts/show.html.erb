@@ -6,6 +6,10 @@
 
   <%= render :partial => 'shared/tag_list', :object => @contact.tags %> 
 
+  <% unless @contact.documents.blank? %>
+    <%= render :partial => 'shared/document_list', :object => @contact.documents %>
+  <% end %>
+
   <% unless @contact.emails.blank? %>
     <li class="emails">
     <%= render :partial => 'shared/lines/email', :collection => @contact.emails %>

@@ -11,6 +11,7 @@ class Contact < ActiveRecord::Base
   has_many :emails, :dependent => :destroy, :order => :id
   has_many :log_items, :dependent => :destroy, :order => :created_at
   has_many :notes, :dependent => :destroy, :order => :created_at
+  has_many :documents, :dependent => :destroy, :order => :created_at
 
   searchable(:include => [:addresses, :emails, :notes, :tags]) do
     text :first_name, :boost => 2

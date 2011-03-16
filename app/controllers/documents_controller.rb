@@ -1,4 +1,5 @@
 class DocumentsController < ApplicationController
+
   def new
     @document = Document.new(:contact_id => params[:contact_id])
     respond_to do|format|
