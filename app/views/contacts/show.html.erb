@@ -8,6 +8,7 @@
 
   <% unless @contact.documents.blank? %>
     <%= render :partial => 'shared/document_list', :object => @contact.documents %>
+    <li class="clear"></li>
   <% end %>
 
   <% unless @contact.emails.blank? %>
@@ -24,7 +25,7 @@
     <li class="clear"></li>
   <% end %>
 
-  <div class="list note-list contact" id="contact-<%= @contact.id %>">
-  </div>
+  <li class="list note-list contact" id="contact-<%= @contact.id %>">
+  </li>
 
 </ul>

@@ -1,4 +1,5 @@
 <div class="note">
+  <%= icon('note') %>
   <div class="meta">
     <% unless note.priority.blank? %>
       <div class="priority">
@@ -14,5 +15,5 @@
   <div class="note_content">
     <%= note.note %>
   </div>
-  <%= link_to('edit', edit_note_path(note), :class => 'dialog-form') %>
+  <%= link_to('edit', edit_note_path(note), :class => 'dialog-form readmore') %>
 </div>

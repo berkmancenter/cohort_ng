@@ -144,7 +144,7 @@ form.formtastic fieldset > ol > li {
 .emails, .addresses, .notes{
   line-height: 1.6em;
 }
-.emails .email, .addresses .address, .notes .note{
+.emails .email, .addresses .address, .notes .note, .documents .document{
   float: left;
   margin-right: 10px;
   padding: 5px;
@@ -166,15 +166,22 @@ form.formtastic fieldset > ol > li {
   height: 5em;
 }
 
-.notes .note{
+.notes .note, .documents .document{
+  margin-top: 10px;
   background-color: #FCF0AD;
   height: 8em;
   -moz-box-shadow: 3px 3px 4px #000;
   -webkit-box-shadow: 3px 3px 4px #000;
   box-shadow: 3px 3px 4px #000;
   min-width: 150px;
-  max-width: 400px;
+  max-width: 360px;
   overflow: auto;
+}
+
+.documents .document{
+  background-color: #e4e4e4;
+  min-height: 5em;
+  height: auto;
 }
 
 .note .meta{
@@ -183,6 +190,10 @@ form.formtastic fieldset > ol > li {
   border: 1px #cccccc;
   padding: 5px;
   border-style: none solid solid none;
+}
+
+.document .icon, .note .icon{
+  float: right;
 }
 
 .note .priority{
@@ -197,6 +208,10 @@ form.formtastic fieldset > ol > li {
 
 .addresses .address_type{
   font-weight: bold;
+}
+
+.readmore{
+  float: right;
 }
 
 .formtastic fieldset.block{
