@@ -68,7 +68,7 @@ dd{
 .list{
   margin-bottom: 1em;
   min-height: 200px;
-  max-height: 400px;
+  height: 415px;
   overflow: auto;
 }
 
@@ -76,7 +76,10 @@ dd{
   max-height: none;
   width: 400px;
 }
-
+.main .list{
+  max-height: none;
+  overflow: visible;
+}
 .actions{
     background-color: #cccccc;
     color: black;
@@ -173,7 +176,7 @@ form.formtastic fieldset > ol > li {
   -moz-box-shadow: 3px 3px 4px #000;
   -webkit-box-shadow: 3px 3px 4px #000;
   box-shadow: 3px 3px 4px #000;
-  min-width: 150px;
+  min-width: 160px;
   max-width: 360px;
   overflow: auto;
 }

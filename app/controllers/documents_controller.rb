@@ -28,7 +28,7 @@ class DocumentsController < ApplicationController
     @document = Document.find(params[:id])
     respond_to do|format|
       format.js { render :template => 'documents/new', :layout => false}
-      format.html {}
+      format.html { render :template => 'documents/new' }
     end
   end
 
@@ -37,9 +37,9 @@ class DocumentsController < ApplicationController
     @document.attributes = params[:document]
     respond_to do|format|
       if @document.save
-        flash[:notice] = "Updated that document"
+        flash[:notice] = %Q|Updated the document "#{@document.name}" on "#{@document.contact}"|
         format.js { render :text => nil }
-        format.html {redirect_to :action => :index}
+        format.html {redirect_to params[:_redirect]}
       else
         format.js { render :text => "We couldn't update that document. <br />#{@document.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
         format.html { render :action => :edit }

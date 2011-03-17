@@ -1,9 +1,10 @@
-<div class="document document_type_<%= document.document_type %>"><%= icon('page') %>
+<div class="document document_type_<%= document.document_type %>">
+  <%= link_to(icon('page_delete'), document_path(document), :method => :delete, :title => 'Delete document', :class => "readmore") %>
+  <%= link_to(icon('page_edit'), edit_document_path(document), :title => "Edit document", :class => "readmore") %>
   <div class="meta">
     <h3><%= document.name %> - <span class="document_type"><%= Document::DOCUMENT_TYPES[document.document_type] %></span></h3>
   </div>
   <div class="description"><%= document.description %></div>
   <%= link_to(document.file_attachment.file.filename, document.file_attachment.url) %>, <%= (document.file_attachment.file.size / 1024)%> kb <%= document.file_attachment.file.extension %>
   <div class="clear"></div>
-  <%= link_to('edit', edit_document_path(document), :class => "readmore") %>
 </div>
