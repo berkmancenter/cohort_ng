@@ -213,7 +213,7 @@ form.formtastic fieldset > ol > li {
   font-weight: bold;
 }
 
-.readmore{
+.readmore, .icon-container{
   float: right;
 }
 

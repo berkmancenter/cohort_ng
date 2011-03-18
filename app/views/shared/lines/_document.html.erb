@@ -1,6 +1,8 @@
 <div class="document document_type_<%= document.document_type %>">
-  <%= link_to(icon('page_delete'), document_path(document), :method => :delete, :title => 'Delete document', :class => "readmore") %>
-  <%= link_to(icon('page_edit'), edit_document_path(document), :title => "Edit document", :class => "readmore") %>
+  <div class="icon-container">
+    <%= link_to(icon('page_delete'), document_path(document), :method => :delete, :title => 'Delete document', :class => "") %>
+    <%= link_to(icon('page_edit'), edit_document_path(document), :title => "Edit document", :class => "") %>
+  </div>
   <div class="meta">
     <h3><%= document.name %> - <span class="document_type"><%= Document::DOCUMENT_TYPES[document.document_type] %></span></h3>
   </div>
