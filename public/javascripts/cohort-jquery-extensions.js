@@ -212,7 +212,7 @@ jQuery.extend({
                 jQuery(dialogNode).append(html);
 
                 jQuery(dialogNode).find('.collapsable').each(function(){
-                  var toggleControl = jQuery(this).find('legend');
+                  var toggleControl = jQuery(this).find('legend|h2');
                   var hiddenElements = jQuery(this).find('ol').hide();
                   jQuery(toggleControl).addClass('collapsable-control').click(function(e){
                     e.preventDefault();
