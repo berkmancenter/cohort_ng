@@ -1,33 +1,42 @@
 <h1><%= @contact %> <%= link_to(icon('user_edit'),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form') %></h1>
-<ul>
-  <% unless @contact.birthday.blank? %>
-    <li><div class="label">Birthday:</div> <%= @contact.birthday %></li>
-  <% end %>
+<% unless @contact.birthday.blank? %>
+  <div class="label">Birthday:</div> <%= @contact.birthday %>
+<% end %>
 
-  <%= render :partial => 'shared/tag_list', :object => @contact.tags %> 
+<%= render :partial => 'shared/tag_list', :object => @contact.tags %> 
 
-  <% unless @contact.documents.blank? %>
-    <li><h2>Documents</h2></li>
+<% unless @contact.documents.blank? %>
+  <h2 class="contact_section_header">Documents</h2>
+  <ul class="documents">
     <%= render :partial => 'shared/document_list', :object => @contact.documents %>
-  <% end %>
+  </ul>
+  <div class="clear"></div>
+<% end %>
 
-  <% unless @contact.emails.blank? %>
-    <li><h2>Email addresses</h2></li>
+<% unless @contact.emails.blank? %>
+  <h2 class="contact_section_header">Email addresses</h2>
+  <ul class="emails">
     <li class="emails">
     <%= render :partial => 'shared/lines/email', :collection => @contact.emails %>
     </li>
-  <% end %>
+  </ul>
+  <div class="clear"></div>
+<% end %>
 
-  <% unless @contact.addresses.blank? %>
-    <li><h2>Addresses</h2></li>
+<% unless @contact.addresses.blank? %>
+  <h2 class="contact_section_header">Addresses</h2>
+  <ul class="addresses">
     <li class="addresses">
     <%= render :partial => 'shared/lines/address', :collection => @contact.addresses %>
     </li>
-  <% end %>
+  </ul>
+  <div class="clear"></div>
+<% end %>
 
-  <li><%= link_to(raw("New note #{icon('note_add')}"),new_note_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Note") %></li>
+<h2 class="contact_section_header">Notes</h2>
+<p><%= link_to(raw("New note #{icon('note_add')}"),new_note_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Note") %></p>
+<ul class="notes">
   <li class="list note-list contact" id="contact-<%= @contact.id %>">
   </li>
-
-
 </ul>
+

@@ -144,9 +144,18 @@ form.formtastic fieldset > ol > li {
   margin-bottom: .75em;
 }
 
-.emails, .addresses, .notes{
+.emails, .addresses, .notes, .documents{
   line-height: 1.6em;
 }
+
+.contact_section_header{
+  margin-top: 2em;
+}
+
+.address, .email, .note, .document{
+  margin-top: 1em;
+}
+
 .emails .email, .addresses .address, .notes .note, .documents .document{
 /*  float: left;
   margin-right: 10px;
@@ -158,29 +167,41 @@ form.formtastic fieldset > ol > li {
   */
 }
 
-.emails .primary{
-  background-color: #e4e4e4; 
-}
-
-.addresses, .emails, .address, .email, .notes, .note{
-  margin-top: 1em;
-}
 
 .addresses .address{
   height: 5em;
+  float: left;
 }
 
-.notes .note, .documents .document{
+.documents li, .emails li, .addresses li, .notes > li{
+  padding-left: 25px;
+}
+
+.notes .note, .documents .document, .emails .email{
   padding: 5px;
   margin-top: 10px;
   background-color: #FCF0AD;
   -moz-box-shadow: 3px 3px 4px #000;
   -webkit-box-shadow: 3px 3px 4px #000;
   box-shadow: 3px 3px 4px #000;
+  float: left;
+  min-width: 180px;
+  max-width: 380px;
+  margin-right: 20px;
+  overflow: auto;
+  max-height: 10em;
 /*  height: 8em;
   min-width: 160px;
   max-width: 360px;
   overflow: auto; */
+}
+
+.emails .primary{
+  background-color: #e4e4e4; 
+}
+
+.emails .email{
+  background-color: #e4e477;
 }
 
 .documents .document{
