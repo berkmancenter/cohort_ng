@@ -5,6 +5,7 @@ jQuery(document).ready(function(){
     jQuery('.accordion').accordion();
     jQuery.updateLists('contact');
     jQuery.updateLists('note');
+    jQuery.updateLists('tag');
     jQuery.observeDialogForm('a.dialog-form');
     jQuery.observeDialogShow('a.dialog-show');
     jQuery.observeListPagination();

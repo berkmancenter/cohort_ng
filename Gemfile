@@ -1,16 +1,16 @@
 require 'rubygems'
 source 'http://gemcutter.org'
 
-gem "rails", "3.0.3"
-gem "formtastic", '1.2.3'
-gem "will_paginate", "~> 3.0.pre2"
-gem 'pg', '~> 0.9.0'
-gem "authlogic", "2.1.6"
-gem 'sunspot_rails', '1.2.1'
-gem 'carmen', '0.2.4'
-gem 'ancestry', '1.2.0'
-gem 'acts_as_list', '0.1.2'
-gem 'acts-as-taggable-on', '2.0.6'
+gem "rails", "3.0.9"
+gem "formtastic"
+gem "will_paginate"
+gem 'pg'
+gem "authlogic"
+gem 'sunspot_rails'
+gem 'carmen'
+gem 'ancestry'
+gem 'acts_as_list'
+gem 'acts-as-taggable-on'
 gem 'carrierwave'
 
 # Bundle edge Rails instead:

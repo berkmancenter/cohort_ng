@@ -1,5 +1,18 @@
 CohortNg::Application.routes.draw do
 
+  match 'tag_query/tag/:id' => 'tag_query#tag'
+  get "tag_query/search"
+
+#  get "tags/index"
+#  get "tags/show"
+#  get "tags/new"
+#  post "tags/create"
+#  get "tags/edit"
+#  put "tags/update"
+#  delete "tags/destroy"
+
+  resources :tags
+
   get "note_query/new"
 
   get "note_query/upcoming"

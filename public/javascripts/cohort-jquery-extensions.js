@@ -38,6 +38,9 @@ jQuery.extend({
                 listType = 'recent';
             } else if(jQuery(this).hasClass('yours')){
                 listType = 'yours';
+            } else if(jQuery(this).hasClass('tag')){
+                listType = 'tag';
+                elementId = jQuery(this).attr('id').split(/\-/)[1];
             } else if(jQuery(this).hasClass('new')){
                 listType = 'new';
             } else if(jQuery(this).hasClass('upcoming')){

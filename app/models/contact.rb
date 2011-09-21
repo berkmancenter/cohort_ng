@@ -18,6 +18,7 @@ class Contact < ActiveRecord::Base
     text :last_name, :boost => 2
     text :notes
     text :hierarchical_tag_list
+    integer :tag_ids, :multiple => true
     string :hierarchical_tag_list
     string :hierarchical_tags, :multiple => true
     time :birthday
