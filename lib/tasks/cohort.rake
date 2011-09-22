@@ -1,4 +1,12 @@
 namespace :cohort do
+
+  desc 'initialize cohort base data'
+  task(:init => :environment) do
+    u = User.new(:email => 'importer-no-reply@example.com', :deleteable => false)
+    u.create_random_password
+    u.save
+  end
+
   desc 'create some fake data'
   task(:fake_data => :environment) do
     (1..100).each do|i|

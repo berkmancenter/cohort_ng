@@ -25,8 +25,6 @@ CohortNg::Application.routes.draw do
 
   resources :documents
 
-  resources :users
-
   resources :log_items
 
   resources :notes
@@ -49,10 +47,14 @@ CohortNg::Application.routes.draw do
 
   get "base/index"
 
-  root :to => "base#index"
+
+  devise_for :users
 
   match 'contact_query/autocomplete_tags' => 'contact_query#autocomplete_tags'
+
   resources :contacts
+
+  root :to => "base#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

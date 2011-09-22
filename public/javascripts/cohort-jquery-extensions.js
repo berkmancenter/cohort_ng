@@ -54,14 +54,15 @@ jQuery.extend({
               listType = 'all';
             }
             jQuery.ajax({
-                dataType: 'script',
-                cache: false,
+              cache: false,
+              dataType: 'html',
                 url: jQuery.rootPath() + objectType + '_query/' + listType + ((elementId) ? '/' + elementId : '' ),
                 beforeSend: function(){
                     jQuery('.' + objectType + '-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
                 },
-                error: function(){
-                    jQuery('.' + objectType + '-list.' + listType).html('There seems to have been a problem! fail whale here. Please try again later.');
+                error: function(jqXHR, textStatus, errorThrown){
+
+                  jQuery('.' + objectType + '-list.' + listType).html('There seems to have been a problem! fail whale here. Please try again later.<br/>Code: ' + textStatus);
                 },
                 success: function(html){
                   jQuery('.' + objectType + '-list.' + listType).html(html);
@@ -94,7 +95,7 @@ jQuery.extend({
                 cache: false,
                 type: 'POST',
                 url: destroyUrl,
-                dataType: 'script',
+                dataType: 'html',
                 data: {'_method': 'delete'},
                 beforeSend: function(){
                   jQuery.showGlobalSpinnerNode();
@@ -139,7 +140,7 @@ jQuery.extend({
             type: 'GET',
             cache: false,
             url: jQuery(this).attr('href'),
-            dataType: 'script',
+            dataType: 'html',
             beforeSend: function(){
               jQuery(paginationTarget).html(jQuery.interiorSpinnerNode('updatePagination'));
             },
@@ -159,7 +160,7 @@ jQuery.extend({
           e.preventDefault();
           jQuery.ajax({
             cache: false,
-            dataType: 'script',
+            dataType: 'html',
             url: jQuery(this).attr('href'),
             beforeSend: function(){
               jQuery.showGlobalSpinnerNode();
@@ -200,7 +201,7 @@ jQuery.extend({
         e.preventDefault();
         jQuery.ajax({
             cache: false,
-            dataType: 'script',
+            dataType: 'html',
             url: jQuery(this).attr('href'),
             beforeSend: function(){
                 jQuery.showGlobalSpinnerNode();
@@ -253,7 +254,7 @@ jQuery.extend({
                             jQuery('#contact_hierarchical_tag_list').val(tagList.join(','));
                           }
                           jQuery(dialogNode).find('form').ajaxSubmit({
-                            dataType: 'script',
+                            dataType: 'html',
                             beforeSend: function(){
                               jQuery('.ui-dialog .ui-dialog-buttonset').prepend(jQuery.interiorSpinnerNode('objectEdit'));
                             },

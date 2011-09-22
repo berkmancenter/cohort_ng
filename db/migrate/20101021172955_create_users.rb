@@ -1,31 +1,26 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-      t.string :login, :limit => 50, :null => false
+      t.database_authenticatable :null => false
+      t.recoverable
+      t.rememberable
+      t.trackable
+      # t.encryptable
+      t.confirmable
+      t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
+
       t.string :first_name, :limit => 100
       t.string :last_name, :limit => 100
-      t.string :email, :limit => 120, :null => false
-      t.string :crypted_password, :limit => 255
-      t.string :password_salt, :limit => 255
-      t.string :persistence_token
-      t.integer :login_count
-      t.datetime :last_request_at
-      t.datetime :last_login_at
-      t.datetime :current_login_at
-      t.string :last_login_ip, :limit => 50
-      t.string :current_login_ip, :limit => 50
+      t.string :url, :limit => 250
       t.boolean :deleteable, :default => true
-
       t.timestamps
     end
-    [:login, :email, :persistence_token, :last_request_at, :last_login_at, :current_login_at, :last_login_ip, :current_login_ip].each do |col|
-      add_index :users, col
-    end
 
-    u = User.new(:login => 'importer', :email => 'no-reply@example.com', :deleteable => false)
-    u.create_random_password
-    u.save
-
+    add_index :users, :email,                :unique => true
+    add_index :users, :reset_password_token, :unique => true
+    add_index :users, :confirmation_token,   :unique => true
+    add_index :users, :unlock_token,         :unique => true
+    # add_index :users, :authentication_token, :unique => true
   end
 
   def self.down

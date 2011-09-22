@@ -2,10 +2,11 @@ require 'rubygems'
 source 'http://gemcutter.org'
 
 gem "rails", "3.0.9"
+gem 'jquery-rails'
 gem "formtastic"
 gem "will_paginate"
 gem 'pg'
-gem "authlogic"
+gem "devise"
 gem 'sunspot_rails'
 gem 'carmen'
 gem 'ancestry'

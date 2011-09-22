@@ -1,13 +1,19 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :url 
+
   include CohortModelExtensions
 
-  acts_as_authentic
   has_many :notes, :dependent => :destroy
   has_many :log_items, :dependent => :destroy
 
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
-
-  validates_uniqueness_of :login
 
   before_destroy :check_if_deleteable
 
@@ -25,7 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def self.system_user
-    self.find_by_login('importer')
+    self.find_by_email('importer-no-reply@example.com')
   end
 
 end

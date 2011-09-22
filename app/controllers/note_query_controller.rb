@@ -18,10 +18,10 @@ class NoteQueryController < BaseController
     @notes = Note.paginate(:conditions => ['contact_id = ?', params[:id]], :order => 'created_at', :page => params[:page], :per_page => params[:per_page])
     respond_to do |format|
       format.js {
-        render :partial => "shared/contact_note_list" 
+        render :partial => "shared/contact_note_list"
       }
       format.html {
-        render :partial => "shared/contact_note_list", :layout => true 
+        render :partial => "shared/contact_note_list", :layout => ! request.xhr? 
       }
     end
   end

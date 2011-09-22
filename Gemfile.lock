@@ -40,13 +40,15 @@ GEM
     ancestry (1.2.4)
       activerecord (>= 2.2.2)
     arel (2.0.10)
-    authlogic (3.0.3)
-      activerecord (>= 3.0.7)
-      activerecord (>= 3.0.7)
+    bcrypt-ruby (2.1.4)
     builder (2.1.2)
     carmen (0.2.8)
     carrierwave (0.5.7)
       activesupport (~> 3.0)
+    devise (1.4.2)
+      bcrypt-ruby (~> 2.1.2)
+      orm_adapter (~> 0.0.3)
+      warden (~> 1.0.3)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
@@ -60,6 +62,9 @@ GEM
       bundler (~> 1.0)
       git (>= 1.2.5)
       rake
+    jquery-rails (1.0.12)
+      railties (~> 3.0)
+      thor (~> 0.14)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
@@ -68,6 +73,7 @@ GEM
     mime-types (1.16)
     mysql (2.8.1)
     nokogiri (1.5.0)
+    orm_adapter (0.0.5)
     pg (0.11.0)
     polyglot (0.3.2)
     pr_geohash (1.0.0)
@@ -117,6 +123,8 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.29)
+    warden (1.0.4)
+      rack (>= 1.0)
     will_paginate (3.0.1)
 
 PLATFORMS
@@ -126,10 +134,11 @@ DEPENDENCIES
   acts-as-taggable-on (= 2.0.6)
   acts_as_list
   ancestry
-  authlogic
   carmen
   carrierwave
+  devise
   formtastic
+  jquery-rails
   nokogiri
   pg
   rails (= 3.0.9)

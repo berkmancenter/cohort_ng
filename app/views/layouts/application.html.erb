@@ -7,9 +7,9 @@
     <%= stylesheet_link_tag 'grid' %>
     <%= formtastic_stylesheet_link_tag  %>
     <%= stylesheet_link_tag 'application' %>
-    <%= javascript_include_tag 'jquery-1.4.2.min.js' %>
+    <%= javascript_include_tag 'jquery.min.js' %>
     <%= javascript_include_tag 'jquery.form.js' %>
-    <%= javascript_include_tag 'jquery-ui-1.8.5.custom.min.js' %>
+    <%= javascript_include_tag 'jquery-ui.min.js' %>
     <%= javascript_include_tag 'cohort-jquery-extensions.js' %>
     <%= javascript_include_tag 'jquery.tag.suggestion.js' %>
     <%= javascript_include_tag 'application.js' %>
@@ -20,7 +20,7 @@
       <div class="header">
         <div class="grid_4"><h1><%= link_to('Cohort NG', root_url) %></h1></div>
         <div class="grid_4">
-          <% [:notice,:error].each do|flash_type| %>
+          <% [:notice,:error,:alert].each do|flash_type| %>
             <% unless flash[flash_type].blank? %>
               <div class="flash flash-<%= flash_type %>">
                 <%= flash[flash_type] %>
