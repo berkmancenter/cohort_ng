@@ -10,7 +10,7 @@ gem 'sunspot_rails'
 gem 'carmen'
 gem 'ancestry'
 gem 'acts_as_list'
-gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on', '2.0.6'
 gem 'carrierwave'
 
 # Bundle edge Rails instead:

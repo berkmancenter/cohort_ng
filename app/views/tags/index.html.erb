@@ -1,6 +1,7 @@
 <h1>All Tags</h1>
 <span class="tagMatches existingTags">
   <% @tags.each do |t| %>
-    <span id="tag_<%= t.id %>"><%= link_to(t.hierarchical_name(' :: '),tag_path(t)) %></span><br/>
+    <span id="tag_<%= t.id %>"><%= link_to(t.hierarchical_name(' :: '),tag_path(t)) %></span>
+    <div class="clear"></div>
   <% end %>
 </div>

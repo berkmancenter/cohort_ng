@@ -112,7 +112,7 @@ span.tagMatches {
 
 span.tagMatches span{
     padding: 2px;
-    margin: 0px 4px 1px 0px;
+    margin: 0px 4px 3px 0px;
     background-color: #e4e4e4;
     color: black;
     cursor: default;
@@ -124,6 +124,15 @@ span.tagMatches span{
     display: block;
     float: left;
     line-height: 1.1em;
+}
+
+span.tagMatches span a{
+  text-decoration: none;
+  color: black;
+}
+
+span.tagMatches span a:hover{
+  text-decoration: underline;
 }
 
 .formtastic span.existingTags span{

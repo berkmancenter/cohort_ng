@@ -13,7 +13,7 @@ class BaseController < ApplicationController
       #TODO - Get this to render the layout. . .odd.
       format.html { 
         render :partial => "shared/#{object_type}_list", 
-        :locals => {:title => title}
+        :locals => {:title => title}, :layout => ! request.xhr?
       }
     end
   end
