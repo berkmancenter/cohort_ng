@@ -38,8 +38,8 @@ jQuery.extend({
                 listType = 'recent';
             } else if(jQuery(this).hasClass('yours')){
                 listType = 'yours';
-            } else if(jQuery(this).hasClass('tag')){
-                listType = 'tag';
+            } else if(jQuery(this).hasClass('tag_contacts')){
+                listType = 'tag_contacts';
                 elementId = jQuery(this).attr('id').split(/\-/)[1];
             } else if(jQuery(this).hasClass('new')){
                 listType = 'new';
@@ -61,7 +61,6 @@ jQuery.extend({
                     jQuery('.' + objectType + '-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
                 },
                 error: function(jqXHR, textStatus, errorThrown){
-
                   jQuery('.' + objectType + '-list.' + listType).html('There seems to have been a problem! fail whale here. Please try again later.<br/>Code: ' + textStatus);
                 },
                 success: function(html){

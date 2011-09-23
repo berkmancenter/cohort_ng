@@ -11,6 +11,29 @@ class ContactQueryController < BaseController
     render :json => @tags.hits.collect{|t| t.stored(:hierarchical_name_for_indexing)}.flatten
   end
 
+  def tag_contacts
+
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    tag_ids = [@tag.id]
+    @tag.descendants.each do|t|
+      tag_ids << t.id
+    end
+
+    # logger.warn("Tag ids: #{tag_ids.inspect}")
+    @contact_query = Sunspot.new_search(Contact)
+    @contact_query.build do
+      with(:tag_ids).any_of tag_ids
+      with :active, true
+      with :deleted, false
+      paginate :page => params[:page], :per_page => cookies[:per_page] || Contact.per_page
+    end
+    @contact_query.execute!
+
+
+    @contacts = @contact_query.results
+    negotiate_list_query_response('contact','')
+  end
+
   def search
     unless params[:q].blank?
       @contact_query = Sunspot.new_search(Contact)

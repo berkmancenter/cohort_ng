@@ -45,6 +45,8 @@ CohortNg::Application.routes.draw do
 
   get "contact_query/search"
 
+  get "contact_query/tag_contacts/:id", :controller => :contact_query, :action => :tag_contacts
+
   get "base/index"
 
 
