@@ -13,6 +13,7 @@ gem 'ancestry'
 gem 'acts_as_list'
 gem 'acts-as-taggable-on', '2.0.6'
 gem 'carrierwave'
+gem 'mini_magick'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
