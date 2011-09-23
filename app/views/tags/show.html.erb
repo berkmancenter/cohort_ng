@@ -5,10 +5,11 @@
 
 <div class="grid_6 omega">
   <span class="tagMatches existingTags">
-    <% unless @tag.parent.nil? %>
-      <span><%= link_to(@tag.parent, tag_path(@tag.parent)) %></span>
+    <% unless @tag.ancestors.empty? %>
+      <% @tag.ancestors.each do |t| %>
+      <span><%= link_to(t, tag_path(t)) %></span>
       <div class="clear"></div>
-
+    <% end %>
     <% end %>
     <h3>Includes items tagged with:</h3>
     <div style="margin-left: 1em">

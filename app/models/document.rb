@@ -23,4 +23,8 @@ class Document < ActiveRecord::Base
     "#{document_type}, #{name}"
   end
 
+  def is_displayable_image?
+    ['png','jpg','jpeg','gif'].include?(self.file_attachment.file.extension)
+  end
+
 end

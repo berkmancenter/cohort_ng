@@ -1,3 +1,9 @@
+<% unless @document.new_record? %>
+  <% if @document.is_displayable_image? %>
+    <%= image_tag(@document.file_attachment.thumb.url) %>
+  <% end %>
+<% end %>
+
 <%= semantic_form_for(@document, :html => {:multipart => true}) do |f| -%>
   <p><strong> on: </strong> <%= @document.contact %></p>
   <div id="error" class="ui-state-error ui-corner-all ui-widget" style="display: none;"></div>
