@@ -6,6 +6,19 @@ class Document < ActiveRecord::Base
   belongs_to :contact, :validate => true
   validates_inclusion_of :document_type, :in => DOCUMENT_TYPES.keys
   mount_uploader :file_attachment, FileAttachmentUploader
+
+  after_initialize do
+
+    if is_displayable_image?
+      FileAttachmentUploader.instance_eval do
+        version :thumb do
+          process :resize_and_pad => [100,100]
+        end
+      end
+    end
+
+  end
+  
   
   def self.per_page
     25
