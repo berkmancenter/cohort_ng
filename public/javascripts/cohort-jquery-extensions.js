@@ -105,6 +105,7 @@ jQuery.extend({
                 },
                 success: function(){
                   jQuery.hideGlobalSpinnerNode();
+                  console.log(objectType);
                   jQuery.updateLists(objectType);
                   jQuery(confirmNode).dialog('close');
                 }

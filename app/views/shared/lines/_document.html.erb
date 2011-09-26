@@ -4,9 +4,16 @@
     <%= link_to(icon('page_edit'), edit_document_path(document), :title => "Edit document") %>
   </div>
   <div class="meta">
-    <h3><%= document.name %> - <span class="document_type"><%= Document::DOCUMENT_TYPES[document.document_type] %></span></h3>
+    <h3><%= document.name %>
+      <% unless document.document_type.blank? %>
+        <span class="document_type"> - <%=  Document::DOCUMENT_TYPES[document.document_type] %></span>
+      <% end %>
+    </h3>
   </div>
   <div class="description"><%= document.description %></div>
-  <%= link_to(document.file_attachment.file.filename, document.file_attachment.url) %>, <%= (document.file_attachment.file.size / 1024)%> kb <%= document.file_attachment.file.extension %>
+  <% if document.is_displayable_image? %>
+    <%= link_to(raw(image_tag(document.thumb_url('75x75'))), document.file_attachment.url, :target => '_blank') %><br/>
+  <% end %>
+  <%= link_to('download', document.file_attachment.url, :target => "_blank") %>, <%= (document.file_attachment.file.size / 1024) %> kb <%= document.file_attachment.file.extension %>
   <div class="clear"></div>
 </div>

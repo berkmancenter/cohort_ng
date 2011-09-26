@@ -1,7 +1,10 @@
 <% unless @document.new_record? %>
   <% if @document.is_displayable_image? %>
-    <%= image_tag(@document.file_attachment.thumb.url) %>
+    <%= image_tag(@document.thumb_url) %>
+  <% else %>
+    <%= link_to('download', @document.file_attachment.url) %>, <%= (@document.file_attachment.file.size / 1024)%> kb <%= @document.file_attachment.file.extension %>
   <% end %>
+
 <% end %>
 
 <%= semantic_form_for(@document, :html => {:multipart => true}) do |f| -%>

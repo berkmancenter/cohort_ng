@@ -4,6 +4,7 @@ jQuery(document).ready(function(){
     jQuery('.actions').css('min-height', jQuery('.main').height());
     jQuery('.accordion').accordion();
     jQuery.updateLists('contact');
+    jQuery.updateLists('document');
     jQuery.updateLists('note');
 //    jQuery.updateLists('tag');
     jQuery.observeDialogForm('a.dialog-form');

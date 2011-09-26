@@ -32,17 +32,6 @@ class FileAttachmentUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   #
 
-  def conditional_scale
-    if ['png','jpg','jpeg','gif'].include?(self.file.extension)
-      self.class.version :thumb do
-        process :resize_and_pad => [100,100]
-      end
-    end
-  end
-
-
-  process :conditional_scale
-
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list

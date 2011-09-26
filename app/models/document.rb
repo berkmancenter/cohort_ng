@@ -6,19 +6,6 @@ class Document < ActiveRecord::Base
   belongs_to :contact, :validate => true
   validates_inclusion_of :document_type, :in => DOCUMENT_TYPES.keys
   mount_uploader :file_attachment, FileAttachmentUploader
-
-  after_initialize do
-
-    if is_displayable_image?
-      FileAttachmentUploader.instance_eval do
-        version :thumb do
-          process :resize_and_pad => [100,100]
-        end
-      end
-    end
-
-  end
-  
   
   def self.per_page
     25
@@ -38,6 +25,41 @@ class Document < ActiveRecord::Base
 
   def is_displayable_image?
     ['png','jpg','jpeg','gif'].include?(self.file_attachment.file.extension)
+  end
+
+  def thumb_url(geometry = '150x150', square = false, quality = 85)
+    if is_displayable_image?
+      geometry.gsub!(/[^\dx]/,'')
+      #Sigh. carrierwave will attempt to process ANY attachment. I can't figure out an easy way to make it only process images.
+      thumb_location = "#{RAILS_ROOT}/public/images/thumbs/#{geometry}/#{Digest::MD5.hexdigest(self.file_attachment.path)}-#{(square) ? '-square' : ''}-#{quality}.jpg"
+      thumb_url = "/images/thumbs/#{geometry}/#{Digest::MD5.hexdigest(self.file_attachment.path)}-#{(square) ? '-square' : ''}-#{quality}.jpg"
+      if ! File.exists?(thumb_location)
+#        logger.warn('Thumb regen')
+        if ! File.exists?("#{RAILS_ROOT}/public/images/thumbs/#{geometry}/")
+          FileUtils.mkdir_p("#{RAILS_ROOT}/public/images/thumbs/#{geometry}/")
+          FileUtils.chmod 0755, "#{RAILS_ROOT}/public/images/thumbs/#{geometry}/"
+        end
+        image = MiniMagick::Image.open(self.file_attachment.path)
+        image.quality quality
+        if square
+          if image[:width] < image[:height]
+            remove = ((image[:height] - image[:width])/2).round
+            image.shave "0x#{remove}"
+          elsif image[:width] > image[:height]
+            remove = ((image[:width] - image[:height])/2).round
+            image.shave "#{remove}x0"
+          end
+          image.resize "#{geometry}x#{geometry}"
+        else
+          image.resize geometry
+        end
+        image.write  thumb_location
+      else
+#        logger.warn('Thumb is cached')
+      end
+      return thumb_url
+    end
+    ''
   end
 
 end

@@ -218,6 +218,10 @@ form.formtastic fieldset > ol > li {
   height: auto;
 }
 
+.document_type{
+  font-size: smaller;
+}
+
 .note .meta{
   float: left;
   margin: 3px 10px 10px 3px;
