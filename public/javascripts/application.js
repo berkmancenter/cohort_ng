@@ -12,4 +12,12 @@ jQuery(document).ready(function(){
     jQuery.observeListPagination();
     jQuery.observeListItems();
     jQuery.observeDestroyControls();
+    jQuery('.tabs').tabs({
+      ajaxOptions: {
+        dataType: 'html',
+        error: function(xhr,errorStr,baz){
+          jQuery.showMajorError(errorStr);
+        }
+      }
+    }); 
 });
