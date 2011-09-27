@@ -2,6 +2,7 @@ CohortNg::Application.routes.draw do
 
   match 'tag_query/tag/:id' => 'tag_query#tag'
   get "tag_query/search"
+  get "tag_query/recent_taggings"
 
 #  get "tags/index"
 #  get "tags/show"
@@ -14,12 +15,11 @@ CohortNg::Application.routes.draw do
   resources :tags
 
   get "note_query/new"
-
   get "note_query/upcoming"
-  
   get "note_query/all_upcoming"
-
   get "note_query/priority"
+  get "note_query/yours"
+  get "note_query/recent"
 
   match 'note_query/contact/:id' => 'note_query#contact'
 
@@ -34,21 +34,15 @@ CohortNg::Application.routes.draw do
   resources :emails
 
   get "contact_query/recent"
-
   get "contact_query/yours"
-
   get "contact_query/new"
-
   get "contact_query/all"
-
   get "contact_query/todo"
-
   get "contact_query/search"
-
   get "contact_query/tag_contacts/:id", :controller => :contact_query, :action => :tag_contacts
+  get "contact_query/tag_contacts_by_name/:id", :controller => :contact_query, :action => :tag_contacts_by_name
 
   get "base/index"
-
 
   devise_for :users
 

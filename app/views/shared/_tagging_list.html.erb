@@ -1,0 +1,14 @@
+<% unless title.blank? %>
+  <h1><%= title %></h1>
+<% end %>
+<% unless @taggings.blank? %>
+  <span class="tagMatches">
+    <ul class="resultlist">
+      <%= render :partial => 'shared/lines/tagging', :collection => @taggings %>
+    </ul>
+  </span>
+  <%= will_paginate(@taggings) %>
+<% else %>
+  <h2>None found.</h2>
+<% end %>
+  <div clear="both;"></div>

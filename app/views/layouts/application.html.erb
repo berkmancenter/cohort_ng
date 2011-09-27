@@ -31,7 +31,7 @@
         </div>
         <div class="grid_4" id="right-header-container">
           <%= form_tag(url_for(:controller => 'contact_query', :action => 'search'), :method => :get) do %>
-            <%= text_field_tag(:q, params[:q], :size => 15, :id => 'search_input') %>
+            <%= text_field_tag(:q, params[:q], :size => 15, :id => 'search_input',:placeholder => 'search . . ') %>
             <%= submit_tag('go') %>
           <% end %>
           <%= image_tag('ajax-loader.gif', :id => 'spinner') %>
@@ -43,10 +43,10 @@
 
     <div class="container_12">
       <div class="body">
-        <div class="grid_3">
+        <div class="grid_2">
           <%= render :partial => 'shared/actions' %>
         </div>
-        <div class="grid_9">
+        <div class="grid_10">
           <div class="main">
             <%= yield %>
           </div>

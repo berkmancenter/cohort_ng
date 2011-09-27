@@ -34,6 +34,7 @@ form{
 h1, h2, h3{
     font-size: 24px;
     margin-bottom: .5em;
+    margin-top: .5em;
 }
 
 h2{
@@ -104,13 +105,14 @@ legend{
 }
 
 /* for jquery.tag.suggestions */
-span.tagMatches {
-    display: block;
+.tagMatches {
+/*    display: block;
     margin: 10px;
     float: left;
+    */
 }
 
-span.tagMatches span{
+.tagMatches span{
     padding: 2px;
     margin: 0px 4px 3px 0px;
     background-color: #e4e4e4;
@@ -121,17 +123,16 @@ span.tagMatches span{
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    display: block;
-    float: left;
+    display: inline-block;
     line-height: 1.1em;
 }
 
-span.tagMatches span a{
+.tagMatches span a{
   text-decoration: none;
   color: black;
 }
 
-span.tagMatches span a:hover{
+.tagMatches span a:hover{
   text-decoration: underline;
 }
 

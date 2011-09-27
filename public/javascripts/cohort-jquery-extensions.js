@@ -8,8 +8,8 @@ jQuery.extend({
     hideGlobalSpinnerNode: function(){
         jQuery('#spinner').hide();
     },
-    showMajorError: function(xhr){
-        jQuery('<div></div>').html(xhr.responseText).dialog({
+    showMajorError: function(error){
+        jQuery('<div></div>').html("We're sorry, there appears to have been an error.").dialog({
             modal: true
         }).dialog('open');
     },
@@ -120,7 +120,7 @@ jQuery.extend({
     },
 
       observeListItems: function(){
-        jQuery('.list li').live('mouseover mouseout', function(e){
+        jQuery('.resultlist li').live('mouseover mouseout', function(e){
           if(e.type == 'mouseover'){
             jQuery(this).addClass('hover');
             jQuery(this).find('.floating-control').show();

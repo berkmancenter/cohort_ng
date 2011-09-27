@@ -11,9 +11,24 @@ class ContactQueryController < BaseController
     render :json => @tags.hits.collect{|t| t.stored(:hierarchical_name_for_indexing)}.flatten
   end
 
+  def tag_contacts_by_name
+    @contact_query = Sunspot.new_search(Contact)
+    @contact_query.build do
+      with(:hierarchical_tags).starting_with(params[:id])
+      with :active, true
+      with :deleted, false
+      paginate :page => params[:page], :per_page => cookies[:per_page] || Contact.per_page
+    end
+    @contact_query.execute!
+    @contacts = @contact_query.results
+    negotiate_list_query_response('contact')
+  end
+
   def tag_contacts
 
-    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    tag_id = params[:id]
+
+    @tag = ActsAsTaggableOn::Tag.find(tag_id)
     tag_ids = [@tag.id]
     @tag.descendants.each do|t|
       tag_ids << t.id
@@ -28,10 +43,8 @@ class ContactQueryController < BaseController
       paginate :page => params[:page], :per_page => cookies[:per_page] || Contact.per_page
     end
     @contact_query.execute!
-
-
     @contacts = @contact_query.results
-    negotiate_list_query_response('contact','')
+    negotiate_list_query_response('contact')
   end
 
   def search
@@ -58,19 +71,19 @@ class ContactQueryController < BaseController
 
   def recent
     @contacts = Contact.active.paginate(:order => 'updated_at desc', :page => params[:page], :per_page => params[:per_page] || Contact.per_page)
-    negotiate_list_query_response('contact','Recent Updates')
+    negotiate_list_query_response('contact')
   end
 
   def new
     @contacts = Contact.active.paginate(:order => 'created_at desc', :page => params[:page], :per_page => params[:per_page] || Contact.per_page)
-    negotiate_list_query_response('contact','New Contacts')
+    negotiate_list_query_response('contact')
   end
 
   def yours
     if current_user
       @contacts = Contact.active.paginate(:order => 'updated_at', :conditions => {:user_id => current_user.id}, :page => params[:page], :per_page => params[:per_page] || Contact.per_page)
     end
-    negotiate_list_query_response('contact','Your contacts')
+    negotiate_list_query_response('contact')
   end
 
   def all

@@ -1,5 +1,7 @@
 class Note < ActiveRecord::Base
   include CohortModelExtensions
+
+  scope :to_dos, where('due_date is not null')
   
   def self.per_page
     25

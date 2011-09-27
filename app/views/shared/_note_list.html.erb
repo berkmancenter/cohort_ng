@@ -1,6 +1,8 @@
-<h1><%= title %></h1>
+<% unless title.blank? %>
+  <h1><%= title %></h1>
+<% end %>
 <% unless @notes.blank? %>
-  <ul>
+  <ul class="resultlist">
     <% @notes.each do |n| %>
       <li><%= truncate(n.note,:length => 90, :separator => ' ') %><span class="floating-control control-note-<%= n.id %>"><%= link_to(icon('note_edit'), edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %> <%= link_to(icon('note_delete'),note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %></span></li>
     <% end %>

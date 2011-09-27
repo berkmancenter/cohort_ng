@@ -10,36 +10,35 @@
   </div>
 </div>
 
-<div class="grid_4 omega">
+<div class="grid_5 omega">
   <h1>Notes</h1>
   <div class="tabs">
     <ul>
       <li><%= link_to('Mine', note_query_yours_path) %></li>
       <li><%= link_to('New', note_query_new_path) %></li>
       <li><%= link_to('Updated', note_query_recent_path) %></li>
+      <li><%= link_to('My to dos', note_query_upcoming_path) %></li>
+      <li><%= link_to('All To dos', note_query_all_upcoming_path) %></li>
     </ul>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<div class="grid_5 alpha">
+  <h1>Tags</h1>
+  <div class="tabs">
+    <ul>
+      <li><a href="#quick-search">Quick Search</a></li>
+      <li><%= link_to('Recent Taggings', tag_query_recent_taggings_path) %></li>
+    </ul>
+
+    <div id="quick-search">
+      <input placeholder="type here, choose a tag, and hit 'go'" type="text" class="quick_search_tag" id="quick_search_tag" style="width: 75%"><input type="submit" value="go" id="quick_search_submit"><br/>
+      <div id="quick_search_results">
+      </div>
+    </div>
 
   </div>
 </div>
 
-
-<div class="grid_3 list contact-list recent alpha">
-</div>
-
-<div class="grid_3 list contact-list yours">
-</div>
-
-<div class="grid_3 list contact-list new omega">
-</div>
-
-<div class="grid_3 list note-list new alpha">
-</div>
-
-<div class="grid_3 list note-list upcoming">
-</div>
-
-<div class="grid_3 list note-list all_upcoming omega">
-</div>
-
-<div class="grid_3 list saved_search-list alpha">
-</div>

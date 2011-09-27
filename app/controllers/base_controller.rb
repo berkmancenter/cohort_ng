@@ -4,7 +4,7 @@ class BaseController < ApplicationController
   end
 
   private 
-  def negotiate_list_query_response(object_type = 'contact', title = 'Recent Contacts')
+  def negotiate_list_query_response(object_type = 'contact', title = '')
     respond_to do |format|
       format.js { 
         render :partial => "shared/#{object_type}_list", 

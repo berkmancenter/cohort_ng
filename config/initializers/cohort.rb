@@ -13,6 +13,7 @@ ActsAsTaggableOn::Tag.class_eval{
 ActsAsTaggableOn::Tag.instance_eval{
   searchable do
     text :hierarchical_name_for_indexing, :stored => true
+    string :hierarchical_name_for_indexing, :stored => true
     text :name, :default_boost => 2
   end
 }
