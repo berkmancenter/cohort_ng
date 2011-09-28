@@ -1,5 +1,13 @@
 class NotesController < ApplicationController
 
+  def show
+    @note = Note.find(params[:id])
+    respond_to do |format|
+      format.js { }
+      format.html { render :layout => ! request.xhr? }
+    end
+  end
+
   def new
     @note = Note.new(:contact_id => params[:contact_id])
     respond_to do|format|
@@ -38,8 +46,8 @@ class NotesController < ApplicationController
     respond_to do|format|
       if @note.save
         flash[:notice] = "Updated that note"
-        format.js { render :text => nil }
-        format.html {redirect_to :action => :index}
+        format.js { render :text => ''}
+        format.html { render :text => '', :layout => ! request.xhr? }
       else
         format.js { render :text => "We couldn't update that note. <br />#{@note.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
         format.html { render :text => "We couldn't update that note. <br />#{@note.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity, :layout => ! request.xhr? }
