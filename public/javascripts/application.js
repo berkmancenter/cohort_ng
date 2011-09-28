@@ -54,4 +54,9 @@ jQuery(document).ready(function(){
       });
     });
 
+    jQuery('.control').click(function(e){
+      // TODO!
+
+    });
+
 });

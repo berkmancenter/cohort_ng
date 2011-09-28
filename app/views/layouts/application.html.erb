@@ -12,13 +12,15 @@
     <%= javascript_include_tag 'jquery-ui.min.js' %>
     <%= javascript_include_tag 'cohort-jquery-extensions.js' %>
     <%= javascript_include_tag 'jquery.tag.suggestion.js' %>
+    <%= javascript_include_tag 'jquery.hoverIntent.minified.js' %>
+    <%= javascript_include_tag 'jquery.bt.min.js' %>
     <%= javascript_include_tag 'application.js' %>
     <%= csrf_meta_tag %>
   </head>
   <body>
-    <div class="container_12">
+    <div class="container_12" id="header_wrapper">
       <div class="header">
-        <div class="grid_4"><h1><%= link_to('Cohort NG', root_url) %></h1></div>
+        <div class="grid_4 alpha"><h1><%= link_to('Cohort NG', root_url) %></h1></div>
         <div class="grid_4">
           <% [:notice,:error,:alert].each do|flash_type| %>
             <% unless flash[flash_type].blank? %>
@@ -29,7 +31,7 @@
           <% end %>
           &nbsp;
         </div>
-        <div class="grid_4" id="right-header-container">
+        <div class="grid_4 omega" id="right-header-container">
           <%= form_tag(url_for(:controller => 'contact_query', :action => 'search'), :method => :get) do %>
             <%= text_field_tag(:q, params[:q], :size => 15, :id => 'search_input',:placeholder => 'search . . ') %>
             <%= submit_tag('go') %>
@@ -43,10 +45,10 @@
 
     <div class="container_12">
       <div class="body">
-        <div class="grid_2">
+        <div class="grid_2 alpha">
           <%= render :partial => 'shared/actions' %>
         </div>
-        <div class="grid_10">
+        <div class="grid_10 omega">
           <div class="main">
             <%= yield %>
           </div>

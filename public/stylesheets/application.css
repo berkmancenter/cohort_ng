@@ -1,8 +1,41 @@
 body{
-    background-color: #e4e4e4;
+    background: url('/images/stripe_98798ee1ae2a90611741daf5aebd1623.png');
     font-family: verdana, sans-serif;
     font-size: 11px;
     line-height: 1.8em;
+}
+
+.body{
+  padding-bottom: 10px;
+}
+
+
+.header{
+  margin-top: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #000f45;
+  float: left;
+  border: 2px white;
+  border-style: solid solid none solid;
+}
+
+.header h1{
+  font-size: 48px;
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.header h1 a{
+  text-decoration: none;
+  color: white;
+}
+
+.body{
+  padding-top: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: 2px solid white;
 }
 
 .flash{
@@ -48,6 +81,7 @@ h3{
 dt{
   font-weight: bold;
 }
+
 dd{
   margin-left: 2em;
   margin-bottom: .5em;
@@ -55,13 +89,14 @@ dd{
 
 #right-header-container{
   min-height: 15px;
+  padding-top: 20px;
 }
 
 #spinner{
   display: none;
 }
 
-.header, .body{
+.body{
     background-color: white;
     float: left;
 }
@@ -77,13 +112,16 @@ dd{
   max-height: none;
   width: 400px;
 }
+
 .main .list{
   max-height: none;
   overflow: visible;
 }
+
 .actions{
     background-color: #cccccc;
     color: black;
+    margin-left: 10px;
 }
 
 fieldset{
