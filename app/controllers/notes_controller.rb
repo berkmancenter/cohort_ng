@@ -1,4 +1,4 @@
-class NotesController < ApplicationController
+class NotesController < BaseController
 
   def show
     @note = Note.find(params[:id])

@@ -1,4 +1,4 @@
-class ContactsController < ApplicationController
+class ContactsController < BaseController
 
   def index
     @contacts = Contact.paginate(:page => params[:page], :per_page => params[:per_page])
