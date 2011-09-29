@@ -10,7 +10,7 @@ jQuery(document).ready(function(){
     jQuery.observeDialogForm('a.dialog-form');
     jQuery.observeDialogShow('a.dialog-show');
     jQuery.observeListPagination();
-    jQuery.observeListItems();
+//    jQuery.observeListItems();
     jQuery.observeDestroyControls();
 
     jQuery('.tabs').tabs({
@@ -59,13 +59,11 @@ jQuery(document).ready(function(){
         e.preventDefault();
         var id = jQuery(this).attr('id');
         console.log('clicked: ' + id);
-        jQuery('<div id="liasdfsdf"></div>').bt({
+        jQuery(this).bt({
           trigger: 'none',
-          contentSelector: jQuery('#' + id + '-target'),
-          width: 300
+          contentSelector: jQuery('#' + id + '-target')
         });
-        jQuery('#liasdfsdf').btOn();
-
+        jQuery(this).btOn();
       }
     });
 

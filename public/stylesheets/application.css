@@ -134,10 +134,6 @@ legend{
     font-weight: bold;
 }
 
-.floating-control{
-  float: right;
-  display: none;
-}
 .hover{
   background-color: #e4e4e4;
 }

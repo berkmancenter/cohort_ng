@@ -119,6 +119,7 @@ jQuery.extend({
       });
     },
 
+/* 
       observeListItems: function(){
         jQuery('.resultlist li').live('mouseover mouseout', function(e){
           if(e.type == 'mouseover'){
@@ -131,6 +132,7 @@ jQuery.extend({
           }
         });
       },
+      */
 
       observeListPagination: function(){
         jQuery('.pagination a').live('click',function(e){
