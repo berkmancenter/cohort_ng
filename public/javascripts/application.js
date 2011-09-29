@@ -54,9 +54,19 @@ jQuery(document).ready(function(){
       });
     });
 
-    jQuery('.control').click(function(e){
-      // TODO!
+    jQuery('.control').live({
+      click: function(e){
+        e.preventDefault();
+        var id = jQuery(this).attr('id');
+        console.log('clicked: ' + id);
+        jQuery('<div id="liasdfsdf"></div>').bt({
+          trigger: 'none',
+          contentSelector: jQuery('#' + id + '-target'),
+          width: 300
+        });
+        jQuery('#liasdfsdf').btOn();
 
+      }
     });
 
 });
