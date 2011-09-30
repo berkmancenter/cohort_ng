@@ -1,0 +1,2 @@
+module ContactCartQueryHelper
+end

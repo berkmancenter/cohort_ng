@@ -1,5 +1,8 @@
 CohortNg::Application.routes.draw do
 
+  get "contact_cart_query/my"
+  get "contact_cart_query/all"
+
   resources :contact_carts
 
   match 'tag_query/tag/:id' => 'tag_query#tag'

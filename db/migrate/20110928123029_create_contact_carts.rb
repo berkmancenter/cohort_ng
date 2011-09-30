@@ -13,14 +13,14 @@ class CreateContactCarts < ActiveRecord::Migration
       add_index :contact_carts, col
     end
 
-    create_table :contacts_contact_carts, :id => false, :force => true do |t|
-      t.references :contact
+    create_table :contact_carts_contacts, :id => false, :force => true do |t|
       t.references :contact_cart
+      t.references :contact
     end
 
-    add_index :contacts_contact_carts, :contact_cart_id
+    add_index :contact_carts_contacts, :contact_cart_id
 
-    add_index :contacts_contact_carts, [:contact_id, :contact_cart_id], :unique => true
+    add_index :contact_carts_contacts, [:contact_id, :contact_cart_id], :unique => true
 
   end
 
