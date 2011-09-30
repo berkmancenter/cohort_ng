@@ -4,7 +4,7 @@ class CreateContactCarts < ActiveRecord::Migration
       t.string :name, :limit => 100, :null => false
       t.text :description
       t.references :user
-      t.boolean :global, :default => 'true'
+      t.boolean :global, :default => true
 
       t.timestamps
     end
@@ -18,9 +18,9 @@ class CreateContactCarts < ActiveRecord::Migration
       t.references :contact_cart
     end
 
-    [:contact_id, :contact_cart_id].each do|col|
-      add_index :contacts_contact_carts, col
-    end
+    add_index :contacts_contact_carts, :contact_cart_id
+
+    add_index :contacts_contact_carts, [:contact_id, :contact_cart_id], :unique => true
 
   end
 

@@ -58,7 +58,6 @@ jQuery(document).ready(function(){
       click: function(e){
         e.preventDefault();
         var id = jQuery(this).attr('id');
-        console.log('clicked: ' + id);
         jQuery(this).bt({
           trigger: 'none',
           contentSelector: jQuery('#' + id + '-target')

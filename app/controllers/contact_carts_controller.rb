@@ -1,6 +1,7 @@
 class ContactCartsController < BaseController
 
   def index
+    @contact_carts = ContactCart.active
   end
 
   def all_contact_carts

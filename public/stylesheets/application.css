@@ -138,6 +138,10 @@ legend{
   background-color: #e4e4e4;
 }
 
+.control-target{
+  display: none;
+}
+
 /* for jquery.tag.suggestions */
 .tagMatches {
 /*    display: block;
@@ -263,6 +267,10 @@ form.formtastic fieldset > ol > li {
   border: 1px #cccccc;
   padding: 5px;
   border-style: none solid solid none;
+}
+
+.icon{
+  vertical-align: middle;
 }
 
 .document .icon, .note .icon{

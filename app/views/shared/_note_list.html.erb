@@ -4,7 +4,8 @@
 <% unless @notes.blank? %>
   <ul class="resultlist">
     <% @notes.each do |n| %>
-      <li><%= link_to(truncate(n.note,:length => 90, :separator => ' '),n, :class => 'dialog-show') %><span class="floating-control control-note-<%= n.id %>"><%= link_to(icon('note_edit'), edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %> <%= link_to(icon('note_delete'),note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %></span></li>
+      <li>
+      <a href="#" class="control" id="note-control-<%= n.id %>"><%= icon('add') %></a> <%= link_to(truncate(n.note,:length => 60, :separator => ' '),n, :class => 'dialog-show') %><span id="note-control-<%= n.id %>-target" style="display: none;"><%= link_to(icon('note_edit') + ' Edit note', edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %><br/><%= link_to(icon('note_delete') + ' Delete note',note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %></span></li>
     <% end %>
   </ul>
   <%= will_paginate(@notes) %>
