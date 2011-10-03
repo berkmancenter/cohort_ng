@@ -6,12 +6,11 @@ class CreateDocuments < ActiveRecord::Migration
       t.string :document_type, :limit => 50
       t.string :description, :limit => 4.kilobytes
       t.string :file_attachment, :null => false
-      t.references :user
       t.references :contact
       t.timestamps
     end
 
-    [:user_id,:contact_id, :document_type, :file_attachment].each do |col|
+    [:contact_id, :document_type, :file_attachment].each do |col|
       add_index :documents, col
     end
 

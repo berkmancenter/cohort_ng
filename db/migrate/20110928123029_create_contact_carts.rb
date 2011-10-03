@@ -3,13 +3,12 @@ class CreateContactCarts < ActiveRecord::Migration
     create_table :contact_carts do |t|
       t.string :name, :limit => 100, :null => false
       t.text :description
-      t.references :user
       t.boolean :global, :default => true
 
       t.timestamps
     end
 
-    [:user_id, :global, :name].each do|col|
+    [:global, :name].each do|col|
       add_index :contact_carts, col
     end
 

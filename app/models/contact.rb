@@ -2,10 +2,10 @@ class Contact < ActiveRecord::Base
   include CohortModelExtensions
 
   acts_as_taggable
+  acts_as_authorization_object
 
   include TaggingExtensions
 
-  belongs_to :user
   has_and_belongs_to_many :contact_carts
   
   has_many :addresses, :dependent => :destroy, :order => :id

@@ -6,11 +6,10 @@ class CreateContacts < ActiveRecord::Migration
       t.date :birthday
       t.boolean :active, :default => true
       t.boolean :deleted, :default => false
-      t.references :user
 
       t.timestamps
     end
-    [:first_name, :last_name, :user_id, :birthday, :active, :deleted].each do|col|
+    [:first_name, :last_name, :birthday, :active, :deleted].each do|col|
       add_index :contacts, col
     end
   end

@@ -1,8 +1,8 @@
 CohortNg::Application.routes.draw do
 
-  get "contact_cart_query/my"
+  get "contact_cart_query/yours"
   get "contact_cart_query/all"
-  get "contact_cart_query/my_private"
+  get "contact_cart_query/your_private"
 
   resources :contact_carts
 
@@ -50,11 +50,11 @@ CohortNg::Application.routes.draw do
 
   get "base/index"
 
-  devise_for :users
-
   match 'contact_query/autocomplete_tags' => 'contact_query#autocomplete_tags'
 
   resources :contacts
+
+  devise_for :users
 
   root :to => "base#index"
 

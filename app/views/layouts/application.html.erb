@@ -32,7 +32,7 @@
           &nbsp;
         </div>
         <div class="grid_4 omega" id="right-header-container">
-          <%= form_tag(url_for(:controller => 'contact_query', :action => 'search'), :method => :get) do %>
+          <%= form_tag(contact_query_search_path, :method => :get) do %>
             <%= text_field_tag(:q, params[:q], :size => 15, :id => 'search_input',:placeholder => 'search . . ') %>
             <%= submit_tag('go') %>
           <% end %>
@@ -54,7 +54,17 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="container_12" id="footer">
+      <div class="grid_12">
+        <% unless current_user.blank? %>
+          Welcome, <%= current_user.email %>
+          <%= link_to('log out', destroy_user_session_path, :confirm => "Are you sure?", :method => :delete) %>
+        <% else %>
+          <%= link_to('log in', new_user_session_path) %>
+        <% end %>
+      </div>
     </div>
   </body>
 </html>

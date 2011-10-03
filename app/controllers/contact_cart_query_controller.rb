@@ -1,21 +1,21 @@
 class ContactCartQueryController < BaseController
 
-  def my
+  def yours
     if current_user
-      @contact_carts = ContactCart.paginate(:order => 'updated_at', :conditions => {:user_id => current_user.id}, :page => params[:page], :per_page => params[:per_page] || ContactCart.per_page)
+      @contact_carts = ContactCart.joins(:accepted_roles => [:users]).paginate(:order => 'updated_at', :conditions => ['roles.name = ? and roles.authorizable_type = ? and roles_users.user_id = ?','owner','ContactCart', current_user.id], :page => params[:page], :per_page => params[:per_page] || ContactCart.per_page)
     end
     negotiate_list_query_response('contact_cart')
   end
 
-  def my_private
+  def your_private
     if current_user
-      @contact_carts = ContactCart.paginate(:order => 'updated_at', :conditions => {:user_id => current_user.id, :global => false}, :page => params[:page], :per_page => params[:per_page] || ContactCart.per_page)
+      @contact_carts = ContactCart.joins(:accepted_roles => [:users]).paginate(:order => 'updated_at', :conditions => ['roles.name = ? and roles.authorizable_type = ? and roles_users.user_id = ? and global is true','owner','ContactCart', current_user.id], :page => params[:page], :per_page => params[:per_page] || ContactCart.per_page)
     end
     negotiate_list_query_response('contact_cart')
   end
 
   def all
-    @contact_carts = ContactCart.paginate(:order => 'updated_at', :conditions => ['user_id = ? OR global is true', current_user.id], :page => params[:page], :per_page => params[:per_page] || ContactCart.per_page)
+    @contact_carts = ContactCart.joins(:accepted_roles => [:users]).paginate(:order => 'updated_at', :conditions => ['(roles.name = ? and roles.authorizable_type = ? and roles_users.user_id = ?) OR global is true','owner','ContactCart', current_user.id], :page => params[:page], :per_page => params[:per_page] || ContactCart.per_page)
     negotiate_list_query_response('contact_cart')
   end
 

@@ -1,7 +1,5 @@
 class ContactCartsController < BaseController
 
-  # TODO - layer in acls.
-
   def index
     @contact_carts = ContactCart.active
   end
