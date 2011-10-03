@@ -2,6 +2,7 @@ CohortNg::Application.routes.draw do
 
   get "contact_cart_query/my"
   get "contact_cart_query/all"
+  get "contact_cart_query/my_private"
 
   resources :contact_carts
 

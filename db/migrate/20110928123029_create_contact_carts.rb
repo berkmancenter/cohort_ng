@@ -26,5 +26,6 @@ class CreateContactCarts < ActiveRecord::Migration
 
   def self.down
     drop_table :contact_carts
+    drop_table :contact_carts_contacts
   end
 end
