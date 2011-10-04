@@ -2,14 +2,14 @@
 <html>
   <head>
     <title>CohortNg</title>
-    <%= stylesheet_link_tag 'custom-theme/jquery-ui-1.8.5.custom.css' %>
+    <%= stylesheet_link_tag 'redmond/jquery-ui-1.8.16.custom.css' %>
     <%= stylesheet_link_tag 'reset' %>
     <%= stylesheet_link_tag 'grid' %>
     <%= formtastic_stylesheet_link_tag  %>
     <%= stylesheet_link_tag 'application' %>
-    <%= javascript_include_tag 'jquery.min.js' %>
+    <%= javascript_include_tag 'jquery-1.6.2.min.js' %>
     <%= javascript_include_tag 'jquery.form.js' %>
-    <%= javascript_include_tag 'jquery-ui.min.js' %>
+    <%= javascript_include_tag 'jquery-ui-1.8.16.custom.min.js' %>
     <%= javascript_include_tag 'cohort-jquery-extensions.js' %>
     <%= javascript_include_tag 'jquery.tag.suggestion.js' %>
     <%= javascript_include_tag 'jquery.hoverIntent.minified.js' %>
@@ -62,7 +62,8 @@
           Welcome, <%= current_user.email %>
           <%= link_to('log out', destroy_user_session_path, :confirm => "Are you sure?", :method => :delete) %>
         <% else %>
-          <%= link_to('log in', new_user_session_path) %>
+          <%= link_to('log in', new_user_session_path) %> / 
+          <%= link_to('sign up', new_user_registration_path) %>
         <% end %>
       </div>
     </div>

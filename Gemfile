@@ -15,3 +15,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'acl9'
 gem 'nokogiri'
+
+group :development, :test do
+  gem 'silent-postgres'
+end

@@ -177,8 +177,8 @@ jQuery.extend({
               jQuery(dialogNode).append(html);
               //FIXME - get lists updating properly in a dialog.
               jQuery(dialogNode).dialog({
-                show: 'explode',
-                hide: 'explode',
+//                show: 'explode',
+//                hide: 'explode',
                 modal: true,
                 width: 600,
                 minWidth: 400,
@@ -232,8 +232,8 @@ jQuery.extend({
                   });
                 });
                 jQuery(dialogNode).dialog({
-                    show: 'explode',
-                    hide: 'explode',
+//                    show: 'explode',
+//                    hide: 'explode',
                     modal: true,
                     width: 600,
                     minWidth: 400,

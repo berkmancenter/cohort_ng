@@ -29,12 +29,10 @@ class ContactsController < BaseController
     params[:contact].delete(:hierarchical_tags_for_edit)
     @contact.attributes = params[:contact]
     @contact.hierarchical_tag_list = params[:contact][:hierarchical_tag_list]
-#    logger.warn('Params: ' + params[:contact].inspect)
-#    logger.warn('Attributes: ' + @contact.attributes.inspect)
-#    logger.warn('Tags: ' + @contact.tags.inspect)
-
     respond_to do|format|
       if @contact.save
+        current_user.has_role!(:owner, @contact)
+        current_user.has_role!(:creator, @contact)
         flash[:notice] = "Added that contact"
         format.js { }
         format.html {render :text => '', :layout => request.xhr? }
@@ -59,6 +57,7 @@ class ContactsController < BaseController
     @contact.attributes = params[:contact]
     respond_to do|format|
       if @contact.save
+        current_user.has_role!(:editor, @contact)
         flash[:notice] = "Updated that contact"
         format.js { render :text => nil }
         format.html {redirect_to :action => :index, :layout => ! request.xhr?}

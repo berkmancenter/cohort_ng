@@ -17,6 +17,8 @@ class ContactCartsController < BaseController
     @contact_cart.attributes = params[:contact_cart]
     respond_to do|format|
       if @contact_cart.save
+        current_user.has_role!(:owner, @contact_cart)
+        current_user.has_role!(:creator, @contact_cart)
         flash[:notice] = "Added that contact list"
         format.js { }
         format.html {render :text => '', :layout => request.xhr? }
@@ -49,6 +51,7 @@ class ContactCartsController < BaseController
     @contact_cart.attributes = params[:contact_cart]
     respond_to do|format|
       if @contact_cart.save
+        current_user.has_role!(:editor, @contact_cart)
         flash[:notice] = "Updated that contact list"
         format.js { render :text => nil }
         format.html {redirect_to :action => :index, :layout => ! request.xhr?}

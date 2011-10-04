@@ -14,6 +14,8 @@ class DocumentsController < ApplicationController
     @document.user = current_user
     respond_to do|format|
       if @document.save
+        current_user.has_role!(:owner, @document)
+        current_user.has_role!(:creator, @document)
         flash[:notice] = "Added that document"
         format.js { render :text => ''}
         format.html {redirect_to params[:_redirect]}
@@ -37,6 +39,7 @@ class DocumentsController < ApplicationController
     @document.attributes = params[:document]
     respond_to do|format|
       if @document.save
+        current_user.has_role!(:editor, @document)
         flash[:notice] = %Q|Updated the document "#{@document.name}" on "#{@document.contact}"|
         format.js { render :text => nil }
         format.html {redirect_to params[:_redirect]}

@@ -29,7 +29,6 @@ jQuery(document).ready(function(){
     }); 
     jQuery('.quick_search_tag').tagSuggest({
       url: jQuery.rootPath() + 'contact_query/autocomplete_tags',
-      separator: ',',
       delay: 500
     });
     jQuery('#quick_search_submit').click(function(e){
@@ -60,7 +59,8 @@ jQuery(document).ready(function(){
         var id = jQuery(this).attr('id');
         jQuery(this).bt({
           trigger: 'none',
-          contentSelector: jQuery('#' + id + '-target')
+          contentSelector: jQuery('#' + id + '-target'),
+          zIndex: 100
         });
         jQuery(this).btOn();
       }

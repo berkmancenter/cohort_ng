@@ -22,6 +22,8 @@ class NotesController < BaseController
     @note.user = current_user
     respond_to do|format|
       if @note.save
+        current_user.has_role!(:owner, @note)
+        current_user.has_role!(:creator, @note)
         flash[:notice] = "Added that note"
         format.js { render :text => ''}
         format.html { render :text => '', :layout => ! request.xhr? }
@@ -45,6 +47,7 @@ class NotesController < BaseController
     @note.attributes = params[:note]
     respond_to do|format|
       if @note.save
+        current_user.has_role!(:editor, @note)
         flash[:notice] = "Updated that note"
         format.js { render :text => ''}
         format.html { render :text => '', :layout => ! request.xhr? }
