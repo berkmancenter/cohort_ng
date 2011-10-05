@@ -1,5 +1,5 @@
 class ContactQueryController < BaseController
-  protect_from_forgery :except => [:autocomplete_tags, :autofill]
+#  protect_from_forgery :except => [:autocomplete_tags, :autofill]
 
   def autocomplete_tags
     @tags = Sunspot.new_search(ActsAsTaggableOn::Tag)

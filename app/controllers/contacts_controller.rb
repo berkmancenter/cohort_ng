@@ -38,7 +38,7 @@ class ContactsController < BaseController
         format.html {render :text => '', :layout => request.xhr? }
       else
         format.js { render :text => "We couldn't add that contact. <br />#{@contact.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
-        format.html { render :action => :new, :layout => ! request.xhr? }
+        format.html { render :text => "We couldn't add that contact. <br />#{@contact.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
       end
     end
   end

@@ -19,7 +19,6 @@ class NotesController < BaseController
   def create
     @note = Note.new
     @note.attributes = params[:note]
-    @note.user = current_user
     respond_to do|format|
       if @note.save
         current_user.has_role!(:owner, @note)
