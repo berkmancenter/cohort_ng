@@ -63,6 +63,9 @@ jQuery.extend({
                 error: function(jqXHR, textStatus, errorThrown){
                   jQuery('.' + objectType + '-list.' + listType).html('There seems to have been a problem! fail whale here. Please try again later.<br/>Code: ' + textStatus);
                 },
+                complete: function(){
+                  jQuery.hideInteriorSpinnerNode(listType);
+                },
                 success: function(html){
                   jQuery('.' + objectType + '-list.' + listType).html(html);
                 }
@@ -100,11 +103,12 @@ jQuery.extend({
                   jQuery.showGlobalSpinnerNode();
                 },
                 error: function(xhr){
-                  jQuery.hideGlobalSpinnerNode();
                   jQuery.showMajorError(xhr);
                 },
-                success: function(){
+                complete: function(){
                   jQuery.hideGlobalSpinnerNode();
+                },
+                success: function(){
                   console.log(objectType);
                   jQuery.updateLists(objectType);
                   jQuery(confirmNode).dialog('close');
@@ -144,11 +148,13 @@ jQuery.extend({
             url: jQuery(this).attr('href'),
             dataType: 'html',
             beforeSend: function(){
-              jQuery(paginationTarget).html(jQuery.interiorSpinnerNode('updatePagination'));
+              jQuery.showGlobalSpinnerNode();
             },
             error: function(xhr){
-              jQuery.hideInteriorSpinnerNode('updatePagination');
               jQuery.showMajorError(xhr);
+            },
+            complete: function(){
+              jQuery.hideGlobalSpinnerNode();
             },
             success: function(html){
               jQuery(paginationTarget).html(html);
@@ -167,12 +173,13 @@ jQuery.extend({
             beforeSend: function(){
               jQuery.showGlobalSpinnerNode();
             },
-            error: function(xhr){
+            complete: function(){
               jQuery.hideGlobalSpinnerNode();
+            },
+            error: function(xhr){
               jQuery.showMajorError(xhr);
             },
             success: function(html){
-              jQuery.hideGlobalSpinnerNode();
               var dialogNode = jQuery('<div></div>');
               jQuery(dialogNode).append(html);
               //FIXME - get lists updating properly in a dialog.
@@ -208,12 +215,13 @@ jQuery.extend({
             beforeSend: function(){
                 jQuery.showGlobalSpinnerNode();
             },
+            complete: function(){
+              jQuery.hideGlobalSpinnerNode();
+            },
             error: function(xhr){
-                jQuery.hideGlobalSpinnerNode();
-                jQuery.showMajorError(xhr);
+              jQuery.showMajorError(xhr);
             },
             success: function(html){
-                jQuery.hideGlobalSpinnerNode();
                 var dialogNode = jQuery('<div></div>');
                 jQuery(dialogNode).append(html);
 
@@ -265,9 +273,11 @@ jQuery.extend({
                               jQuery.updateLists('note');
                               jQuery(dialogNode).dialog('close');
                             },
+                            complete: function(){
+                              jQuery.hideInteriorSpinnerNode('objectEdit');
+                            },
                             error: function(xhr){
                               jQuery('#error').show().html(xhr.responseText);
-                              jQuery.hideInteriorSpinnerNode('objectEdit');
                             }
                           });
                         }
