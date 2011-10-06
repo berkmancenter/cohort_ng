@@ -18,9 +18,6 @@ jQuery(document).ready(function(){
   jQuery.observeDestroyControls();
 
   jQuery('.tabs').tabs({
-    load: function(e,ui){
-      console.log('UI: ' , ui);
-    },
     ajaxOptions: {
       dataType: 'html',
       beforeSend: function(){
@@ -32,6 +29,26 @@ jQuery(document).ready(function(){
       error: function(xhr,textStatus,errorStr){
         jQuery.showMajorError(textStatus);
       }
+    }
+  });
+
+  jQuery('a.dialog-show').live({
+    click: function(e){
+      var activeTabs = jQuery(this).closest('.tabs');
+      console.log('Selected tab: ' , jQuery(activeTabs).tabs('option','selected'));
+    }
+  });
+
+  jQuery('a.dialog-form').live({
+    click: function(e){
+      var targetEl = jQuery('.bt-active');
+      var activeTabs = jQuery(targetEl).closest('.tabs');
+      console.log('Selected tab: ' , jQuery(activeTabs).tabs('option','selected'));
+      //  TODO - Store references to active tab object and the active tab.
+      jQuery.data({
+        selected_tab: jQuery(activeTabs).tabs('option','selected'),
+        active_tab_object: activeTabs
+      });
     }
   });
   
@@ -70,7 +87,8 @@ jQuery(document).ready(function(){
         contentSelector: jQuery('#' + id + '-target'),
         textzIndex: 101,
         boxzIndex: 100,
-        wrapperzIndex: 99
+        wrapperzIndex: 99,
+        closeWhenOthersOpen: true
       });
       jQuery(this).btOn();
     }
