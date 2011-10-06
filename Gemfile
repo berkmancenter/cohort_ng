@@ -1,3 +1,4 @@
+source :rubygems
 require 'rubygems'
 
 gem "rails", "3.0.9"
