@@ -1,8 +1,10 @@
 <div class="document document_type_<%= document.document_type %>">
-  <div class="icon-container">
-    <%= link_to(icon('page_delete'), document_path(document), :method => :delete, :title => 'Delete document', :class => "delete delete-document") %>
-    <%= link_to(icon('page_edit'), edit_document_path(document), :title => "Edit document") %>
-  </div>
+  <% unless current_user.blank? %>
+    <div class="icon-container">
+      <%= link_to(icon('page_delete'), document_path(document), :method => :delete, :title => 'Delete document', :class => "delete delete-document") %>
+      <%= link_to(icon('page_edit'), edit_document_path(document), :title => "Edit document") %>
+    </div>
+  <% end %>
   <div class="meta">
     <h3><%= document.name %>
       <% unless document.document_type.blank? %>

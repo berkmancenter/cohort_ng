@@ -84,15 +84,16 @@ jQuery.extend({
           }
         });
         var destroyUrl = jQuery(this).attr('href');
-        var confirmNode = jQuery('<div><p>Are you sure you want to delete this item?</p></div>');
+        var confirmMessage = (jQuery(this).attr('message')) ? jQuery(this).attr('message') : 'Are you sure you want to delete this item?';
+        var confirmNode = jQuery('<div><p>' + confirmMessage + '</p></div>');
         jQuery(confirmNode).dialog({
-          title: 'Delete this item?',
+          title: 'Please confirm',
           modal: true,
           buttons: {
             Cancel: function(){
               jQuery(confirmNode).dialog('close');
             },
-            'Yes, delete it': function(){
+            'Yes': function(){
               jQuery.ajax({
                 cache: false,
                 type: 'POST',
@@ -166,6 +167,12 @@ jQuery.extend({
       observeDialogShow: function(rootClass){
         jQuery(rootClass).live('click',function(e){
           e.preventDefault();
+          var activeTabs = jQuery(this).closest('.tabs');
+          console.log('Active tab object: ', activeTabs);
+          if(activeTabs.length > 0){
+            jQuery.data(document.body, 'selected_tab', jQuery(activeTabs).tabs('option','selected'));
+            jQuery.data(document.body, 'active_tab_object', activeTabs);
+          }
           jQuery.ajax({
             cache: false,
             dataType: 'html',
@@ -199,16 +206,34 @@ jQuery.extend({
                 }
               });
               //FIXME
-              jQuery.updateLists('note');
             }
           });
         });
 
       },
+
+      refreshActiveTabPane: function(){
+        var selected_tab =  jQuery.data(document.body,'selected_tab');
+        var active_tab_object =  jQuery.data(document.body,'active_tab_object');
+        console.log('Selected Tab: ' , selected_tab);
+        console.log('Active Tab Object: ' , active_tab_object);
+        if(selected_tab){
+          jQuery(active_tab_object).tabs('load', selected_tab);
+        }
+    },
+
     observeDialogForm: function(rootClass){
         jQuery(rootClass).live('click',function(e){
-        e.preventDefault();
-        jQuery.ajax({
+          e.preventDefault();
+          var targetEl = jQuery('.bt-active');
+          console.log('Target el: ', targetEl);
+          var activeTabs = jQuery(targetEl).closest('.tabs');
+          console.log('activeTabs: ' , activeTabs);
+          if(activeTabs.length > 0){
+            jQuery.data(document.body, 'selected_tab', jQuery(activeTabs).tabs('option','selected'));
+            jQuery.data(document.body, 'active_tab_object', activeTabs);
+          }
+          jQuery.ajax({
             cache: false,
             dataType: 'html',
             url: jQuery(this).attr('href'),
@@ -269,8 +294,9 @@ jQuery.extend({
                               jQuery('.ui-dialog .ui-dialog-buttonset').prepend(jQuery.interiorSpinnerNode('objectEdit'));
                             },
                             success: function(){
-                              jQuery.updateLists('contact');
-                              jQuery.updateLists('note');
+                              jQuery.refreshActiveTabPane();
+                              //jQuery.updateLists('contact');
+                              //jQuery.updateLists('note');
                               jQuery(dialogNode).dialog('close');
                             },
                             complete: function(){

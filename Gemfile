@@ -19,4 +19,5 @@ gem 'nokogiri'
 
 group :development, :test do
   gem 'silent-postgres'
+  gem 'railroady'
 end

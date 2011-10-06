@@ -31,26 +31,6 @@ jQuery(document).ready(function(){
       }
     }
   });
-
-  jQuery('a.dialog-show').live({
-    click: function(e){
-      var activeTabs = jQuery(this).closest('.tabs');
-      console.log('Selected tab: ' , jQuery(activeTabs).tabs('option','selected'));
-    }
-  });
-
-  jQuery('a.dialog-form').live({
-    click: function(e){
-      var targetEl = jQuery('.bt-active');
-      var activeTabs = jQuery(targetEl).closest('.tabs');
-      console.log('Selected tab: ' , jQuery(activeTabs).tabs('option','selected'));
-      //  TODO - Store references to active tab object and the active tab.
-      jQuery.data({
-        selected_tab: jQuery(activeTabs).tabs('option','selected'),
-        active_tab_object: activeTabs
-      });
-    }
-  });
   
   jQuery('.quick_search_tag').tagSuggest({
     url: jQuery.rootPath() + 'contact_query/autocomplete_tags',
