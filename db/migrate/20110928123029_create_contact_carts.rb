@@ -2,7 +2,7 @@ class CreateContactCarts < ActiveRecord::Migration
   def self.up
     create_table :contact_carts do |t|
       t.string :name, :limit => 100, :null => false
-      t.text :description
+      t.string :description, :limit => 5.kilobytes
       t.boolean :global, :default => true
 
       t.timestamps

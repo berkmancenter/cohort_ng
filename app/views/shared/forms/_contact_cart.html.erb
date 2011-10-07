@@ -2,7 +2,7 @@
   <div id="error" class="ui-state-error ui-corner-all ui-widget" style="display: none;"></div>
   <%= f.inputs :name => 'Contact List' do %>
     <%= f.input :name %>
-    <%= f.input :description %>
+    <%= f.input :description, :as => :text %>
     <%= f.input :global, :hint => 'list can be viewed / edited by everyone.' %>
   <% end %>
 <% end %>

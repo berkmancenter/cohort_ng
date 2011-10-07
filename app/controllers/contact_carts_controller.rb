@@ -54,10 +54,16 @@ class ContactCartsController < BaseController
         current_user.has_role!(:editor, @contact_cart)
         flash[:notice] = "Updated that contact list"
         format.js { render :text => nil }
-        format.html {redirect_to :action => :index, :layout => ! request.xhr?}
+        format.html { render :text => "success", :layout => ! request.xhr?}
       else
         format.js { render :text => "We couldn't update that contact list. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
-        format.html { render :action => :edit, :layout => ! request.xhr? }
+        format.html { 
+          if request.xhr?
+            render :text => "We couldn't update that contact list. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity, :layout => false 
+          else 
+            render :template => 'contact_cart/new'
+          end
+        }
       end
     end
   end
