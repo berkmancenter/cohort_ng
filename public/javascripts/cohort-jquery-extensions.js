@@ -76,6 +76,7 @@ jQuery.extend({
     observeDestroyControls: function(){
       jQuery('a.delete').live('click', function(e){
         e.preventDefault();
+        jQuery.retainTabStateFromLink(this);
         var objectType = '';
         var classList = jQuery(this).attr('class').split(/\s+/)
         jQuery(classList).each(function(index, item){
@@ -110,7 +111,7 @@ jQuery.extend({
                   jQuery.hideGlobalSpinnerNode();
                 },
                 success: function(){
-                  console.log(objectType);
+                  jQuery.refreshActiveTabPane();
                   jQuery.updateLists(objectType);
                   jQuery(confirmNode).dialog('close');
                 }
@@ -167,12 +168,7 @@ jQuery.extend({
       observeDialogShow: function(rootClass){
         jQuery(rootClass).live('click',function(e){
           e.preventDefault();
-          var activeTabs = jQuery(this).closest('.tabs');
-          console.log('Active tab object: ', activeTabs);
-          if(activeTabs.length > 0){
-            jQuery.data(document.body, 'selected_tab', jQuery(activeTabs).tabs('option','selected'));
-            jQuery.data(document.body, 'active_tab_object', activeTabs);
-          }
+          jQuery.retainTabStateFromLink(this);
           jQuery.ajax({
             cache: false,
             dataType: 'html',
@@ -206,6 +202,7 @@ jQuery.extend({
                 }
               });
               //FIXME
+              jQuery.retainTabStateFromLink();
             }
           });
         });
@@ -215,24 +212,36 @@ jQuery.extend({
       refreshActiveTabPane: function(){
         var selected_tab =  jQuery.data(document.body,'selected_tab');
         var active_tab_object =  jQuery.data(document.body,'active_tab_object');
-        console.log('Selected Tab: ' , selected_tab);
-        console.log('Active Tab Object: ' , active_tab_object);
-        if(selected_tab){
+        console.log('Selected Tab in refresh: ' , selected_tab);
+        console.log('Active Tab Object in refresh: ' , active_tab_object);
+        if(active_tab_object){
+          // TODO - test for definedness and then reload tab.
           jQuery(active_tab_object).tabs('load', selected_tab);
         }
-    },
+      },
 
+    retainTabStateFromBeautyTip: function(){
+      var targetEl = jQuery('.bt-active');
+      console.log('Target el: ', targetEl);
+      var activeTabs = jQuery(targetEl).closest('.tabs');
+      console.log('activeTabs: ' , activeTabs);
+      if(activeTabs.length > 0){
+        jQuery.data(document.body, 'selected_tab', jQuery(activeTabs).tabs('option','selected'));
+        jQuery.data(document.body, 'active_tab_object', activeTabs);
+      }
+    },
+    retainTabStateFromLink: function(el){
+      var activeTabs = jQuery(el).closest('.tabs');
+      console.log('Active tab object: ', activeTabs);
+      if(activeTabs.length > 0){
+        jQuery.data(document.body, 'selected_tab', jQuery(activeTabs).tabs('option','selected'));
+        jQuery.data(document.body, 'active_tab_object', activeTabs);
+      }
+    },
     observeDialogForm: function(rootClass){
         jQuery(rootClass).live('click',function(e){
           e.preventDefault();
-          var targetEl = jQuery('.bt-active');
-          console.log('Target el: ', targetEl);
-          var activeTabs = jQuery(targetEl).closest('.tabs');
-          console.log('activeTabs: ' , activeTabs);
-          if(activeTabs.length > 0){
-            jQuery.data(document.body, 'selected_tab', jQuery(activeTabs).tabs('option','selected'));
-            jQuery.data(document.body, 'active_tab_object', activeTabs);
-          }
+          jQuery.retainTabStateFromBeautyTip();
           jQuery.ajax({
             cache: false,
             dataType: 'html',
@@ -294,10 +303,10 @@ jQuery.extend({
                               jQuery('.ui-dialog .ui-dialog-buttonset').prepend(jQuery.interiorSpinnerNode('objectEdit'));
                             },
                             success: function(){
-                              jQuery.refreshActiveTabPane();
                               //jQuery.updateLists('contact');
                               //jQuery.updateLists('note');
                               jQuery(dialogNode).dialog('close');
+                              jQuery.refreshActiveTabPane();
                             },
                             complete: function(){
                               jQuery.hideInteriorSpinnerNode('objectEdit');

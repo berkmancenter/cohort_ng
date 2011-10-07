@@ -1,4 +1,7 @@
 <li id="contact-<%= contact.id %>">
- <a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('add') %></a> <%= link_to(contact, contact_path(contact), :class => 'dialog-show') %>
+<% unless current_user.blank? %>
+  <a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('add') %></a>
+<% end %>
+  <%= link_to(contact, contact_path(contact), :class => 'dialog-show') %>
  <% unless current_user.blank? %><span id="contact-control-<%= contact.id %>-target" style="display: none;"><%= link_to(icon('page_add') + ' Add Document',new_document_path(:contact_id => contact.id), :title => 'Add Document') %><br/><%= link_to(icon('note_add') + ' Add Note',new_note_path(:contact_id => contact.id),:class => 'dialog-form', :title => "Add Note") %><br/><%= link_to(icon('user_edit') + ' Edit Contact',edit_contact_path(contact), :title => 'Edit Contact', :class => 'dialog-form') %><br/> <%= link_to(icon('user_delete') + ' Delete contact',contact_path(contact), :title => 'Delete Contact', :method => :delete, :class => 'delete delete-contact') %></span><% end %>
 </li>
