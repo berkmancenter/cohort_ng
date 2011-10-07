@@ -211,28 +211,25 @@ jQuery.extend({
 
       refreshActiveTabPane: function(){
         var modified_object_class =  jQuery.data(document.body,'modified_object_class');
-        console.log('Refresh: ' + modified_object_class);
-        jQuery('li.' + modified_object_class).closest('.tabs').each(function(){
-          console.log('tabObj: ', this);
-          var current_index = jQuery(this).tabs('option','selected');
-          console.log('Current Index: ', current_index);
-          jQuery(this).tabs('load',current_index);
-        });
+        if(typeof(modified_object_class) != 'undefined'){
+          jQuery('li.' + modified_object_class).closest('.tabs').each(function(){
+            var current_index = jQuery(this).tabs('option','selected');
+            jQuery(this).tabs('load',current_index);
+          });
+        }
       },
 
     retainTabStateFromBeautyTip: function(){
       var targetEl = jQuery('.bt-active');
       var modified_object_class = jQuery(targetEl).closest('li').attr('class');
-      console.log('modified_object_class from bt: ' + modified_object_class);
-      if(modified_object_class.length > 0){
+      if(typeof(modified_object_class) != 'undefined'){
         jQuery.data(document.body, 'modified_object_class', modified_object_class);
       }
     },
 
     retainTabStateFromLink: function(el){
       var modified_object_class = jQuery(el).closest('li').attr('class');
-      console.log('modified_object_class from link: ' + modified_object_class);
-      if(modified_object_class > 0){
+      if(typeof(modified_object_class) != 'undefined'){
         jQuery.data(document.body, 'modified_object_class', modified_object_class);
       }
     },
