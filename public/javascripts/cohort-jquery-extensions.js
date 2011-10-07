@@ -210,34 +210,33 @@ jQuery.extend({
       },
 
       refreshActiveTabPane: function(){
-        var selected_tab =  jQuery.data(document.body,'selected_tab');
-        var active_tab_object =  jQuery.data(document.body,'active_tab_object');
-        console.log('Selected Tab in refresh: ' , selected_tab);
-        console.log('Active Tab Object in refresh: ' , active_tab_object);
-        if(active_tab_object){
-          // TODO - test for definedness and then reload tab.
-          jQuery(active_tab_object).tabs('load', selected_tab);
-        }
+        var modified_object_class =  jQuery.data(document.body,'modified_object_class');
+        console.log('Refresh: ' + modified_object_class);
+        jQuery('li.' + modified_object_class).closest('.tabs').each(function(){
+          console.log('tabObj: ', this);
+          var current_index = jQuery(this).tabs('option','selected');
+          console.log('Current Index: ', current_index);
+          jQuery(this).tabs('load',current_index);
+        });
       },
 
     retainTabStateFromBeautyTip: function(){
       var targetEl = jQuery('.bt-active');
-      console.log('Target el: ', targetEl);
-      var activeTabs = jQuery(targetEl).closest('.tabs');
-      console.log('activeTabs: ' , activeTabs);
-      if(activeTabs.length > 0){
-        jQuery.data(document.body, 'selected_tab', jQuery(activeTabs).tabs('option','selected'));
-        jQuery.data(document.body, 'active_tab_object', activeTabs);
+      var modified_object_class = jQuery(targetEl).closest('li').attr('class');
+      console.log('modified_object_class from bt: ' + modified_object_class);
+      if(modified_object_class.length > 0){
+        jQuery.data(document.body, 'modified_object_class', modified_object_class);
       }
     },
+
     retainTabStateFromLink: function(el){
-      var activeTabs = jQuery(el).closest('.tabs');
-      console.log('Active tab object: ', activeTabs);
-      if(activeTabs.length > 0){
-        jQuery.data(document.body, 'selected_tab', jQuery(activeTabs).tabs('option','selected'));
-        jQuery.data(document.body, 'active_tab_object', activeTabs);
+      var modified_object_class = jQuery(el).closest('li').attr('class');
+      console.log('modified_object_class from link: ' + modified_object_class);
+      if(modified_object_class > 0){
+        jQuery.data(document.body, 'modified_object_class', modified_object_class);
       }
     },
+
     observeDialogForm: function(rootClass){
         jQuery(rootClass).live('click',function(e){
           e.preventDefault();

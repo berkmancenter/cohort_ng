@@ -1,4 +1,4 @@
-<li>
+<li class="contact-cart-<%= contact_cart.id %>">
 <% unless current_user.blank? %>
   <a href="#" class="control" id="contact_cart-control-<%= contact_cart.id %>"><%= icon('add') %></a>
 <% end %>

@@ -4,8 +4,15 @@
 <% unless @notes.blank? %>
   <ul class="resultlist">
     <% @notes.each do |n| %>
-      <li>
-      <a href="#" class="control" id="note-control-<%= n.id %>"><%= icon('add') %></a> <%= link_to(truncate(n.note,:length => 60, :separator => ' '),n, :class => 'dialog-show') %><span id="note-control-<%= n.id %>-target" style="display: none;"><%= link_to(icon('note_edit') + ' Edit note', edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %><br/><%= link_to(icon('note_delete') + ' Delete note',note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %></span></li>
+      <li class="note-<%= n.id %>">
+      <% unless current_user.blank? %>
+        <a href="#" class="control" id="note-control-<%= n.id %>"><%= icon('add') %></a>
+      <% end %>
+      <%= link_to(truncate(n.note,:length => 60, :separator => ' '),n, :class => 'dialog-show') %> on <%= link_to(n.contact, contact_path(n.contact), :class => 'dialog-show') %>
+      <% unless current_user.blank? %>
+        <span id="note-control-<%= n.id %>-target" style="display: none;"><%= link_to(icon('note_edit') + ' Edit note', edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %><br/><%= link_to(icon('note_delete') + ' Delete note',note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %></span>
+      <% end %>
+      </li>
     <% end %>
   </ul>
   <%= will_paginate(@notes) %>
