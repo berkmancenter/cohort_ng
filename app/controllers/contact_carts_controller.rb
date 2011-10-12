@@ -1,5 +1,27 @@
 class ContactCartsController < BaseController
 
+  def add_contact
+    @contact_cart = ContactCart.find_or_create_by_id(params[:id])
+    unless @contact_cart
+      # autovivify
+      @contact_cart = ContactCart.create(:name => "Contact List created on #{Time.now.to_s(:compact_datetime)}", :global => true)
+    end
+    @contact_id = params[:contact_id]
+    unless @contact_cart.contact_ids.include?(@contact_id)
+      @contact_cart.contact_ids << @contact_id
+    end
+    @contact_cart.save!
+    respond_to do|format|
+      format.js{ render :text => '' }
+      format.html{ render :text => '', :layout => ! request.xhr? }
+    end
+  rescue Exception => e
+    respond_to do|format|
+      format.js { render :text => "We couldn't add that contact list. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
+        format.html { render :action => :new, :layout => ! request.xhr? }
+    end
+  end
+
   def index
     @contact_carts = ContactCart.active
   end
@@ -74,11 +96,15 @@ class ContactCartsController < BaseController
       if @contact_cart.destroy
         flash[:notice] = "Removed that contact list"
         format.js { render :text => nil }
-        format.html {redirect_to :action => :index}
+        format.html { render :text => 'success', :layout => ! request.xhr? }
       else 
         flash[:notice] = "We couldn't remove that contact list"
-        format.js { render :text => "We couldn't remove that contact list. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
-        format.html { render :action => :index, :layout => ! request.xhr? }
+        format.js { 
+          render :text => "We couldn't remove that contact list. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity 
+        }
+        format.html { 
+          render :text => "We couldn't remove that contact list. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity, :layout => ! request.xhr? 
+        }
       end
     end
   end

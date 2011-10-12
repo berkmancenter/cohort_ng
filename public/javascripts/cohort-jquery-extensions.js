@@ -76,7 +76,7 @@ jQuery.extend({
     observeDestroyControls: function(){
       jQuery('a.delete').live('click', function(e){
         e.preventDefault();
-        jQuery.retainTabStateFromLink(this);
+        jQuery.retainTabStateFromBeautyTip(this);
         var objectType = '';
         var classList = jQuery(this).attr('class').split(/\s+/)
         jQuery(classList).each(function(index, item){
@@ -211,6 +211,7 @@ jQuery.extend({
 
       refreshActiveTabPane: function(){
         var modified_object_class =  jQuery.data(document.body,'modified_object_class');
+//        console.log('modified_object_class to refresh: ' + modified_object_class);
         if(typeof(modified_object_class) != 'undefined'){
           jQuery('li.' + modified_object_class).closest('.tabs').each(function(){
             var current_index = jQuery(this).tabs('option','selected');
@@ -222,6 +223,7 @@ jQuery.extend({
     retainTabStateFromBeautyTip: function(){
       var targetEl = jQuery('.bt-active');
       var modified_object_class = jQuery(targetEl).closest('li').attr('class');
+      // console.log('bt modified_object_class: ' + modified_object_class);
       if(typeof(modified_object_class) != 'undefined'){
         jQuery.data(document.body, 'modified_object_class', modified_object_class);
       }
@@ -229,6 +231,7 @@ jQuery.extend({
 
     retainTabStateFromLink: function(el){
       var modified_object_class = jQuery(el).closest('li').attr('class');
+      // console.log('link modified_object_class: ' + modified_object_class);
       if(typeof(modified_object_class) != 'undefined'){
         jQuery.data(document.body, 'modified_object_class', modified_object_class);
       }

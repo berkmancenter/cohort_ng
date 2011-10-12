@@ -4,7 +4,12 @@ CohortNg::Application.routes.draw do
   get "contact_cart_query/all"
   get "contact_cart_query/your_private"
 
-  resources :contact_carts
+  resources :contact_carts do
+    member do
+      post :add_contact
+      post :remove_contact
+    end
+  end
 
   match 'tag_query/tag/:id' => 'tag_query#tag'
   get "tag_query/search"
