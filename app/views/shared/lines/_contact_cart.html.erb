@@ -1,9 +1,15 @@
 <li class="contact-cart-<%= contact_cart.id %>">
 <% unless current_user.blank? %>
-  <a href="#" class="control" id="contact_cart-control-<%= contact_cart.id %>"><%= icon('add') %></a>
+  <% if params[:select_for_contact_cart].blank? %>
+    <a href="#" class="control" id="contact_cart-control-<%= contact_cart.id %>"><%= icon('add') %></a>
+  <% else %>
+    <a href="#" class="select_for_contact_cart" id="contact_cart-<%= contact_cart.id %>"><%= icon('basket_add') %></a>
+  <% end %>
 <% end %>
 <%= link_to(contact_cart, contact_cart, :class => 'dialog-show') %>
 <% unless current_user.blank? %>
-  <span id="contact_cart-control-<%= contact_cart.id %>-target" style="display: none;"><%= link_to(icon('note_edit') + ' Edit', edit_contact_cart_path(contact_cart),:class => 'dialog-form', :title => 'Edit contact list') %><br/><%= link_to(icon('note_delete') + ' Delete',contact_cart_path(contact_cart), :method => :delete, :title => 'Delete contact list', :class => 'delete delete-contact_cart') %></span>
+  <% if params[:select_for_contact_cart].blank? %>
+    <span id="contact_cart-control-<%= contact_cart.id %>-target" style="display: none;"><%= link_to(icon('note_edit') + ' Edit', edit_contact_cart_path(contact_cart),:class => 'dialog-form', :title => 'Edit contact list') %><br/><%= link_to(icon('note_delete') + ' Delete',contact_cart_path(contact_cart), :method => :delete, :title => 'Delete contact list', :class => 'delete delete-contact_cart') %></span>
+  <% end %>
 <% end %>
 </li>

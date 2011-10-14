@@ -58,6 +58,34 @@ jQuery(document).ready(function(){
     });
   });
 
+  jQuery('.select_for_contact_cart').live({
+    click: function(e){
+      e.preventDefault();
+      // So here's where we'll get the contact id and the contact list id and then do the dirty work
+    }
+  });
+
+  jQuery('.add_to_list').live({
+    click: function(e){
+      e.preventDefault();
+      var contactId = jQuery('.bt-active').closest('li').attr('class').split('-')[1];
+      // Open a dialog to select the list.
+      var dialog = jQuery('<div><h1>Contact lists</h1><div class="subtabs"><ul><li><a href="/contact_cart_query/yours">Mine</a></li><li><a href="/contact_cart_query/all">All</a></li><li><a href="/contact_cart_query/your_private">Private</a></li></ul></div></div>');
+      jQuery(dialog).dialog({
+        modal: true,
+        position: 'top'
+      });
+      jQuery(dialog).dialog('open');
+      jQuery(dialog).find('.subtabs').tabs({
+        ajaxOptions: {
+          dataType: 'html',
+          data: {select_for_contact_cart: 1}
+        }
+      });
+
+    }
+  });
+
   jQuery('.control').live({
     click: function(e){
       e.preventDefault();
