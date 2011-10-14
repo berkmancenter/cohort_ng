@@ -12,19 +12,9 @@ class CreateContactCarts < ActiveRecord::Migration
       add_index :contact_carts, col
     end
 
-    create_table :contact_carts_contacts, :id => false, :force => true do |t|
-      t.references :contact_cart
-      t.references :contact
-    end
-
-    add_index :contact_carts_contacts, :contact_cart_id
-
-    add_index :contact_carts_contacts, [:contact_id, :contact_cart_id], :unique => true
-
   end
 
   def self.down
     drop_table :contact_carts
-    drop_table :contact_carts_contacts
   end
 end

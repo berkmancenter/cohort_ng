@@ -10,6 +10,8 @@ class ContactCart < ActiveRecord::Base
     25
   end
 
+  has_many :contact_sources, :dependent => :destroy
+
   scope :available, :conditions => {:global => true}
 
   has_and_belongs_to_many :contacts
@@ -17,6 +19,5 @@ class ContactCart < ActiveRecord::Base
   def to_s
     "#{name}"
   end
-
 
 end

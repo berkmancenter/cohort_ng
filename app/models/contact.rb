@@ -5,8 +5,6 @@ class Contact < ActiveRecord::Base
   acts_as_authorization_object
 
   include TaggingExtensions
-
-  has_and_belongs_to_many :contact_carts
   
   has_many :addresses, :dependent => :destroy, :order => :id
   has_many :emails, :dependent => :destroy, :order => :id

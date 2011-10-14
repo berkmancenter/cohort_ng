@@ -7,7 +7,9 @@ class ContactCartsController < BaseController
       @contact_cart = ContactCart.create(:name => "Contact List created on #{Time.now.to_s(:compact_datetime)}", :global => true)
     end
     @contact_id = params[:contact_id]
-    unless @contact_cart.contact_ids.include?(@contact_id)
+
+    # TODO - make this ACTUALLY work.
+    unless @contact_cart.contact_sources.include?(@contact_id)
       @contact_cart.contact_ids << @contact_id
     end
     @contact_cart.save!
