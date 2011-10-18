@@ -8,6 +8,9 @@ CohortNg::Application.routes.draw do
   resources :contact_carts do
     member do
       post :add_contact
+      get :contacts
+      get :tags
+      get :saved_searches
       post :remove_contact
     end
   end

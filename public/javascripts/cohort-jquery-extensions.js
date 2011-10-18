@@ -9,7 +9,7 @@ jQuery.extend({
         jQuery('#spinner').hide();
     },
     showMajorError: function(error){
-        jQuery('<div></div>').html("We're sorry, there appears to have been an error.").dialog({
+        jQuery('<div></div>').html("We're sorry, there appears to have been an error.<br/>" + error).dialog({
             modal: true
         }).dialog('open');
     },
@@ -201,8 +201,8 @@ jQuery.extend({
                   },
                 }
               });
-              //FIXME
               jQuery.retainTabStateFromLink();
+              jQuery('.tabs').tabs();
             }
           });
         });

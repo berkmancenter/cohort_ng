@@ -14,7 +14,9 @@ class ContactCart < ActiveRecord::Base
 
   scope :available, :conditions => {:global => true}
 
-  has_and_belongs_to_many :contacts
+  def contacts
+    contact_sources.collect{|cs| cs.contact_input.contacts}.flatten.uniq
+  end
 
   def to_s
     "#{name}"

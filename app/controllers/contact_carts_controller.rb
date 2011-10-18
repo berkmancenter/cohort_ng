@@ -8,19 +8,22 @@ class ContactCartsController < BaseController
     end
     @contact_id = params[:contact_id]
 
-    # TODO - make this ACTUALLY work.
-    unless @contact_cart.contact_sources.include?(@contact_id)
-      @contact_cart.contact_ids << @contact_id
+    message = ''
+    existing_contact_ids = @contact_cart.contact_sources.contact_input_sources.collect{|cis| cis.contact_input_id}
+    unless existing_contact_ids.include?(@contact_id.to_i)
+      ContactSource.create!(:contact_input_type => 'Contact', :contact_input_id => @contact_id, :contact_cart => @contact_cart)
+      message = 'Added that contact. Cheers!'
+    else
+      message = 'That contact was already in this contact list.'
     end
-    @contact_cart.save!
     respond_to do|format|
-      format.js{ render :text => '' }
-      format.html{ render :text => '', :layout => ! request.xhr? }
+      format.js{ render :text => message }
+      format.html{ render :text => message, :layout => ! request.xhr? }
     end
   rescue Exception => e
     respond_to do|format|
       format.js { render :text => "We couldn't add that contact list. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
-        format.html { render :action => :new, :layout => ! request.xhr? }
+      format.html { render :text => "We couldn't add that contact. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
     end
   end
 
@@ -51,6 +54,13 @@ class ContactCartsController < BaseController
         format.html { render :action => :new, :layout => ! request.xhr? }
       end
     end
+  end
+
+  def contacts
+    # TODO - make this work properly. Queries run, html not displayed.
+    @contact_cart = ContactCart.find(params[:id])
+    @contacts = @contact_cart.contact_sources.contact_input_sources.paginate(:page => params[:page], :per_page => params[:per_page])
+    negotiate_list_query_response('contact')
   end
 
   def show

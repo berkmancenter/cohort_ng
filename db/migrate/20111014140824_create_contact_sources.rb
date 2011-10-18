@@ -12,7 +12,7 @@ class CreateContactSources < ActiveRecord::Migration
       add_index :contact_sources, col
     end
 
-    add_index :contact_sources, [:contact_cart_id, :contact_input_type, :contact_input_id], :unique => true
+    add_index :contact_sources, [:contact_cart_id, :contact_input_type, :contact_input_id], :name => :george, :unique => true
   end
 
   def self.down

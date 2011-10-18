@@ -61,7 +61,31 @@ jQuery(document).ready(function(){
   jQuery('.select_for_contact_cart').live({
     click: function(e){
       e.preventDefault();
-      // So here's where we'll get the contact id and the contact list id and then do the dirty work
+      var contact_cart_id = jQuery(this).attr('id').split('-')[1];
+      var contact_id = jQuery.data(document.body, 'selected_contact_id');
+      jQuery.ajax({
+        cache: false,
+        type: 'POST',
+        dataType: 'html',
+        data: {contact_id: contact_id},
+        url: jQuery.rootPath() + 'contact_carts/' + contact_cart_id + '/add_contact',
+        beforeSend: function(){
+          jQuery.showGlobalSpinnerNode();
+        },
+        success: function(message){
+          jQuery('#add-contact-to-list').html(message);
+          window.setTimeout(function(){
+            jQuery('#add-contact-to-list').dialog('close').remove();
+          }, 1200);
+        },
+        error: function(xhr){
+          jQuery.showMajorError(xhr);
+        },
+        complete: function(){
+          jQuery.hideGlobalSpinnerNode();
+        }
+      });
+
     }
   });
 
@@ -69,9 +93,11 @@ jQuery(document).ready(function(){
     click: function(e){
       e.preventDefault();
       var contactId = jQuery('.bt-active').closest('li').attr('class').split('-')[1];
+      jQuery.data(document.body, 'selected_contact_id', contactId);
       // Open a dialog to select the list.
-      var dialog = jQuery('<div><h1>Contact lists</h1><div class="subtabs"><ul><li><a href="/contact_cart_query/yours">Mine</a></li><li><a href="/contact_cart_query/all">All</a></li><li><a href="/contact_cart_query/your_private">Private</a></li></ul></div></div>');
+      var dialog = jQuery('<div id="add-contact-to-list"><h1>Contact lists</h1><div class="subtabs"><ul><li><a href="/contact_cart_query/yours">Mine</a></li><li><a href="/contact_cart_query/all">All</a></li><li><a href="/contact_cart_query/your_private">Private</a></li></ul></div></div>');
       jQuery(dialog).dialog({
+        title: 'Add "'+ jQuery('li.contact-' + contactId + ' .dialog-show').html() + '" to a contact list',
         modal: true,
         position: 'top'
       });

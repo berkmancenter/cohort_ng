@@ -29,6 +29,10 @@ class Contact < ActiveRecord::Base
     25
   end
 
+  def contacts
+    [self]
+  end
+
   def hierarchical_tags
     tags.collect{|t| t.hierarchical_name(' :: ')}
   end
