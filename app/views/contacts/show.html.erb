@@ -3,7 +3,7 @@
   <div class="label">Birthday:</div> <%= @contact.birthday %>
 <% end %>
 
-<%= render :partial => 'shared/tag_list', :object => @contact.tags %> 
+<%= render :partial => 'shared/tag_list_for_display', :object => @contact.tags %> 
 
 <% unless @contact.documents.blank? %>
   <h2 class="contact_section_header">Documents</h2>

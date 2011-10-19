@@ -64,8 +64,14 @@ class ContactQueryController < BaseController
       @contact_query = nil
     end
     respond_to do |format|
-      format.html 
-      format.js { render :partial => 'search_results', :locals => { :contact_query => @contact_query } }
+      format.html {
+        if request.xhr?
+          render :partial => 'search_results', :locals => {:contact_query => @contact_query} 
+        else 
+          render 
+        end
+      }
+      format.js { render :layout => ! request.xhr? }
       format.xml  { render :xml => @contact_query.results }
     end
   end

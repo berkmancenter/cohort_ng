@@ -1,0 +1,8 @@
+<% unless tag_list_for_display.blank? %>
+  <span class="tagMatches existingTags">
+    <% tag_list_for_display.each do |t| %>
+      <span id="tag_<%= t.id %>"><%= t.hierarchical_name(' :: ') %></span>
+    <% end %>
+  </span>
+  <div class="clear"></div>
+<% end %>

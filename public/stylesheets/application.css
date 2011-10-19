@@ -118,7 +118,7 @@ dd{
 }
 
 .search .list{
-  max-height: none;
+  height: auto;
   width: 400px;
 }
 

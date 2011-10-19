@@ -1,8 +1,10 @@
-<% unless tag_list.blank? %>
+<% unless @tags.blank? %>
   <span class="tagMatches existingTags">
-    <% tag_list.each do |t| %>
-      <span id="tag_<%= t.id %>"><%= t.hierarchical_name(' :: ') %></span>
+    <% @tags.each do |t| %>
+      <span id="tag_<%= t.id %>"><%= link_to(t.hierarchical_name(' :: '),tag_path(t)) %></span>
     <% end %>
   </span>
   <div class="clear"></div>
+<% else %>
+  <h3>Nothing found.</h3>
 <% end %>

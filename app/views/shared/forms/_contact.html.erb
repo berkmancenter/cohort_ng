@@ -12,7 +12,7 @@
 
   <%= f.inputs :name => '&#9654; Tags ' + ((f.object.tags.length > 0 ) ? "(#{f.object.tags.length})" : ''), :class => 'collapsable' do %>
     <% unless f.object.new_record? %>
-      <%= render :partial => 'shared/tag_list', :object => f.object.tags %>
+      <%= render :partial => 'shared/tag_list_for_display', :object => f.object.tags %>
     <% end %>
     <%= f.input :hierarchical_tags_for_edit, :value => '', :as => 'text', :input_html => {:rows => 5, :cols => 40, :class => 'tag_list'}, :hint => 'a comma separated list of tags.', :label => 'Tag list' %>
     <div class="clear"></div>

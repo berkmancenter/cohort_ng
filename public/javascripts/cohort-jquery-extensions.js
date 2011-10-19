@@ -204,6 +204,7 @@ jQuery.extend({
               jQuery.retainTabStateFromLink();
               jQuery('.tabs').tabs({
                 ajaxOptions: {
+                  cache: false,
                   dataType: 'html'
                 }
               });
@@ -292,12 +293,14 @@ jQuery.extend({
                         Submit: function(){
                           if(jQuery(dialogNode).find('form').hasClass('contact')){
                             var tagList = jQuery('#contact_hierarchical_tags_for_edit').val().split(/\s+?,\s+?/);
+                            console.log('Tag list: ', tagList);
                             jQuery('.existingTags span').each(function(){
                               tagList.push(jQuery(this).html());
                             });
                             tagList = jQuery.grep(tagList,function(n,i){
                               return(n);
                             });
+                            console.log('Tag list after de-dupe:', tagList);
                             jQuery('#contact_hierarchical_tag_list').val(tagList.join(','));
                           }
                           jQuery(dialogNode).find('form').ajaxSubmit({

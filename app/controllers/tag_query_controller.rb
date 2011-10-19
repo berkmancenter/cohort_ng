@@ -1,12 +1,21 @@
 class TagQueryController < BaseController
 
   def search
+    @tag_query = Sunspot.new_search(ActsAsTaggableOn::Tag)
+    @tag_query.build do
+      text_fields{
+        with(:hierarchical_name_for_indexing).starting_with(params[:q])
+      }
+      paginate :page => params[:page], :per_page => cookies[:per_page] || Contact.per_page
+    end
+    @tag_query.execute!
+    @tags = @tag_query.results
+    negotiate_list_query_response('tag')
   end
 
   def recent_taggings
     @taggings = ActsAsTaggableOn::Tagging.paginate(:order => 'created_at desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
     negotiate_list_query_response('tagging')
-
   end
 
 end

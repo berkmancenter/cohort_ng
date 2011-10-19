@@ -1,5 +1,15 @@
-<div class="contact search">
-  <div class="list">
-    <%= render :partial => 'search_results', :locals => {:contact_query => @contact_query} %>
+<div class="tabs">
+  <ul>
+    <li><a href="#contacts">Contacts</a></li>
+    <li><%= link_to('Tags', tag_query_search_path(:q => params[:q])) %></li>
+  </ul>
+
+  <div id="contacts">
+    <div class="contact search" >
+      <div class="list">
+        <%= render :partial => 'search_results', :locals => {:contact_query => @contact_query} %>
+      </div>
+    </div>
   </div>
+
 </div>

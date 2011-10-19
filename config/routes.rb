@@ -1,5 +1,7 @@
 CohortNg::Application.routes.draw do
 
+  resources :saved_searches
+
   get "contact_cart_query/yours"
   get "contact_cart_query/all"
   get "contact_cart_query/your_private"

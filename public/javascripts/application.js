@@ -19,6 +19,7 @@ jQuery(document).ready(function(){
 
   jQuery('.tabs').tabs({
     ajaxOptions: {
+      cache: false,
       dataType: 'html',
       beforeSend: function(){
         jQuery.showGlobalSpinnerNode();
@@ -104,6 +105,7 @@ jQuery(document).ready(function(){
       jQuery(dialog).dialog('open');
       jQuery(dialog).find('.subtabs').tabs({
         ajaxOptions: {
+          cache: false,
           dataType: 'html',
           data: {select_for_contact_cart: 1}
         }
