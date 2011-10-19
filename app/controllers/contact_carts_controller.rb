@@ -56,13 +56,6 @@ class ContactCartsController < BaseController
     end
   end
 
-  def contacts
-    # TODO - make this work properly. Queries run, html not displayed.
-    @contact_cart = ContactCart.find(params[:id])
-    @contacts = @contact_cart.contact_sources.contact_input_sources.paginate(:page => params[:page], :per_page => params[:per_page])
-    negotiate_list_query_response('contact')
-  end
-
   def show
     # Need acl9. . 
     @contact_cart = ContactCart.find(params[:id])
@@ -119,6 +112,26 @@ class ContactCartsController < BaseController
         }
       end
     end
+  end
+
+  def saved_search
+    # TODO
+    @contact_cart = ContactCart.find(params[:id])
+    @contact_sources = @contact_cart.contact_sources.saved_search_input_sources.paginate(:page => params[:page], :per_page => params[:per_page])
+    negotiate_list_query_response('saved_search_contact_source')
+  end
+  
+  def tags
+    # TODO
+    @contact_cart = ContactCart.find(params[:id])
+    @contact_sources = @contact_cart.contact_sources.tag_input_sources.paginate(:page => params[:page], :per_page => params[:per_page])
+    negotiate_list_query_response('tag_contact_source')
+  end
+
+  def contacts
+    @contact_cart = ContactCart.find(params[:id])
+    @contact_sources = @contact_cart.contact_sources.contact_input_sources.paginate(:page => params[:page], :per_page => params[:per_page])
+    negotiate_list_query_response('contact_contact_source')
   end
 
 end

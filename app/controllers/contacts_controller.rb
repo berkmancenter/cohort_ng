@@ -80,7 +80,7 @@ class ContactsController < BaseController
       if @contact.destroy
         flash[:notice] = "Removed that contact"
         format.js { render :text => nil }
-        format.html {redirect_to :action => :index}
+        format.html { render :text => nil, :layout => ! request.xhr? }
       else 
         flash[:notice] = "We couldn't remove that contact"
         format.js { render :text => "We couldn't remove that contact. <br />#{@contact.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }

@@ -28,6 +28,7 @@ CohortNg::Application.routes.draw do
 #  delete "tags/destroy"
 
   resources :tags
+  resources :contact_sources
 
   get "note_query/new"
   get "note_query/upcoming"

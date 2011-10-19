@@ -202,7 +202,11 @@ jQuery.extend({
                 }
               });
               jQuery.retainTabStateFromLink();
-              jQuery('.tabs').tabs();
+              jQuery('.tabs').tabs({
+                ajaxOptions: {
+                  dataType: 'html'
+                }
+              });
             }
           });
         });
