@@ -32,6 +32,8 @@ jQuery(document).ready(function(){
       }
     }
   });
+
+  jQuery('.button').button();
   
   jQuery('.quick_search_tag').tagSuggest({
     url: jQuery.rootPath() + 'contact_query/autocomplete_tags',

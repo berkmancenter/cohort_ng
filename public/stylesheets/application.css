@@ -294,6 +294,10 @@ form.formtastic fieldset > ol > li {
   font-size: 10px;
 }
 
+.button{
+  padding: .25em .5em .25em .5em !important;
+}
+
 .addresses .address_type{
   font-weight: bold;
 }

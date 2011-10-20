@@ -17,12 +17,22 @@ class Contact < ActiveRecord::Base
     text :last_name, :boost => 2
     text :notes
     text :hierarchical_tag_list
+    text :email_addresses_as_string
     integer :tag_ids, :multiple => true
     string :hierarchical_tag_list
     string :hierarchical_tags, :multiple => true
+    string :email_addresses, :multiple => true
     time :birthday
     boolean :active
     boolean :deleted
+  end
+
+  def email_addresses
+    self.emails.collect{|e| e.email}
+  end
+
+  def email_addresses_as_string
+    self.email_addresses.join(' ')
   end
 
   def self.per_page

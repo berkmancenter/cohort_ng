@@ -8,12 +8,15 @@
   <div id="contacts">
     <h2>Search Contacts</h2>
     <% semantic_form_for :search do|f| %>
-      <%= f.inputs do %>
-        <%= f.input :q, :label => 'Query', :required => false %>
+      <% f.inputs do %>
+        <%= f.input :q, :label => 'Query', :input_html => {:size => 40}, :required => false, :hint => "Searches names, notes, tags and email addresses" %>
         <%= f.input :updated_before, :input_html => {:class => 'datepicker'}, :required => false %>
         <%= f.input :updated_after, :input_html => {:class => 'datepicker'}, :required => false %>
         <%= f.input :tagged_with, :as => :text, :required => false, :hint => 'Tagged with these tags.', :input_html => {:class => 'search_tag', :rows => 3, :cols => 40} %>
-        <%= f.input :exclude_tag, :as => :text, :required => false, :hint => 'Exclude records tagged with these tags.', :input_html => {:class => 'search_tag', :rows => 2, :cols => 40} %>
+        <%= f.input :exclude_tag, :label => 'Exclude these tags', :as => :text, :required => false, :hint => 'Exclude records tagged with these tags.', :input_html => {:class => 'search_tag', :rows => 2, :cols => 40} %>
+      <% end %>
+      <% f.buttons do %>
+        <%= f.submit 'Search', :class => 'button' %>
       <% end %>
     <% end %>
   </div>
