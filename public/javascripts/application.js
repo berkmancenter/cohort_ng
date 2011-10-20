@@ -37,6 +37,13 @@ jQuery(document).ready(function(){
     url: jQuery.rootPath() + 'contact_query/autocomplete_tags',
     delay: 500
   });
+
+  jQuery('.search_tag').tagSuggest({
+    url: jQuery.rootPath() + 'contact_query/autocomplete_tags',
+    separator: ', ',
+    delay: 500
+  });
+
   jQuery('#quick_search_submit').click(function(e){
     e.preventDefault();
     // goes into #quick_search_results

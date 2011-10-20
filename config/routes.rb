@@ -1,5 +1,11 @@
 CohortNg::Application.routes.draw do
 
+  get "search/index"
+  get "search/contacts"
+  get "search/notes"
+  get "search/tags"
+  get "search/documents"
+
   resources :saved_searches
 
   get "contact_cart_query/yours"

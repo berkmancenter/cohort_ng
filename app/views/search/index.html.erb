@@ -1,0 +1,38 @@
+<div class="tabs">
+  <ul>
+    <li><a href="#contacts">Contact</a></li>
+    <li><a href="#tags">Tags</a></li>
+    <li><a href="#notes">Notes</a></li>
+    <li><a href="#documents">Documents</a></li>
+  </ul>
+  <div id="contacts">
+    <h2>Search Contacts</h2>
+    <% semantic_form_for :search do|f| %>
+      <%= f.inputs do %>
+        <%= f.input :q, :label => 'Query', :required => false %>
+        <%= f.input :updated_before, :input_html => {:class => 'datepicker'}, :required => false %>
+        <%= f.input :updated_after, :input_html => {:class => 'datepicker'}, :required => false %>
+        <%= f.input :tagged_with, :as => :text, :required => false, :hint => 'Tagged with these tags.', :input_html => {:class => 'search_tag', :rows => 3, :cols => 40} %>
+        <%= f.input :exclude_tag, :as => :text, :required => false, :hint => 'Exclude records tagged with these tags.', :input_html => {:class => 'search_tag', :rows => 2, :cols => 40} %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="tags">
+    <h2>Search Tags</h2>
+  </div>
+
+  <div id="notes">
+    <h2>Search Notes</h2>
+  </div>
+
+  <div id="documents">
+    <h2>Search Documents</h2>
+  </div>
+</div>
+
+<%= javascript_tag %q|
+jQuery(document).ready(function(){
+  jQuery.initDateControl();
+});
+| %>
