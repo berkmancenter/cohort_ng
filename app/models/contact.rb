@@ -19,6 +19,8 @@ class Contact < ActiveRecord::Base
     text :hierarchical_tag_list
     text :email_addresses_as_string
 
+    # TODO - make this case insensitive!
+
     string :first_name
     string :last_name
     string :email_addresses, :multiple => true
