@@ -142,7 +142,7 @@ jQuery.extend({
 
       observeListPagination: function(){
         jQuery('.pagination a').live('click',function(e){
-          var paginationTarget = jQuery(this).closest('.ui-widget-content');
+          var paginationTarget = jQuery(this).closest('.search_results,.ui-widget-content');
           e.preventDefault();
           jQuery.ajax({
             type: 'GET',

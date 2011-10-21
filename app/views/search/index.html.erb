@@ -1,3 +1,4 @@
+<% values = (params[:search].blank?) ? {} : params[:search] %>
 <div class="tabs">
   <ul>
     <li><a href="#contacts">Contact</a></li>
@@ -7,18 +8,20 @@
   </ul>
   <div id="contacts">
     <h2>Search Contacts</h2>
-    <% semantic_form_for :search do|f| %>
+    <% semantic_form_for(:search, :html => {:method => :get, :id => 'contact_search_form'}, :url => search_contacts_path()) do|f| %>
       <% f.inputs do %>
-        <%= f.input :q, :label => 'Query', :input_html => {:size => 40}, :required => false, :hint => "Searches names, notes, tags and email addresses" %>
-        <%= f.input :updated_before, :input_html => {:class => 'datepicker'}, :required => false %>
-        <%= f.input :updated_after, :input_html => {:class => 'datepicker'}, :required => false %>
-        <%= f.input :tagged_with, :as => :text, :required => false, :hint => 'Tagged with these tags.', :input_html => {:class => 'search_tag', :rows => 3, :cols => 40} %>
-        <%= f.input :exclude_tag, :label => 'Exclude these tags', :as => :text, :required => false, :hint => 'Exclude records tagged with these tags.', :input_html => {:class => 'search_tag', :rows => 2, :cols => 40} %>
+        <%= f.input :q, :label => 'Query', :input_html => {:size => 40, :value => values[:q]}, :required => false, :hint => "Searches names, notes, tags and email addresses" %>
+        <%= f.input :created_after, :input_html => {:class => 'datepicker', :value => values[:created_after]}, :required => false %>
+        <%= f.input :created_before, :input_html => {:class => 'datepicker', :value => values[:created_before]}, :required => false %>
+        <%= f.input :tagged_with, :as => :text, :required => false, :hint => 'Tagged with these tags.', :input_html => {:class => 'search_tag', :rows => 3, :cols => 40, :value => values[:tagged_with]} %>
+        <%= f.input :exclude_tag, :label => 'Exclude these tags', :as => :text, :required => false, :hint => 'Exclude records tagged with these tags.', :input_html => {:class => 'search_tag', :rows => 2, :cols => 40, :value => values[:exclude_tag]} %>
       <% end %>
       <% f.buttons do %>
         <%= f.submit 'Search', :class => 'button' %>
       <% end %>
     <% end %>
+    <div id="contact_search_results" class="search_results">
+    </div>
   </div>
 
   <div id="tags">
@@ -37,5 +40,20 @@
 <%= javascript_tag %q|
 jQuery(document).ready(function(){
   jQuery.initDateControl();
+  jQuery('#contact_search_form').ajaxForm({
+    dataType: 'html',
+    beforeSubmit: function(){
+      jQuery.showGlobalSpinnerNode();
+    },
+    complete: function(){
+      jQuery.hideGlobalSpinnerNode();
+    },
+    success: function(html){
+      jQuery('#contact_search_results').html(html);
+    },
+    error: function(e,e2,text){
+      jQuery.showMajorError(text);
+    }
+  });
 });
 | %>

@@ -18,11 +18,17 @@ class Contact < ActiveRecord::Base
     text :notes
     text :hierarchical_tag_list
     text :email_addresses_as_string
+
+    string :first_name
+    string :last_name
+    string :email_addresses, :multiple => true
+
     integer :tag_ids, :multiple => true
     string :hierarchical_tag_list
     string :hierarchical_tags, :multiple => true
-    string :email_addresses, :multiple => true
     time :birthday
+    time :updated_at
+    time :created_at
     boolean :active
     boolean :deleted
   end

@@ -66,7 +66,7 @@ class ContactQueryController < BaseController
     respond_to do |format|
       format.html {
         if request.xhr?
-          render :partial => 'search_results', :locals => {:contact_query => @contact_query} 
+          render :partial => 'shared/contact_search_results', :locals => {:contact_query => @contact_query} 
         else 
           render 
         end
