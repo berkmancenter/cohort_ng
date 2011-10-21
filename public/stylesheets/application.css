@@ -98,6 +98,10 @@ dd{
   padding-top: 20px;
 }
 
+#right-header-container a{
+  color: white;
+}
+
 #spinner{
   display: none;
   position: fixed;
