@@ -9,7 +9,7 @@ class SearchController < ApplicationController
     @contact_query.build do
       unless qparams[:q].blank?
         any_of do
-          [:first_name, :last_name, :email_addresses].each do|col|
+          [:first_name_downcase, :last_name_downcase, :email_addresses].each do|col|
             with(col).starting_with(qparams[:q])
           end
         end

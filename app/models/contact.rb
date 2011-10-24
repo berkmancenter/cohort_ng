@@ -12,17 +12,23 @@ class Contact < ActiveRecord::Base
   has_many :notes, :dependent => :destroy, :order => :created_at
   has_many :documents, :dependent => :destroy, :order => :created_at
 
+  def first_name_downcase
+    self.first_name.downcase
+  end
+
+  def last_name_downcase
+    self.last_name.downcase
+  end
+
   searchable(:include => [:addresses, :emails, :notes, :tags]) do
-    text :first_name, :boost => 2
-    text :last_name, :boost => 2
+    text :first_name_downcase, :boost => 2
+    text :last_name_downcase, :boost => 2
     text :notes
     text :hierarchical_tag_list
     text :email_addresses_as_string
 
-    # TODO - make this case insensitive!
-
-    string :first_name
-    string :last_name
+    string :first_name_downcase
+    string :last_name_downcase
     string :email_addresses, :multiple => true
 
     integer :tag_ids, :multiple => true
@@ -36,7 +42,7 @@ class Contact < ActiveRecord::Base
   end
 
   def email_addresses
-    self.emails.collect{|e| e.email}
+    self.emails.collect{|e| e.email.downcase}
   end
 
   def email_addresses_as_string

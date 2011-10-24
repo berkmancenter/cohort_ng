@@ -35,7 +35,7 @@
           <%= link_to 'advanced', search_index_path %>
           <%= form_tag(contact_query_search_path, :method => :get) do %>
             <%= text_field_tag(:q, params[:q], :size => 15, :id => 'search_input',:placeholder => 'search . . ') %>
-            <%= submit_tag('go') %>
+            <%= submit_tag('go', :class => 'button') %>
           <% end %>
           <%= image_tag('ajax-loader.gif', :id => 'spinner') %>
         </div>
