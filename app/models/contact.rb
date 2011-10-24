@@ -20,20 +20,21 @@ class Contact < ActiveRecord::Base
     self.last_name.downcase
   end
 
-  def notes_for_index
-    self.notes.collect{|n| n.note.downcase}.join(' ')
+  def notes_for_indexing
+    self.notes.collect{|n| n.note.downcase}
   end
 
   searchable(:include => [:addresses, :emails, :notes, :tags]) do
     text :first_name_downcase, :boost => 2
     text :last_name_downcase, :boost => 2
-    text :notes_for_index
+    text :notes_for_indexing
     text :hierarchical_tag_list
     text :email_addresses_as_string
 
     string :first_name_downcase
     string :last_name_downcase
     string :email_addresses, :multiple => true
+    string :notes_for_indexing, :multiple => true
 
     integer :tag_ids, :multiple => true
     string :hierarchical_tag_list
