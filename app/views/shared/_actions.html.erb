@@ -12,9 +12,7 @@
     <h3><a href="#notes">Notes</a></h3>
     <div>
       <ul>
-        <% unless current_user.blank? %>
-          <li><%= link_to 'new', new_note_url, :class => 'dialog-form' %></li>
-        <% end %>
+        <li><%= link_to 'all notes', notes_url %></li>
       </ul>
     </div>
     <h3><a href="#tags">Tags</a></h3>

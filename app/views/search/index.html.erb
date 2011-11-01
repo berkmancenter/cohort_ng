@@ -2,15 +2,14 @@
 <div class="tabs">
   <ul>
     <li><a href="#contacts">Contact</a></li>
-    <li><a href="#tags">Tags</a></li>
-    <li><a href="#notes">Notes</a></li>
-    <li><a href="#documents">Documents</a></li>
   </ul>
   <div id="contacts">
     <h2>Search Contacts</h2>
     <% semantic_form_for(:search, :html => {:method => :get, :id => 'contact_search_form'}, :url => search_contacts_path()) do|f| %>
       <% f.inputs do %>
         <%= f.input :q, :label => 'Query', :input_html => {:size => 40, :value => values[:q]}, :required => false, :hint => "Searches names, notes, tags and email addresses" %>
+        <%= f.input :notes, :label => 'Notes', :input_html => {:size => 40, :value => values[:q]}, :required => false, :hint => "Searches notes only" %>
+        <%= f.input :documents, :label => 'Documents', :input_html => {:size => 40, :value => values[:q]}, :required => false, :hint => "Searches document metadata only" %>
         <%= f.input :created_after, :input_html => {:class => 'datepicker', :value => values[:created_after]}, :required => false %>
         <%= f.input :created_before, :input_html => {:class => 'datepicker', :value => values[:created_before]}, :required => false %>
         <%= f.input :tagged_with, :as => :text, :required => false, :hint => 'Tagged with these tags.', :input_html => {:class => 'search_tag', :rows => 3, :cols => 40, :value => values[:tagged_with]} %>
@@ -22,18 +21,6 @@
     <% end %>
     <div id="contact_search_results" class="search_results">
     </div>
-  </div>
-
-  <div id="tags">
-    <h2>Search Tags</h2>
-  </div>
-
-  <div id="notes">
-    <h2>Search Notes</h2>
-  </div>
-
-  <div id="documents">
-    <h2>Search Documents</h2>
   </div>
 </div>
 
