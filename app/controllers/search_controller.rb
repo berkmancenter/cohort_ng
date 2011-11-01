@@ -11,6 +11,15 @@ class SearchController < ApplicationController
         fulltext qparams[:q].downcase
       end
 
+      unless qparams[:notes].blank?
+        fulltext(qparams[:notes], :fields => [:notes_for_indexing])
+      end
+
+      unless qparams[:documents].blank?
+        # FIXME
+        fulltext(qparams[:documents], :fields => [:notes_for_indexing])
+      end
+
       unless qparams[:created_before].blank?
         with(:created_at).less_than(qparams[:created_before])
       end

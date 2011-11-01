@@ -24,6 +24,11 @@ class Contact < ActiveRecord::Base
     self.notes.collect{|n| n.note.downcase}
   end
 
+  def documents_for_indexing
+    # FIXME
+    self.documents.collect{|n| n.note.downcase}
+  end
+
   searchable(:include => [:addresses, :emails, :notes, :tags]) do
     text :first_name_downcase, :boost => 2
     text :last_name_downcase, :boost => 2
