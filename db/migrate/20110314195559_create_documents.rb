@@ -6,6 +6,8 @@ class CreateDocuments < ActiveRecord::Migration
       t.string :document_type, :limit => 50
       t.string :description, :limit => 4.kilobytes
       t.string :file_attachment, :null => false
+      t.boolean :needs_indexing, :default => true
+      t.string :content, :limit => 5.megabytes
       t.references :contact
       t.timestamps
     end

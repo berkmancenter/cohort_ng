@@ -11,7 +11,6 @@ class DocumentsController < ApplicationController
   def create
     @document = Document.new
     @document.attributes = params[:document]
-    @document.user = current_user
     respond_to do|format|
       if @document.save
         current_user.has_role!(:owner, @document)

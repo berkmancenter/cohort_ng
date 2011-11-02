@@ -3,12 +3,38 @@ class Document < ActiveRecord::Base
   DOCUMENT_TYPES = {'' => '-- Choose one --','general' => 'General', 'profile_photo' => 'Profile Photo', 'pgp_public_key' => 'PGP Public key', 'ssh_public_key' => 'SSH public key'}
   acts_as_authorization_object
 
+  scope :for_indexing, where(['needs_indexing is true'])
+
   belongs_to :contact, :validate => true
   validates_inclusion_of :document_type, :in => DOCUMENT_TYPES.keys
   mount_uploader :file_attachment, FileAttachmentUploader
   
   def self.per_page
     25
+  end
+
+  def file_name
+    file_attachment.to_s
+  end
+
+  searchable do 
+    text :content
+    text :name, :boost => 2
+    text :file_name, :boost => 2
+
+    string :name
+    string :file_attachment
+  end
+
+  def get_file_contents
+    begin
+      Open3.popen3("/usr/bin/java -jar #{RAILS_ROOT}/script/tika-app-0.10.jar -t #{self.file_attachment.path}") do |stdin, stdout, error|
+        stdin.close
+        stdout.read
+      end
+    rescue Exception => e
+      return nil
+    end
   end
   
   def self.document_type_options_for_select

@@ -1,5 +1,16 @@
 namespace :cohort do
 
+  desc 'index files'
+  task(:index_files => :environment) do
+    Document.for_indexing.each do|d|
+
+      d.needs_indexing = false
+      d.content = d.get_file_contents
+
+      d.save
+    end
+  end
+
   desc 'initialize cohort base data'
   task(:init => :environment) do
     u = User.new(:email => 'importer-no-reply@example.com', :deleteable => false)

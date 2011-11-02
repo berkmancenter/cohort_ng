@@ -16,8 +16,7 @@ class SearchController < ApplicationController
       end
 
       unless qparams[:documents].blank?
-        # FIXME
-        fulltext(qparams[:documents], :fields => [:notes_for_indexing])
+        fulltext(qparams[:documents], :fields => [:documents_for_indexing])
       end
 
       unless qparams[:created_before].blank?

@@ -25,14 +25,14 @@ class Contact < ActiveRecord::Base
   end
 
   def documents_for_indexing
-    # FIXME
-    self.documents.collect{|n| n.note.downcase}
+    self.documents.collect{|d| [d.name.downcase, d.content.downcase, d.file_name.downcase].join(' ')}
   end
 
-  searchable(:include => [:addresses, :emails, :notes, :tags]) do
+  searchable(:include => [:addresses, :emails, :notes, :tags, :documents]) do
     text :first_name_downcase, :boost => 2
     text :last_name_downcase, :boost => 2
     text :notes_for_indexing
+    text :documents_for_indexing
     text :hierarchical_tag_list
     text :email_addresses_as_string
 
