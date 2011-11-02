@@ -3,10 +3,8 @@ namespace :cohort do
   desc 'index files'
   task(:index_files => :environment) do
     Document.for_indexing.each do|d|
-
       d.needs_indexing = false
       d.content = d.get_file_contents
-
       d.save
     end
   end
