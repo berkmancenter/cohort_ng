@@ -1,9 +1,9 @@
 <% unless @notes.blank? %>
-  <li class="notes">
+  <div class="notes">
   <%= render :partial => 'shared/lines/note', :collection => @notes %>
   <div class="clear"></div>
   <%= will_paginate(@notes) %>
-  </li>
+  </div>
 <% else %>
   <h2>None found.</h2>
 <% end %>

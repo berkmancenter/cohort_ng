@@ -1,5 +1,10 @@
 CohortNg::Application.routes.draw do
 
+  get "document_query/new"
+  get "document_query/recent"
+  get "document_query/yours"
+  get "document_query/contact"
+
   get "search/index"
   get "search/contacts"
   get "search/notes"

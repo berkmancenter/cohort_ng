@@ -25,7 +25,7 @@ class Contact < ActiveRecord::Base
   end
 
   def documents_for_indexing
-    self.documents.collect{|d| [d.name.downcase, d.content.downcase, d.file_name.downcase].join(' ')}
+    self.documents.collect{|d| [d.name.to_s.downcase, d.content.to_s.downcase, d.file_name.to_s.downcase].join(' ')}
   end
 
   searchable(:include => [:addresses, :emails, :notes, :tags, :documents]) do

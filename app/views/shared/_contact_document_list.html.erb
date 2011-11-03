@@ -1,0 +1,9 @@
+<% unless @documents.blank? %>
+  <div class="documents">
+  <%= render :partial => 'shared/lines/document', :collection => @documents %>
+  <div class="clear"></div>
+  <%= will_paginate(@documents) %>
+  </div>
+<% else %>
+  <h2>None found.</h2>
+<% end %>

@@ -6,6 +6,7 @@ namespace :cohort do
       d.needs_indexing = false
       d.content = d.get_file_contents
       d.save
+      d.contact.index
     end
   end
 

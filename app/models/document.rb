@@ -28,7 +28,7 @@ class Document < ActiveRecord::Base
 
   def get_file_contents
     begin
-      Open3.popen3("/usr/bin/java -jar #{RAILS_ROOT}/script/tika-app-0.10.jar -t #{self.file_attachment.path}") do |stdin, stdout, error|
+      Open3.popen3('/usr/bin/java', '-jar', "#{RAILS_ROOT}/script/tika-app-0.10.jar", "-t", self.file_attachment.path) do |stdin, stdout, error|
         stdin.close
         stdout.read
       end
