@@ -65,6 +65,11 @@ class DocumentsController < ApplicationController
   end
 
   def show
+    @document = Document.find(params[:id])
+    respond_to do |format|
+      format.js { }
+      format.html { render :layout => ! request.xhr? }
+    end
   end
 
 end

@@ -236,7 +236,7 @@ form.formtastic fieldset > ol > li {
   padding-left: 25px;
 }
 
-.notes .note, .documents .document, .emails .email{
+.emails .email{
   padding: 5px;
   margin-top: 10px;
   background-color: #FCF0AD;
@@ -263,11 +263,6 @@ form.formtastic fieldset > ol > li {
   background-color: #e4e477;
 }
 
-.documents .document{
-  background-color: #e4e4e4;
-  height: auto;
-}
-
 .document_type{
   font-size: smaller;
 }
@@ -282,10 +277,6 @@ form.formtastic fieldset > ol > li {
 
 .icon{
   vertical-align: middle;
-}
-
-.document .icon, .note .icon{
-  float: right;
 }
 
 .note .priority{
