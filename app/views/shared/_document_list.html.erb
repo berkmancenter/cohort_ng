@@ -1,3 +1,11 @@
-<li class="documents">
-<%= render :partial => 'shared/lines/document', :collection => document_list %>
-</li>
+<% unless title.blank? %>
+  <h1><%= title %></h1>
+<% end %>
+<% unless @documents.blank? %>
+  <ul class="resultlist">
+    <%= render :partial => 'shared/lines/document', :collection => @documents %>
+  </ul>
+  <%= will_paginate(@documents) %>
+<% else %>
+  <h2>None found.</h2>
+<% end %>
