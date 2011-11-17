@@ -8,9 +8,11 @@ class CreateEmails < ActiveRecord::Migration
 
       t.timestamps
     end
-    [:contact_id, :email, :email_type, :is_primary].each do |col|
+    [:contact_id, :email_type, :is_primary].each do |col|
       add_index :emails, col
     end
+    add_index :emails, :email, :unique => true
+
   end
 
   def self.down

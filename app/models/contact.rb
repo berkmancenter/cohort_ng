@@ -12,6 +12,15 @@ class Contact < ActiveRecord::Base
   has_many :notes, :dependent => :destroy, :order => :created_at
   has_many :documents, :dependent => :destroy, :order => :created_at
 
+  scope :by_email,
+    lambda{|email_to_find|
+    select('DISTINCT contacts.*').joins(:emails).where(['lower(emails.email) = ?', email_to_find.downcase])
+  }
+
+  def find_or_init_by_email(email)
+    self.by_email(email) || Contact.new
+  end
+
   def first_name_downcase
     self.first_name.downcase
   end
@@ -50,6 +59,7 @@ class Contact < ActiveRecord::Base
     boolean :active
     boolean :deleted
   end
+
 
   def email_addresses
     self.emails.collect{|e| e.email.downcase}
