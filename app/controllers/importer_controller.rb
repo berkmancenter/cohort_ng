@@ -34,7 +34,7 @@ class ImporterController < BaseController
 
     @debug = ''
     i = 0
-    import_errors = []
+    @import_errors = []
     contact_columns = Contact.bulk_updateable_columns
     while(row = csv.gets)
       if i = 0
@@ -46,7 +46,7 @@ class ImporterController < BaseController
       logger.warn(row.inspect)
 
       if row['email_addresses'].blank?
-        import_errors << row.inspect
+        @import_errors << [row.inspect, 'Blank email address']
         next
       end
 
@@ -58,16 +58,23 @@ class ImporterController < BaseController
             contact[col] = row[col]
           end
         end
-        contact.hierarchical_tag_list = row['tags']
-        contact.save
+        if contact.new_record?
+          contact.emails = [Email.new(:email => email)]
+        end
+        if contact.valid?
+          contact.hierarchical_tag_list = [contact.hierarchical_tag_list, row['tags']].flatten.uniq.compact.join(',')
+          contact.save
+        else
+          @import_errors << [row.inspect, contact.errors.full_messages.join('<br/>')]
+        end
       end
     end
 
     flash[:notice] = 'Imported!'
-    redirect_to :action => :index
+    render :action => :index
 
-  rescue
-    flash[:error] = 'An error! Oh noes!'
+  rescue Exception => e
+    flash[:error] = "An error! Oh noes! #{e.inspect}"
     redirect_to(:action => :index)
   end
 

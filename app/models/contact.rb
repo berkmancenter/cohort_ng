@@ -12,19 +12,49 @@ class Contact < ActiveRecord::Base
   has_many :notes, :dependent => :destroy, :order => :created_at
   has_many :documents, :dependent => :destroy, :order => :created_at
 
+  accepts_nested_attributes_for :emails,
+    :allow_destroy => true,
+    :reject_if => proc {|att|
+      #if the email is blank OR doesn't match the regex OR the email_type isn't in our list of accepted types, ixnay it.
+      if att['email'].blank? || ! att['email'].match(Email::EMAIL_REGEX) || ! Email::EMAIL_TYPES.keys.include?(att['email_type'])
+        true
+      end
+    }
+
+  accepts_nested_attributes_for :addresses,
+    :allow_destroy => true,
+    :reject_if => proc {|att|
+    if att['address_1'].blank? || att['country'].blank?
+      true
+    end
+  }
+
+  accepts_nested_attributes_for :notes,
+    :allow_destroy => true,
+    :reject_if => proc {|att|
+    if att['note'].blank? 
+      true
+    end
+  }
+
+  scope :active, :conditions => {:active => true, :deleted => false}
+
+  scope :by_email,
+    lambda{|emails_to_find|
+    select('DISTINCT contacts.*').joins(:emails).where('emails.email' => emails_to_find)
+  }
 
   def self.bulk_updateable_columns
     ['first_name','last_name','birthday']
   end
 
-  scope :by_email,
-    lambda{|email_to_find|
-    select('DISTINCT contacts.*').joins(:emails).where(['lower(emails.email) = ?', email_to_find.downcase])
-  }
-
   def self.find_or_init_by_email(email)
     new_contact = self.by_email(email)
     (new_contact.blank?) ? Contact.new : new_contact.first
+  end
+
+  def self.per_page
+    25
   end
 
   def first_name_downcase
@@ -73,10 +103,6 @@ class Contact < ActiveRecord::Base
 
   def email_addresses_as_string
     self.email_addresses.join(' ')
-  end
-
-  def self.per_page
-    25
   end
 
   def contacts
@@ -144,32 +170,6 @@ class Contact < ActiveRecord::Base
     self.taggings = tags_to_add.collect{|t| ActsAsTaggableOn::Tagging.new(:tag => t, :taggable => self, :context => 'tags')}
   end
 
-  accepts_nested_attributes_for :emails,
-    :allow_destroy => true,
-    :reject_if => proc {|att|
-      #if the email is blank OR doesn't match the regex OR the email_type isn't in our list of accepted types, ixnay it.
-      if att['email'].blank? || ! att['email'].match(Email::EMAIL_REGEX) || ! Email::EMAIL_TYPES.keys.include?(att['email_type'])
-        true
-      end
-    }
-
-  accepts_nested_attributes_for :addresses,
-    :allow_destroy => true,
-    :reject_if => proc {|att|
-    if att['address_1'].blank? || att['country'].blank?
-      true
-    end
-  }
-
-  accepts_nested_attributes_for :notes,
-    :allow_destroy => true,
-    :reject_if => proc {|att|
-    if att['note'].blank? 
-      true
-    end
-  }
-
-  scope :active, :conditions => {:active => true, :deleted => false}
 
   def to_s
     "#{(first_name.blank?) ? '' : first_name + ' '}#{last_name}"
