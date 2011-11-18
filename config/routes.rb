@@ -2,6 +2,7 @@ CohortNg::Application.routes.draw do
 
   post "importer/upload_file"
   get "importer/index"
+  get "importer/", :controller => :importer, :action => :index
   get "importer/import"
 
   get "document_query/new"

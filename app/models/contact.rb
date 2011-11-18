@@ -12,13 +12,19 @@ class Contact < ActiveRecord::Base
   has_many :notes, :dependent => :destroy, :order => :created_at
   has_many :documents, :dependent => :destroy, :order => :created_at
 
+
+  def self.bulk_updateable_columns
+    ['first_name','last_name','birthday']
+  end
+
   scope :by_email,
     lambda{|email_to_find|
     select('DISTINCT contacts.*').joins(:emails).where(['lower(emails.email) = ?', email_to_find.downcase])
   }
 
-  def find_or_init_by_email(email)
-    self.by_email(email) || Contact.new
+  def self.find_or_init_by_email(email)
+    new_contact = self.by_email(email)
+    (new_contact.blank?) ? Contact.new : new_contact.first
   end
 
   def first_name_downcase

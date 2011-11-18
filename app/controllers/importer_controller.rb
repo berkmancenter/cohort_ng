@@ -35,7 +35,7 @@ class ImporterController < BaseController
     @debug = ''
     i = 0
     import_errors = []
-    contact_columns = Contact.columns.collect{|c| c.name}
+    contact_columns = Contact.bulk_updateable_columns
     while(row = csv.gets)
       if i = 0
         if ! csv.headers.include?('email_addresses')
@@ -51,17 +51,23 @@ class ImporterController < BaseController
       end
 
       row['email_addresses'].split(',').each do|email|
+        # FIXME - assign email address properly
         contact = Contact.find_or_init_by_email(email)
         contact_columns.each do|col|
-          contact[col] = row[col]
-          contact.hierarchical_tag_list = row[:tags]
-          contact.save
+          unless row[col].blank?
+            contact[col] = row[col]
+          end
         end
+        contact.hierarchical_tag_list = row['tags']
+        contact.save
       end
-
     end
 
+    flash[:notice] = 'Imported!'
+    redirect_to :action => :index
+
   rescue
+    flash[:error] = 'An error! Oh noes!'
     redirect_to(:action => :index)
   end
 
