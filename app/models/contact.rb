@@ -40,8 +40,9 @@ class Contact < ActiveRecord::Base
   scope :active, :conditions => {:active => true, :deleted => false}
 
   scope :by_email,
-    lambda{|emails_to_find|
-    select('DISTINCT contacts.*').joins(:emails).where('emails.email' => emails_to_find)
+    lambda{|email_to_find|
+#    select('DISTINCT contacts.*').joins(:emails).where('emails.email' => email_to_find)
+   select('DISTINCT contacts.*').joins(:emails).where(['lower(emails.email) = ?', email_to_find.downcase])
   }
 
   def self.bulk_updateable_columns

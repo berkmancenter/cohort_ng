@@ -9,6 +9,10 @@ class Email < ActiveRecord::Base
 
   validates_format_of :email, :with => EMAIL_REGEX
 
+  before_validation do |rec|
+    rec.email = rec.email.downcase
+  end
+
   def self.email_type_options_for_select
     options = []
     EMAIL_TYPES.keys.each{|type|

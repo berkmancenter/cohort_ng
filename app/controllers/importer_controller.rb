@@ -37,7 +37,7 @@ class ImporterController < BaseController
     @import_errors = []
     contact_columns = Contact.bulk_updateable_columns
     while(row = csv.gets)
-      if i = 0
+      if i == 0
         if ! csv.headers.include?('email_addresses')
           flash[:error] = 'Your upload didn\'t include the required "email_addresses" field'
           throw Exception
@@ -51,7 +51,7 @@ class ImporterController < BaseController
       end
 
       row['email_addresses'].split(',').each do|email|
-        # FIXME - assign email address properly
+        # TODO - need to think through how the dedupe stuff is going to work.
         contact = Contact.find_or_init_by_email(email)
         contact_columns.each do|col|
           unless row[col].blank?
@@ -70,7 +70,7 @@ class ImporterController < BaseController
       end
     end
 
-    flash[:notice] = 'Imported!'
+    flash[:notice] = 'Imported that file. Please see below for any import errors that might\'ve occurred.'
     render :action => :index
 
   rescue Exception => e
