@@ -1,5 +1,7 @@
 CohortNg::Application.routes.draw do
 
+  resources :duplicates
+
   post "importer/upload_file"
   get "importer/index"
   get "importer/", :controller => :importer, :action => :index

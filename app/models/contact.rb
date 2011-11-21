@@ -11,6 +11,7 @@ class Contact < ActiveRecord::Base
   has_many :log_items, :dependent => :destroy, :order => :created_at
   has_many :notes, :dependent => :destroy, :order => :created_at
   has_many :documents, :dependent => :destroy, :order => :created_at
+  has_many :duplicates, :dependent => :destroy
 
   accepts_nested_attributes_for :emails,
     :allow_destroy => true,
