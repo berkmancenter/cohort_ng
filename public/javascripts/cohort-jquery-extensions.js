@@ -185,13 +185,11 @@ jQuery.extend({
             success: function(html){
               var dialogNode = jQuery('<div></div>');
               jQuery(dialogNode).append(html);
-              //FIXME - get lists updating properly in a dialog.
               jQuery(dialogNode).dialog({
 //                show: 'explode',
 //                hide: 'explode',
                 modal: true,
-                width: 600,
-                minWidth: 400,
+                width: 'auto',
                 height: 'auto',
                 position: 'top',
                 buttons: {
@@ -205,7 +203,16 @@ jQuery.extend({
               jQuery('.tabs').tabs({
                 ajaxOptions: {
                   cache: false,
-                  dataType: 'html'
+                  dataType: 'html',
+                  beforeSend: function(){
+                    jQuery.showGlobalSpinnerNode();
+                  },
+                  complete: function(){
+                    jQuery.hideGlobalSpinnerNode();
+                  },
+                  error: function(xhr,textStatus,errorStr){
+                    jQuery.showMajorError(textStatus);
+                  }
                 }
               });
             }

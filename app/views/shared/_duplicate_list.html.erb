@@ -1,0 +1,11 @@
+<% unless title.blank? %>
+  <h1><%= title %></h1>
+<% end %>
+<% unless @contacts.blank? %>
+  <ul class="resultlist">
+    <%= render :partial => 'shared/lines/duplicate', :collection => @contacts %>
+  </ul>
+  <%= will_paginate(@contacts) %>
+<% else %>
+  <h2>None found.</h2>
+<% end %>

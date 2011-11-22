@@ -3,14 +3,11 @@ class ContactQueryController < BaseController
   #
 
   def similar_names
-
-    # TODO - Create the actual merge controls.
-    #
     @contact = Contact.find(params[:id])
 
     @contact_query = Sunspot.more_like_this(@contact,Contact) do
       fields :first_name_downcase, :last_name_downcase
-      minimum_word_length (params[:mwl].blank?) ? 4 : params[:mwl]
+      minimum_word_length (params[:mwl].blank?) ? 6 : params[:mwl]
       with :active, true
       with :deleted, false
       paginate :page => params[:page], :per_page => cookies[:per_page] || Contact.per_page
@@ -18,7 +15,7 @@ class ContactQueryController < BaseController
 
     @contact_query.execute!
     @contacts = @contact_query.results
-    negotiate_list_query_response('contact')
+    negotiate_list_query_response('duplicate')
   end
 
   def autocomplete_tags
