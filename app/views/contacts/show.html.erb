@@ -25,10 +25,12 @@
   <div class="clear"></div>
 <% end %>
 
-<div class="tabs">
+<div class="tabs" style="margin: 1em 0 1em 0em;">
   <ul>
     <li><%= link_to('Notes', url_for(:controller => 'note_query', :action => 'contact', :id => @contact.id)) %></li>
     <li><%= link_to('Documents', url_for(:controller => 'document_query', :action => 'contact', :id => @contact.id)) %></li>
+    <li><%= link_to('Possible duplicates', url_for(:controller => 'contact_query', :action => 'similar_names', :id => @contact.id)) %></li>
+    <li><%= link_to('Less likely duplicates', url_for(:controller => 'contact_query', :action => 'similar_names', :mwl => 3, :id => @contact.id)) %></li>
   </ul>
 </div>
 <p><%= link_to(raw("New note #{icon('note_add')}"),new_note_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Note") %></p>

@@ -1,7 +1,5 @@
 CohortNg::Application.routes.draw do
 
-  resources :duplicates
-
   post "importer/upload_file"
   get "importer/index"
   get "importer/", :controller => :importer, :action => :index
@@ -76,6 +74,7 @@ CohortNg::Application.routes.draw do
   get "contact_query/todo"
   get "contact_query/search"
   get "contact_query/tag_contacts/:id", :controller => :contact_query, :action => :tag_contacts
+  get "contact_query/similar_names/:id", :controller => :contact_query, :action => :similar_names
   get "contact_query/tag_contacts_by_name/:id", :controller => :contact_query, :action => :tag_contacts_by_name
 
   get "base/index"

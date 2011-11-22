@@ -1,2 +1,0 @@
-class DuplicatesController < ApplicationController
-end

@@ -44,10 +44,10 @@
           <h3>New Address</h3>
         <% end %>
         <%= add.input :address_type, :collection => Address.address_type_options_for_select %>
-        <%= add.input :address_1, :label => 'Address line 1' %>
+        <%= add.input :address_1, :label => 'Address line 1', :required => true %>
         <%= add.input :address_2, :label => 'Address line 2' %>
         <%= add.inputs :city, :state, :postal_code %>
-        <%= add.input :country, :include_blank => true %>
+        <%= add.input :country, :include_blank => true, :required => true %>
         <% unless add.object.new_record? %>
           <%= add.input :_destroy, :as => :boolean, :label => 'Delete?' %>
         <% end %>

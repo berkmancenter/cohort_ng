@@ -294,7 +294,7 @@ jQuery.extend({
                           if(jQuery(dialogNode).find('form').hasClass('contact')){
                             var tagList = jQuery('#contact_hierarchical_tags_for_edit').val().split(/\s+?,\s+?/);
                             console.log('Tag list: ', tagList);
-                            jQuery('.existingTags span').each(function(){
+                            jQuery(dialogNode).find('.existingTags span a').each(function(){
                               tagList.push(jQuery(this).html());
                             });
                             tagList = jQuery.grep(tagList,function(n,i){

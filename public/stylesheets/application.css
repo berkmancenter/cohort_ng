@@ -215,27 +215,20 @@ form.formtastic fieldset > ol > li {
   margin-top: 1em;
 }
 
-.emails .email, .addresses .address, .notes .note, .documents .document{
-/*  float: left;
-  margin-right: 10px;
-  padding: 5px;
-  border: 1px solid #cccccc;
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  height: 1.5em;
-  */
-}
-
-
 .addresses .address{
+  margin-left: 1em;
   height: 5em;
   float: left;
+  border: 1px solid #ccc;
+  padding: .5em;
+
 }
 
 .documents li, .emails li, .addresses li, .notes > li{
   padding-left: 25px;
 }
 
+/* 
 .emails .email{
   padding: 5px;
   margin-top: 10px;
@@ -249,18 +242,15 @@ form.formtastic fieldset > ol > li {
   margin-right: 20px;
   overflow: auto;
   max-height: 10em;
-/*  height: 8em;
+  height: 8em;
   min-width: 160px;
   max-width: 360px;
-  overflow: auto; */
+  overflow: auto; 
 }
+*/
 
 .emails .primary{
   background-color: #e4e4e4; 
-}
-
-.emails .email{
-  background-color: #e4e477;
 }
 
 .document_type{
@@ -307,6 +297,10 @@ form.formtastic fieldset > ol > li {
   padding: 5px;
   border-radius: 5px;
   -moz-border-radius: 5px;
+}
+
+form.formtastic fieldset > ol > li.required{
+  font-weight: bold;
 }
 
 #footer, #footer a{

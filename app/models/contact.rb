@@ -11,7 +11,6 @@ class Contact < ActiveRecord::Base
   has_many :log_items, :dependent => :destroy, :order => :created_at
   has_many :notes, :dependent => :destroy, :order => :created_at
   has_many :documents, :dependent => :destroy, :order => :created_at
-  has_many :duplicates, :dependent => :destroy
 
   accepts_nested_attributes_for :emails,
     :allow_destroy => true,
@@ -76,12 +75,12 @@ class Contact < ActiveRecord::Base
   end
 
   searchable(:include => [:addresses, :emails, :notes, :tags, :documents]) do
-    text :first_name_downcase, :boost => 2
-    text :last_name_downcase, :boost => 2
+    text :first_name_downcase, :boost => 2, :more_like_this => true
+    text :last_name_downcase, :boost => 2, :more_like_this => true
     text :notes_for_indexing
     text :documents_for_indexing
     text :hierarchical_tag_list
-    text :email_addresses_as_string
+    text :email_addresses_as_string, :more_like_this => true
 
     string :first_name_downcase
     string :last_name_downcase
