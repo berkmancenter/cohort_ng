@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  contact_id: 1
+  phone: MyString
+  phone_type: MyString
+  is_primary: false
+
+two:
+  contact_id: 1
+  phone: MyString
+  phone_type: MyString
+  is_primary: false

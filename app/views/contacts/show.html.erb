@@ -19,21 +19,24 @@
 
     <% unless @contact.emails.blank? %>
       <h2 class="contact_section_header">Email addresses</h2>
-      <ul class="emails">
-        <li class="emails">
+      <div class="emails">
         <%= render :partial => 'shared/lines/email', :collection => @contact.emails %>
-        </li>
-      </ul>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+
+    <% unless @contact.phone_numbers.blank? %>
+      <h2 class="contact_section_header">Phone numbers</h2>
+      <div class="phone_numbers">
+        <%= render :partial => 'shared/lines/phone_number', :collection => @contact.phone_numbers %>
       <div class="clear"></div>
     <% end %>
 
     <% unless @contact.addresses.blank? %>
       <h2 class="contact_section_header">Addresses</h2>
-      <ul class="addresses">
-        <li class="addresses">
+      <div class="addresses">
         <%= render :partial => 'shared/lines/address', :collection => @contact.addresses %>
-        </li>
-      </ul>
+      </div>
       <div class="clear"></div>
     <% end %>
   </div>

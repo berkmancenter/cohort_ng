@@ -20,6 +20,12 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
     end
 
     add_index :tags, :name
+
+    # Postgres only.
+    if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+      execute 'CREATE INDEX "lower_name_index" on tags (lower(name))'
+    end
+
     add_index :tags, :ancestry
     add_index :tags, :position
 

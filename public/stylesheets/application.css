@@ -203,7 +203,7 @@ form.formtastic fieldset > ol > li {
   margin-bottom: .75em;
 }
 
-.emails, .addresses, .notes, .documents{
+.emails, .addresses, .notes, .documents, .phone_numbers{
   line-height: 1.6em;
 }
 
@@ -211,7 +211,7 @@ form.formtastic fieldset > ol > li {
   margin-top: 2em;
 }
 
-.address, .email, .note, .document{
+.address, .email, .note, .document, .phone_number{
   margin-top: 1em;
 }
 
@@ -222,10 +222,6 @@ form.formtastic fieldset > ol > li {
   border: 1px solid #ccc;
   padding: .5em;
 
-}
-
-.documents li, .emails li, .addresses li, .notes > li{
-  padding-left: 25px;
 }
 
 /* 

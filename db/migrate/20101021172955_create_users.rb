@@ -21,6 +21,11 @@ class CreateUsers < ActiveRecord::Migration
     add_index :users, :confirmation_token,   :unique => true
     add_index :users, :unlock_token,         :unique => true
     # add_index :users, :authentication_token, :unique => true
+    if ['development','test'].include?('development')
+      u = User.create(:email => 'admin@example.com', :password => 'foobar', :password_confirmation => 'foobar')
+      u.confirm!
+    end
+
   end
 
   def self.down

@@ -37,18 +37,21 @@ class ImporterController < BaseController
     @import_errors = []
     contact_columns = Contact.bulk_updateable_columns
     while(row = csv.gets)
-      if i == 0
+      i = i + 1
+      if i == 1
         if ! csv.headers.include?('email_addresses')
           flash[:error] = 'Your upload didn\'t include the required "email_addresses" field'
           throw Exception
         end
+        logger.warn('header row!')
+        next
       end
-      logger.warn(row.inspect)
 
       if row['email_addresses'].blank?
         @import_errors << [row.inspect, 'Blank email address']
         next
       end
+
 
       row['email_addresses'].split(',').each do|email|
         # TODO - need to think through how the dedupe stuff is going to work.
@@ -58,9 +61,20 @@ class ImporterController < BaseController
             contact[col] = row[col]
           end
         end
+        if ! row['notes'].blank?
+          contact.notes << Note.new(:note => row['notes'])
+        end
+
+        if ! row['phone_numbers'].blank?
+          row['phone_numbers'].split(',').each do |phone|
+            contact.phone_numbers << PhoneNumber.new(:phone => phone) 
+          end
+        end
+
         if contact.new_record?
           contact.emails = [Email.new(:email => email)]
         end
+
         if contact.valid?
           contact.hierarchical_tag_list = [contact.hierarchical_tag_list, row['tags']].flatten.uniq.compact.join(',')
           contact.save
@@ -68,6 +82,7 @@ class ImporterController < BaseController
           @import_errors << [row.inspect, contact.errors.full_messages.join('<br/>')]
         end
       end
+
     end
 
     flash[:notice] = 'Imported that file. Please see below for any import errors that might\'ve occurred.'

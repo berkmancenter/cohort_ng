@@ -36,6 +36,23 @@
     <% end %>
   <% end %>
 
+  <%= f.inputs :name => '&#9654; Phone Numbers ' + ((f.object.phone_numbers.size > 0) ? "(#{f.object.phone_numbers.size})" : '' ), :class => 'collapsable' do %>
+    <% @contact.phone_numbers.build %> 
+    <%= f.semantic_fields_for :phone_numbers do |phone| %>
+      <%= f.inputs :class => 'block' do %>
+        <% if phone.object.new_record? %>
+          <h3>New Phone Number</h3>
+        <% end %>
+        <%= phone.input :phone, :label => ((phone.object.new_record?) ? 'New Phone Number' : 'Phone Number') %>
+        <%= phone.input :phone_type, :as => :select, :collection => PhoneNumber.phone_type_options_for_select %>
+        <%= phone.input :is_primary, :as => :boolean, :label => 'Primary phone number?' %>
+        <% unless phone.object.new_record? %>
+          <%= phone.input :_destroy, :as => :boolean, :label => 'Delete?' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <%= f.inputs :name => '&#9654; Addresses '+ ((f.object.addresses.size > 0) ? "(#{f.object.addresses.size})" : '' ), :class => 'collapsable' do %>
     <% @contact.addresses.build %> 
     <%= f.semantic_fields_for :addresses do |add| %>
