@@ -50,8 +50,7 @@ class Contact < ActiveRecord::Base
 
   scope :by_email,
     lambda{|email_to_find|
-#    select('DISTINCT contacts.*').joins(:emails).where('emails.email' => email_to_find)
-   select('DISTINCT contacts.*').joins(:emails).where(['lower(emails.email) = ?', email_to_find.downcase])
+    select('DISTINCT contacts.*').joins(:emails).where(['lower(emails.email) = ?', email_to_find.downcase])
   }
 
   def self.bulk_updateable_columns
@@ -81,6 +80,17 @@ class Contact < ActiveRecord::Base
 
   def documents_for_indexing
     self.documents.collect{|d| [d.name.to_s.downcase, d.content.to_s.downcase, d.file_name.to_s.downcase].join(' ')}
+  end
+
+  def organizations
+    organizations = ActsAsTaggableOn::Tag.search do
+      all_of do
+        with :id, self.tag_ids
+        with :ancestor_ids, 53
+      end
+    end
+    organizations.execute
+    organizations.results
   end
 
   searchable(:include => [:addresses, :emails, :notes, :tags, :documents]) do

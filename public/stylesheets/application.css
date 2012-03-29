@@ -123,7 +123,6 @@ dd{
 
 .search .list{
   height: auto;
-  width: 400px;
 }
 
 .main .list{
@@ -132,12 +131,26 @@ dd{
 }
 
 .actions{
-    margin-left: 10px;
+  margin-left: 10px;
+}
+
+.actions a{
+  font-size: 1.5em;
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+  text-shadow: 2px 2px #ccc;
+  color: blue;
+}
+
+.actions a:hover{
+  background: #ccc;
+  border-radius: 5px;
 }
 
 fieldset{
-    border: 1px solid black;
-    padding: 5px;
+  border: 1px solid black;
+  padding: 5px;
 }
 
 legend{
@@ -205,6 +218,10 @@ form.formtastic fieldset > ol > li {
 
 .emails, .addresses, .notes, .documents, .phone_numbers{
   line-height: 1.6em;
+}
+
+table td{
+  padding: 2px 4px 2px 4px;
 }
 
 .contact_section_header{

@@ -1,50 +1,13 @@
 <div class="actions">
-  <div class="accordion">
-    <h3><a href="#contacts">Contacts</a></h3>
-    <div>
-      <ul>
-        <li><%= link_to 'list', '/' %></li>
-        <% unless current_user.blank? %>
-          <li><%= link_to 'new', new_contact_path, :class => 'dialog-form' %></li>
-        <% end %>
-      </ul>
-    </div>
-    <h3><a href="#notes">Notes</a></h3>
-    <div>
-      <ul>
-        <li><%= link_to 'all', notes_path %></li>
-      </ul>
-    </div>
-    <h3><a href="#documents">Documents</a></h3>
-    <div>
-      <ul>
-        <li><%= link_to 'all', documents_path %></li>
-      </ul>
-    </div>
-    <h3><a href="#tags">Tags</a></h3>
-    <div>
-      <ul>
-        <li><%= link_to 'list', tags_path %></li>
-      </ul>
-    </div>
-    <h3><a href="#mailings">Mailings</a></h3>
-    <div>
-    </div>
-    <h3><a href="#carts">Contact Lists</a></h3>
-    <div>
-      <ul>
-        <% unless current_user.blank? %>
-          <li><%= link_to 'New contact list', new_contact_cart_path, :class => 'dialog-form' %></li>
-        <% end %>
-      </ul>
-    </div>
-    <% unless current_user.blank? %>
-      <h3><a href="#importer">Import</a></h3>
-      <div>
-        <ul>
-          <li><%= link_to 'Import a csv file', importer_path %></li>
-        </ul>
-      </div>
-    <% end %>
-  </div>
+  <%= link_to('Dashboard', root_path) %>
+  <hr/>
+  <% unless current_user.blank? %>
+    <%= link_to 'New Contact', new_contact_path, :class => 'dialog-form', :title => "New Contact" %>
+    <%= link_to 'New contact list', new_contact_cart_path, :class => 'dialog-form', :title => 'New Contact List' %>
+    <%= link_to 'Import a csv file', importer_path %>
+  <% end %>
+  <hr/>
+  <%= link_to 'Notes', notes_path %>
+  <%= link_to 'Documents', documents_path %>
+  <%= link_to 'Tags', tags_path %>
 </div>

@@ -1,7 +1,7 @@
 source :rubygems
 require 'rubygems'
 
-gem "rails", "3.0.9"
+gem "rails", "~> 3.0.9"
 gem 'jquery-rails'
 gem "formtastic"
 gem "will_paginate"
@@ -16,6 +16,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'acl9'
 gem 'nokogiri'
+gem 'rake', '0.9.2'
 
 group :development, :test do
   gem 'silent-postgres'

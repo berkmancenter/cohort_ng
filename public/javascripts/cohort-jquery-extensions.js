@@ -168,6 +168,7 @@ jQuery.extend({
       observeDialogShow: function(rootClass){
         jQuery(rootClass).live('click',function(e){
           e.preventDefault();
+          var dialogTitle = jQuery(this).attr('title');
           jQuery.retainTabStateFromLink(this);
           jQuery.ajax({
             cache: false,
@@ -186,6 +187,7 @@ jQuery.extend({
               var dialogNode = jQuery('<div></div>');
               jQuery(dialogNode).append(html);
               jQuery(dialogNode).dialog({
+                title: dialogTitle,
 //                show: 'explode',
 //                hide: 'explode',
                 modal: true,
@@ -251,6 +253,7 @@ jQuery.extend({
 
     observeDialogForm: function(rootClass){
         jQuery(rootClass).live('click',function(e){
+          var dialogTitle = jQuery(this).attr('title');
           e.preventDefault();
           jQuery.retainTabStateFromBeautyTip();
           jQuery.ajax({
@@ -287,6 +290,7 @@ jQuery.extend({
                 jQuery(dialogNode).dialog({
 //                    show: 'explode',
 //                    hide: 'explode',
+                    title: dialogTitle,
                     modal: true,
                     width: 600,
                     minWidth: 400,
@@ -300,14 +304,12 @@ jQuery.extend({
                         Submit: function(){
                           if(jQuery(dialogNode).find('form').hasClass('contact')){
                             var tagList = jQuery('#contact_hierarchical_tags_for_edit').val().split(/\s+?,\s+?/);
-                            console.log('Tag list: ', tagList);
                             jQuery(dialogNode).find('.existingTags span a').each(function(){
                               tagList.push(jQuery(this).html());
                             });
                             tagList = jQuery.grep(tagList,function(n,i){
                               return(n);
                             });
-                            console.log('Tag list after de-dupe:', tagList);
                             jQuery('#contact_hierarchical_tag_list').val(tagList.join(','));
                           }
                           jQuery(dialogNode).find('form').ajaxSubmit({
@@ -345,6 +347,7 @@ jQuery.extend({
                         delay: 500
                       });
                       jQuery.initDateControl();
+                      jQuery(dialogNode).find('input:visible').first().focus();
                     },
                     close: function(){
                         jQuery(dialogNode).remove();
