@@ -322,6 +322,9 @@ jQuery.extend({
                               //jQuery.updateLists('note');
                               jQuery(dialogNode).dialog('close');
                               jQuery.refreshActiveTabPane();
+                              jQuery('#messages').append('<div class="flash flash-notice">Added that contact.</div>');
+                              jQuery('#messages .flash-notice').effect('pulsate').hide('fade');
+                              
                             },
                             complete: function(){
                               jQuery.hideInteriorSpinnerNode('objectEdit');
