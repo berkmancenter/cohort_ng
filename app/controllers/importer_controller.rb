@@ -1,6 +1,7 @@
 class ImporterController < BaseController
 
   def index
+    breadcrumbs.add('Import Contacts', importer_path)
   end
 
   def upload_file

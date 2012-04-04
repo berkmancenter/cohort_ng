@@ -1,4 +1,4 @@
-class SavedSearchesController < ApplicationController
+class SavedSearchesController < BaseController
   def new
   end
 

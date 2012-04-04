@@ -1,6 +1,11 @@
 class NotesController < BaseController
 
+  def index
+    breadcrumbs.add('Notes', notes_path)
+  end
+
   def show
+    breadcrumbs.add('Note', note_path(params[:id]))
     @note = Note.find(params[:id])
     respond_to do |format|
       format.js { }

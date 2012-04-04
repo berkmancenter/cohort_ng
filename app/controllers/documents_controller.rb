@@ -1,4 +1,8 @@
-class DocumentsController < ApplicationController
+class DocumentsController < BaseController
+
+  def index
+    breadcrumbs.add('Documents', documents_path)
+  end
 
   def new
     @document = Document.new(:contact_id => params[:contact_id])

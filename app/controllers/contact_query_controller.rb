@@ -30,6 +30,7 @@ class ContactQueryController < BaseController
   end
 
   def tag_contacts_by_name
+    breadcrumbs.add('Contacts with this tag', contact_query_recent_path)
     @contact_query = Sunspot.new_search(Contact)
     @contact_query.build do
       with(:hierarchical_tags).starting_with(params[:id])
@@ -43,7 +44,7 @@ class ContactQueryController < BaseController
   end
 
   def tag_contacts
-
+    breadcrumbs.add('Contacts with this tag', contact_query_recent_path)
     tag_id = params[:id]
 
     @tag = ActsAsTaggableOn::Tag.find(tag_id)
@@ -66,6 +67,7 @@ class ContactQueryController < BaseController
   end
 
   def search
+    breadcrumbs.add('Contact Search', contact_query_recent_path)
     unless params[:q].blank?
       @contact_query = Sunspot.new_search(Contact)
       @contact_query.build do
@@ -94,17 +96,20 @@ class ContactQueryController < BaseController
   end
 
   def recent
+    breadcrumbs.add('Recently Updated Contacts', contact_query_recent_path)
     @contacts = Contact.active.paginate(:order => 'updated_at desc', :page => params[:page], :per_page => params[:per_page] || Contact.per_page)
     negotiate_list_query_response('contact')
   end
 
   def new
+    breadcrumbs.add('New Contacts', contact_query_new_path)
     @contacts = Contact.active.paginate(:order => 'created_at desc', :page => params[:page], :per_page => params[:per_page] || Contact.per_page)
     negotiate_list_query_response('contact')
   end
 
   def yours
     if current_user
+      breadcrumbs.add('My Contacts', contact_query_yours_path)
       @contacts = Contact.active.joins(:accepted_roles => [:users]).paginate(:order => 'updated_at', :conditions => ['roles.name = ? and roles.authorizable_type = ? and roles_users.user_id = ?','owner','Contact', current_user.id], :page => params[:page], :per_page => params[:per_page] || Contact.per_page)
     end
     negotiate_list_query_response('contact')

@@ -1,2 +1,2 @@
-class EmailsController < ApplicationController
+class EmailsController < BaseController
 end

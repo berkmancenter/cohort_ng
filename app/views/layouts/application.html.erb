@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CohortNg</title>
+    <title><%= page_title %></title>
     <%= stylesheet_link_tag 'redmond/jquery-ui-1.8.16.custom.css' %>
     <%= stylesheet_link_tag 'reset' %>
     <%= stylesheet_link_tag 'grid' %>
@@ -50,6 +50,7 @@
           <%= render :partial => 'shared/actions' %>
         </div>
         <div class="grid_10 omega">
+          <div class="breadcrumbs"><%= breadcrumbs.render(:format => :inline, :separator => ' &raquo; ') %></div>
           <div class="main">
             <%= yield %>
           </div>

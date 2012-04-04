@@ -7,10 +7,9 @@
   <%= f.inputs :name => 'About' do %>
     <%= f.input :first_name %>
     <%= f.input :last_name %>
-    <%= f.input :birthday, :as => 'string', :required => false, :input_html => {:class => "datepicker"}, :hint => 'In YYYY-MM-DD format' %>
   <% end  %>
 
-  <%= f.inputs :name => '&#9654; Tags ' + ((f.object.tags.length > 0 ) ? "(#{f.object.tags.length})" : ''), :class => 'collapsable' do %>
+  <%= f.inputs do %>
     <% unless f.object.new_record? %>
       <%= render :partial => 'shared/tag_list_for_display', :object => f.object.tags %>
     <% end %>
@@ -19,13 +18,10 @@
     <%= f.input :hierarchical_tag_list, :as => :hidden %>
   <% end %>
 
-  <%= f.inputs :name => '&#9654; Email Addresses ' + ((f.object.emails.size > 0) ? "(#{f.object.emails.size})" : '' ), :class => 'collapsable' do %>
+  <%= f.inputs :name => 'Email Addresses ' + ((f.object.emails.size > 0) ? "(#{f.object.emails.size})" : '' ) do %>
     <% @contact.emails.build %> 
     <%= f.semantic_fields_for :emails do |email| %>
       <%= f.inputs :class => 'block' do %>
-        <% if email.object.new_record? %>
-          <h3>New Email</h3>
-        <% end %>
         <%= email.input :email, :label => ((email.object.new_record?) ? 'New Email' : 'Email') %>
         <%= email.input :email_type, :as => :select, :collection => Email.email_type_options_for_select %>
         <%= email.input :is_primary, :as => :boolean, :label => 'Primary email address?' %>
@@ -85,6 +81,10 @@
         <% end %>
       <% end %>
     <% end %>
+  <% end %>
+
+  <%= f.inputs :name => '&#9654; Miscellaneous ', :class => 'collapsable' do %>
+    <%= f.input :birthday, :as => 'string', :required => false, :input_html => {:class => "datepicker"}, :hint => 'In YYYY-MM-DD format' %>
   <% end %>
 
 <% end %>

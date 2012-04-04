@@ -28,6 +28,7 @@ class ContactCartsController < BaseController
   end
 
   def index
+    breadcrumbs.add('All Contact Lists', contact_cart_path)
     @contact_carts = ContactCart.active
   end
 

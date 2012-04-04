@@ -1,2 +1,2 @@
-class LogItemsController < ApplicationController
+class LogItemsController < BaseController
 end

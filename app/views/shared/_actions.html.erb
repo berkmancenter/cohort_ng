@@ -1,13 +1,24 @@
 <div class="actions">
-  <%= link_to('Dashboard', root_path) %>
-  <hr/>
-  <% unless current_user.blank? %>
-    <%= link_to 'New Contact', new_contact_path, :class => 'dialog-form', :title => "New Contact" %>
-    <%= link_to 'New contact list', new_contact_cart_path, :class => 'dialog-form', :title => 'New Contact List' %>
-    <%= link_to 'Import a csv file', importer_path %>
-  <% end %>
-  <hr/>
-  <%= link_to 'Notes', notes_path %>
-  <%= link_to 'Documents', documents_path %>
-  <%= link_to 'Tags', tags_path %>
+  <%= link_to(icon('application_form') + ' Dashboard', root_path) %>
+  <h2>Contacts</h2>
+  <%= link_to(icon('user_add') + ' New', new_contact_path, :class => 'dialog-form', :title => "New Contact") %> |
+  <%= link_to 'Mine', contact_query_yours_path %>
+
+  <h2>Tags</h2>
+  <%= link_to icon('tag_blue') + ' All', tags_path %>
+
+  <h2>Contact Lists</h2>
+  <%= link_to icon('basket_add') + ' New', new_contact_cart_path, :class => 'dialog-form', :title => 'New Contact List' %> |
+  <%= link_to 'Mine', contact_cart_query_yours_path %>
+
+  <h2>Notes</h2>
+  <%= link_to icon('note') + ' All', note_query_recent_path %> |
+  <%= link_to 'Mine', note_query_yours_path %>
+
+  <h2>Tasks</h2>
+  <%= link_to icon('note') + ' All', note_query_all_upcoming_path %> |
+  <%= link_to 'Mine', note_query_upcoming_path %>
+
+  <h2>Tools</h2>
+  <%= link_to 'Import a csv file', importer_path %>
 </div>
