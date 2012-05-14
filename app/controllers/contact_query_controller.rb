@@ -22,7 +22,7 @@ class ContactQueryController < BaseController
     @tags = Sunspot.new_search(ActsAsTaggableOn::Tag)
     @tags.build do
       text_fields{
-        with(:hierarchical_name_for_indexing).starting_with(params[:tag])
+        with(:hierarchical_name_for_indexing).starting_with(params[:tag].strip)
       }
     end
     @tags.execute!
@@ -33,7 +33,7 @@ class ContactQueryController < BaseController
     breadcrumbs.add('Contacts with this tag', contact_query_recent_path)
     @contact_query = Sunspot.new_search(Contact)
     @contact_query.build do
-      with(:hierarchical_tags).starting_with(params[:id])
+      with(:hierarchical_tags).starting_with(params[:id].strip)
       with :active, true
       with :deleted, false
       paginate :page => params[:page], :per_page => cookies[:per_page] || Contact.per_page
@@ -72,7 +72,7 @@ class ContactQueryController < BaseController
       @contact_query = Sunspot.new_search(Contact)
       @contact_query.build do
         unless params[:q].blank?
-          keywords params[:q]
+          keywords params[:q].strip
         end
         with :active, true
         with :deleted, false
@@ -120,7 +120,7 @@ class ContactQueryController < BaseController
 
   def autofill
     #TODO - implement sunspot
-    @contacts = Contact.active.paginate(:conditions => ['first_name = ? or last_name = ?', params[:q], params[:q]])
+    @contacts = Contact.active.paginate(:conditions => ['first_name = ? or last_name = ?', params[:q].strip, params[:q].strip])
     render :json => @contacts
   end
 

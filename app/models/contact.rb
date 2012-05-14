@@ -86,7 +86,7 @@ class Contact < ActiveRecord::Base
     organizations = ActsAsTaggableOn::Tag.search do
       all_of do
         with :id, self.tag_ids
-        with :ancestor_ids, 53
+        with :ancestor_ids, 4
       end
     end
     organizations.execute
