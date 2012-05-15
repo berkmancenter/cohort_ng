@@ -45,7 +45,12 @@ CohortNg::Application.routes.draw do
 #  put "tags/update"
 #  delete "tags/destroy"
 
-  resources :tags
+  resources :tags do
+    member do
+      get :children
+    end
+  end
+
   resources :contact_sources
 
   get "note_query/new"
@@ -55,7 +60,7 @@ CohortNg::Application.routes.draw do
   get "note_query/yours"
   get "note_query/recent"
 
-  match 'note_query/contact/:id' => 'note_query#contact'
+  match 'note_query/contact/:id' => 'note_query#contact', :as => 'note_query_contact'
 
   resources :documents
 

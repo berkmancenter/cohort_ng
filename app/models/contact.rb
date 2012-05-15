@@ -83,10 +83,11 @@ class Contact < ActiveRecord::Base
   end
 
   def organizations
+    organization_root_tag_id = CohortNg::Application.config.organization_root_tag.id
     organizations = ActsAsTaggableOn::Tag.search do
       all_of do
         with :id, self.tag_ids
-        with :ancestor_ids, 4
+        with :ancestor_ids, organization_root_tag_id
       end
     end
     organizations.execute

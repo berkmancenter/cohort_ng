@@ -1,7 +1,7 @@
 class TagsController < BaseController
   def index
     breadcrumbs.add('Tags', tags_path)
-    @tags = ActsAsTaggableOn::Tag.all
+    @tags = ActsAsTaggableOn::Tag.where(:ancestry => nil)
     @tags = @tags.sort_by{|t| t.hierarchical_name(' :: ')}
   end
 
@@ -9,6 +9,11 @@ class TagsController < BaseController
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
     breadcrumbs.add('Tags', tags_path)
     breadcrumbs.add(@tag.hierarchical_name, tag_path(@tag))
+  end
+
+  def children
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    @children = @tag.children
   end
 
   def new
