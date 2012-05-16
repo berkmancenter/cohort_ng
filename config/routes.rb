@@ -26,6 +26,7 @@ CohortNg::Application.routes.draw do
   resources :contact_carts do
     member do
       post :add_contact
+      post :add_tag
       get :contacts
       get :tags
       get :saved_searches
@@ -36,14 +37,6 @@ CohortNg::Application.routes.draw do
   match 'tag_query/tag/:id' => 'tag_query#tag'
   get "tag_query/search"
   get "tag_query/recent_taggings"
-
-#  get "tags/index"
-#  get "tags/show"
-#  get "tags/new"
-#  post "tags/create"
-#  get "tags/edit"
-#  put "tags/update"
-#  delete "tags/destroy"
 
   resources :tags do
     member do

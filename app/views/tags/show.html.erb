@@ -3,14 +3,17 @@
 <div class="grid_5 alpha">
   <div class="tabs">
     <ul>
-      <li><%= link_to('contacts', url_for(:controller => :contact_query, :action => :tag_contacts, :id => @tag.id)) %></li>
+      <li><%= link_to('Contacts', url_for(:controller => :contact_query, :action => :tag_contacts, :id => @tag.id)) %></li>
+      <li><a href="#tools">Tools</a></li>
     </ul>
+    <div id="tools">
+      
+    </div>
   </div>
 </div>
 
 <div class="grid_4 omega">
   <span class="tagMatches existingTags">
-    <%= link_to('Tag list home', tags_path) %><br/>
     <% unless @tag.ancestors.empty? %>
       <% @tag.ancestors.each do |t| %>
       <span><%= link_to(t, tag_path(t)) %></span>

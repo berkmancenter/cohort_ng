@@ -22,8 +22,34 @@ class ContactCartsController < BaseController
     end
   rescue Exception => e
     respond_to do|format|
-      format.js { render :text => "We couldn't add that contact list. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
+      format.js { render :text => "We couldn't add that contact. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
       format.html { render :text => "We couldn't add that contact. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
+    end
+  end
+
+  def add_tag
+    @contact_cart = ContactCart.find_or_create_by_id(params[:id])
+    unless @contact_cart
+      @contact_cart = ContactCart.create(:name => "Contact List created on #{Time.now.to_s(:compact_datetime)}", :global => true)
+    end
+    @tag_id = params[:tag_id]
+
+    message = ''
+    existing_tag_ids = @contact_cart.contact_sources.tag_input_sources.collect{|tis| tis.contact_input_id}
+    unless existing_tag_ids.include?(@tag_id.to_i)
+      ContactSource.create!(:contact_input_type => 'ActsAsTaggableOn::Tag', :contact_input_id => @tag_id, :contact_cart => @contact_cart)
+      message = 'Added that tag. Cheers!'
+    else
+      message = 'That tag was already included in this contact list.'
+    end
+    respond_to do|format|
+      format.js{ render :text => message }
+      format.html{ render :text => message, :layout => ! request.xhr? }
+    end
+  rescue Exception => e
+    respond_to do|format|
+      format.js { render :text => "We couldn't add that tag. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
+      format.html { render :text => "We couldn't add that tag. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
     end
   end
 
