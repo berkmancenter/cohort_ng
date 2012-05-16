@@ -202,6 +202,34 @@ legend{
   text-decoration: underline;
 }
 
+.tagMatches .depth_1{
+  margin-left: 1em;
+}
+
+.tagMatches .depth_2{
+  margin-left: 2em;
+}
+
+.tagMatches .depth_3{
+  margin-left: 3em;
+}
+
+.tagMatches .depth_4{
+  margin-left: 4em;
+}
+
+.tagMatches .depth_5{
+  margin-left: 5em;
+}
+
+.tagMatches .depth_6{
+  margin-left: 6em;
+}
+
+.tagMatches .depth_7{
+  margin-left: 7em;
+}
+
 .formtastic span.existingTags span{
   padding-left: 15px;
   background: url('../images/remove.png') 2px 2px no-repeat #e4e4e4;

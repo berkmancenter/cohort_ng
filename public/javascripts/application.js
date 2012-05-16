@@ -139,4 +139,20 @@ jQuery(document).ready(function(){
     }
   });
 
+  jQuery('.expand_tag').live({
+    click: function(e){
+      var node = this;
+      e.preventDefault();
+      jQuery.ajax({
+        cache: false,
+        dataType: 'html',
+        url: jQuery.rootPath() + 'tags/' + jQuery(this).attr('data_tag_id') + '/children',
+        success: function(html){
+          jQuery(node).next().after(html);
+        }
+
+      });
+    }
+  });
+
 });

@@ -14,6 +14,9 @@ class TagsController < BaseController
   def children
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
     @children = @tag.children
+    respond_to do|f|
+      f.html{ render :layout => ! request.xhr? }
+    end
   end
 
   def new

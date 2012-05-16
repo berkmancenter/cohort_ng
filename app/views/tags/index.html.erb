@@ -1,9 +1,4 @@
 <h1>All Tags</h1>
 <span class="tagMatches existingTags">
-  <% @tags.each do |t| %>
-    <span id="tag_<%= t.id %>"><%= link_to(t.hierarchical_name(' :: '),tag_path(t)) %></span><% unless t.children.blank? %> 
-      <%= icon('arrow_right', :id => "expand_tag", :data_tag_id => t.id ) %>
-    <% end %>
-    <div class="clear"></div>
-  <% end %>
+  <%= render :partial => 'shared/tag_detail', :collection => @tags %>
 </div>
