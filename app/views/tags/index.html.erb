@@ -1,4 +1,13 @@
 <h1>All Tags</h1>
+<p style="margin-bottom: .75em;"><a href="#" id="expand_all">Expand / hide all sub tags</a></p>
 <span class="tagMatches existingTags">
   <%= render :partial => 'shared/tag_detail', :collection => @tags %>
 </div>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    jQuery('#expand_all').click(function(e){
+      e.preventDefault();
+      jQuery('.expand_tag').click();
+    });
+  });
+<% end %>
