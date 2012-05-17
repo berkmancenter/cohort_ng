@@ -71,14 +71,15 @@ jQuery(document).ready(function(){
   jQuery('.select_for_contact_cart').live({
     click: function(e){
       e.preventDefault();
-      var contact_cart_id = jQuery(this).attr('id').split('-')[1];
-      var contact_id = jQuery.data(document.body, 'selected_contact_id');
+      var contact_cart_id = jQuery(this).attr('data_contact_cart_id');
+      var objectType = jQuery.data(document.body, 'selected_object_type');
+      var objectId = jQuery.data(document.body, 'selected_object_id');
       jQuery.ajax({
         cache: false,
         type: 'POST',
         dataType: 'html',
-        data: {contact_id: contact_id},
-        url: jQuery.rootPath() + 'contact_carts/' + contact_cart_id + '/add_contact',
+        data: {object_id: objectId, object_type: objectType},
+        url: jQuery.rootPath() + 'contact_carts/' + contact_cart_id + '/add_object',
         beforeSend: function(){
           jQuery.showGlobalSpinnerNode();
         },
@@ -102,12 +103,15 @@ jQuery(document).ready(function(){
   jQuery('.add_to_list').live({
     click: function(e){
       e.preventDefault();
-      var contactId = jQuery('.bt-active').closest('li').attr('class').split('-')[1];
-      jQuery.data(document.body, 'selected_contact_id', contactId);
+      var objectType = jQuery(this).attr('data_object_type');
+      var objectId = jQuery(this).attr('data_object_id');
+      var objectTitle = jQuery(this).attr('title');
+      jQuery.data(document.body, 'selected_object_type', objectType);
+      jQuery.data(document.body, 'selected_object_id', objectId);
       // Open a dialog to select the list.
       var dialog = jQuery('<div id="add-contact-to-list"><h1>Contact lists</h1><div class="subtabs"><ul><li><a href="/contact_cart_query/yours">Mine</a></li><li><a href="/contact_cart_query/all">All</a></li><li><a href="/contact_cart_query/your_private">Private</a></li></ul></div></div>');
       jQuery(dialog).dialog({
-        title: 'Add "'+ jQuery('li.contact-' + contactId + ' .dialog-show').html() + '" to a contact list',
+        title: 'Add "'+ objectTitle + '" to a contact list',
         modal: true,
         position: 'top'
       });
@@ -119,7 +123,6 @@ jQuery(document).ready(function(){
           data: {select_for_contact_cart: 1}
         }
       });
-
     }
   });
 

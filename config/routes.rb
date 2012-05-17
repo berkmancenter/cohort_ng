@@ -25,8 +25,7 @@ CohortNg::Application.routes.draw do
 
   resources :contact_carts do
     member do
-      post :add_contact
-      post :add_tag
+      post :add_object
       get :contacts
       get :tags
       get :saved_searches

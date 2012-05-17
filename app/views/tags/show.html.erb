@@ -7,6 +7,7 @@
       <li><a href="#tools">Tools</a></li>
     </ul>
     <div id="tools">
+      <%= link_to(icon('group_add') + ' Add items from this tag to a list', '#', :class => "add_to_list", :data_object_type => 'ActsAsTaggableOn::Tag', :data_object_id => @tag.id, :title => @tag) %>
       
     </div>
   </div>

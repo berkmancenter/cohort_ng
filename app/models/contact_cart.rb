@@ -22,4 +22,8 @@ class ContactCart < ActiveRecord::Base
     "#{name}"
   end
 
+  def active_contact_input_types
+    self.contact_sources.select(:contact_input_type).group(:contact_input_type).collect{|ci| ci.contact_input_type}
+  end
+
 end
