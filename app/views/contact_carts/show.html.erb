@@ -2,7 +2,12 @@
   <h1><%= @contact_cart.name %></h1>
   <div class="tabs">
     <ul>
-      <li><%= link_to('Contacts', contacts_contact_cart_path(@contact_cart)) %></li>
+      <% if @contact_cart.active_contact_input_types.include?('Contact') %>
+        <li><%= link_to('Contacts', contacts_contact_cart_path(@contact_cart)) %></li>
+      <% end %>
+      <% if @contact_cart.active_contact_input_types.include?('ActsAsTaggableOn::Tag') %>
+        <li><%= link_to('Tags', tags_contact_cart_path(@contact_cart)) %></li>
+      <% end %>
     </ul>
   </div>
 </div>

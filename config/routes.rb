@@ -37,6 +37,8 @@ CohortNg::Application.routes.draw do
   get "tag_query/search"
   get "tag_query/recent_taggings"
 
+  get 'tags/:id', :controller => :tags, :action => :show, :as => 'acts_as_taggable_on_tag'
+
   resources :tags do
     member do
       get :children

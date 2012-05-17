@@ -2,7 +2,7 @@
 <% unless current_user.blank? %>
   <a href="#" class="control" id="contact_source-control-<%= contact_source.id %>"><%= icon('add') %></a>
 <% end %>
-  <%= link_to(contact_source.contact_input, contact_path(contact_source.contact_input), :class => 'dialog-show') %>
+  <%= link_to(contact_source.contact_input, contact_source.contact_input, :class => 'dialog-show') %>
 <% unless current_user.blank? %><span id="contact_source-control-<%= contact_source.id %>-target" style="display: none;">
 <%= link_to(icon('user_delete') + ' Delete contact from list',contact_source_path(contact_source), :title => 'Delete contact_source', :method => :delete, :class => 'delete delete-contact_source') %>
 </span>

@@ -117,14 +117,12 @@ class ContactCartsController < BaseController
   end
 
   def saved_search
-    # TODO
     @contact_cart = ContactCart.find(params[:id])
     @contact_sources = @contact_cart.contact_sources.saved_search_input_sources.paginate(:page => params[:page], :per_page => params[:per_page])
     negotiate_list_query_response('saved_search_contact_source')
   end
   
   def tags
-    # TODO
     @contact_cart = ContactCart.find(params[:id])
     @contact_sources = @contact_cart.contact_sources.tag_input_sources.paginate(:page => params[:page], :per_page => params[:per_page])
     negotiate_list_query_response('tag_contact_source')
