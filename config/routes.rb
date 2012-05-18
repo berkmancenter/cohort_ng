@@ -42,6 +42,7 @@ CohortNg::Application.routes.draw do
   resources :tags do
     member do
       get :children
+      post :merge
     end
   end
 

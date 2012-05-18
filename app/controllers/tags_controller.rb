@@ -20,6 +20,14 @@ class TagsController < BaseController
     end
   end
 
+  def merge
+    original_tag = ActsAsTaggableOn::Tag.find(params[:tag_id])
+    new_tag = ActsAsTaggableOn::Tag.find(params[:new_tag_id])
+
+
+
+  end
+
   def new
   end
 
