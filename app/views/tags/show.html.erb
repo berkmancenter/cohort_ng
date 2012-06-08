@@ -7,8 +7,17 @@
       <li><a href="#tools">Tools</a></li>
     </ul>
     <div id="tools">
-      <%= link_to(icon('group_add') + ' Add items from this tag to a list', '#', :class => "add_to_list", :data_object_type => 'ActsAsTaggableOn::Tag', :data_object_id => @tag.id, :title => @tag) %>
-      
+      <ul>
+        <li><%= link_to(icon('group_add') + ' Add items from this tag to a list', '#', :class => "add_to_list", :data_object_type => 'ActsAsTaggableOn::Tag', :data_object_id => @tag.id, :title => @tag) %></li>
+        <li><h3>Merge this tag into another tag</h3>
+        <%= form_tag(merge_tag_path(@tag), :method => :post) do %>
+          <%= label_tag(:new_tag_id, 'Select tag to merge into') %>:
+          <%= select_tag(:new_tag_id, options_from_collection_for_select(ActsAsTaggableOn::Tag.all.sort_by{|t| t.hierarchical_name},'id','hierarchical_name')) %><br/>
+          <%= label_tag(:delete, "Delete tag after merging") %> <%= check_box_tag(:delete, 1, true) %> <br/>
+          <%= submit_tag('Merge') %>
+        <% end %>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
