@@ -57,13 +57,23 @@ class TagsController < BaseController
   end
 
   def update
+    tag = ActsAsTaggableOn::Tag.find(params[:id])
+    contacts_to_reindex = tag.taggings.collect{|tg| tg.taggable.id}
+    tag.name = params[:acts_as_taggable_on_tag][:name]
+    if tag.save
+      Contact.where(:id => contacts_to_reindex).solr_index(:batch_size => 100)
+      flash[:notice] = 'We updated that tag.'
+    else
+      flash[:error] = "We couldn't update that tag. It might be a duplicate of another or validate another constraint we're imposing. Try again!"
+    end
+    redirect_to tag_path(tag) and return
   end
 
   def destroy
     tag = ActsAsTaggableOn::Tag.find(params[:id])
     contacts_to_reindex = tag.taggings.collect{|tg| tg.taggable.id}
     tag.destroy
-    Contact.where(:id => contacts_to_reindex).solr_index
+    Contact.where(:id => contacts_to_reindex).solr_index(:batch_size => 100)
     flash[:notice] = 'We deleted that tag.'
     redirect_to tags_path and return
   end

@@ -1,16 +1,16 @@
 source :rubygems
 require 'rubygems'
 
-gem "rails", "~> 3.0.9"
+gem "rails", "~> 3.0.15"
 gem 'jquery-rails'
-gem "formtastic"
+gem "formtastic", '1.2.4'
 gem "will_paginate"
 gem 'pg'
 gem "devise"
-gem 'sunspot_rails'
+gem 'sunspot_rails', '1.2.1'
 gem 'carmen'
 gem 'ancestry'
-gem 'acts_as_list'
+gem 'acts_as_list', '0.1.4'
 gem 'acts-as-taggable-on', '2.0.6'
 gem 'carrierwave'
 gem 'mini_magick'

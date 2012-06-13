@@ -86,6 +86,7 @@ jQuery.extend({
         }
       });
       var destroyUrl = jQuery(this).attr('href');
+      var redirectTo = jQuery(this).attr('data_redirect_to');
       var confirmMessage = (jQuery(this).attr('message')) ? jQuery(this).attr('message') : 'Are you sure you want to delete this item?';
       var confirmNode = jQuery('<div><p>' + confirmMessage + '</p></div>');
       jQuery(confirmNode).dialog({
@@ -113,9 +114,13 @@ jQuery.extend({
               jQuery.hideGlobalSpinnerNode();
             },
             success: function(){
-              jQuery.refreshActiveTabPane();
-              jQuery.updateLists(objectType);
-              jQuery(confirmNode).dialog('close');
+              if(redirectTo != undefined){
+                window.location.href = redirectTo;
+              } else {
+                jQuery.refreshActiveTabPane();
+                jQuery.updateLists(objectType);
+                jQuery(confirmNode).dialog('close');
+              }
             }
           });
         }
