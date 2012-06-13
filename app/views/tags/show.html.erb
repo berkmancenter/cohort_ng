@@ -19,12 +19,13 @@
         </li>
         <li><hr/></li>
         <li><h3>Delete this tag entirely.</h3>
+        <p>Contacts won't be removed, of course.</p>
         <%= link_to(raw('<button>Delete</button>'), tag_path(@tag), :class => "delete", :data_redirect_to => '/') %>
         </li>
         <li><hr/></li>
         <li><h3>Edit Tag</h3>
         <%= form_for(@tag) do |f| %>
-          <%= f.text_field :name, :size => 60 %>
+          <%= f.text_field :name, :size => 60 %><br/>
           <%= submit_tag('Change tag') %>
         <% end %>
       </ul>
