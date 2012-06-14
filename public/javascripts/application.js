@@ -1,122 +1,120 @@
-jQuery.noConflict();
-
-jQuery(document).ready(function(){
-  jQuery.ajaxPrefilter(function(options, originalOptions, xhr){
-    var token = jQuery('meta[name="csrf-token"]').attr('content');
+$(document).ready(function(){
+  $.ajaxPrefilter(function(options, originalOptions, xhr){
+    var token = $('meta[name="csrf-token"]').attr('content');
     if (token) xhr.setRequestHeader('X-CSRF-Token', token);
   });
-  jQuery('.actions').css('min-height', jQuery('.main').height());
-  jQuery('.accordion').accordion();
-  jQuery.updateLists('contact');
-  jQuery.updateLists('document');
-  jQuery.updateLists('note');
-  //    jQuery.updateLists('tag');
-  jQuery.observeDialogForm('a.dialog-form');
-  jQuery.observeDialogShow('a.dialog-show');
-  jQuery.observeListPagination();
-  //    jQuery.observeListItems();
-  jQuery.observeDestroyControls();
+  $('.actions').css('min-height', $('.main').height());
+  $('.accordion').accordion();
+  $.updateLists('contact');
+  $.updateLists('document');
+  $.updateLists('note');
+  //    $.updateLists('tag');
+  $.observeDialogForm('a.dialog-form');
+  $.observeDialogShow('a.dialog-show');
+  $.observeListPagination();
+  //    $.observeListItems();
+  $.observeDestroyControls();
 
-  jQuery('.tabs').tabs({
+  $('.tabs').tabs({
     ajaxOptions: {
       cache: false,
       dataType: 'html',
       beforeSend: function(){
-        jQuery.showGlobalSpinnerNode();
+        $.showGlobalSpinnerNode();
       },
       complete: function(){
-        jQuery.hideGlobalSpinnerNode();
+        $.hideGlobalSpinnerNode();
       },
       error: function(xhr,textStatus,errorStr){
-        jQuery.showMajorError(textStatus);
+        $.showMajorError(textStatus);
       }
     }
   });
 
-  jQuery('.button').button();
+  $('.button').button();
   
-  jQuery('.quick_search_tag').tagSuggest({
-    url: jQuery.rootPath() + 'contact_query/autocomplete_tags',
+  $('.quick_search_tag').tagSuggest({
+    url: $.rootPath() + 'contact_query/autocomplete_tags',
     delay: 500
   });
 
-  jQuery('.search_tag').tagSuggest({
-    url: jQuery.rootPath() + 'contact_query/autocomplete_tags',
+  $('.search_tag').tagSuggest({
+    url: $.rootPath() + 'contact_query/autocomplete_tags',
     separator: ', ',
     delay: 500
   });
 
-  jQuery('#quick_search_submit').click(function(e){
+  $('#quick_search_submit').click(function(e){
     e.preventDefault();
     // goes into #quick_search_results
-    jQuery.ajax({
+    $.ajax({
       cache: false,
       dataType: 'html',
-      url: jQuery.rootPath() + 'contact_query/tag_contacts_by_name/' + encodeURI(jQuery('#quick_search_tag').val()),
+      url: $.rootPath() + 'contact_query/tag_contacts_by_name/' + encodeURI($('#quick_search_tag').val()),
       beforeSend: function(){
-        jQuery.showGlobalSpinnerNode();
+        $.showGlobalSpinnerNode();
       },
       error: function(jqXHR, textStatus, errorThrown){
-        jQuery.showMajorError(textStatus);
+        $.showMajorError(textStatus);
       },
       complete: function(){
-        jQuery.hideGlobalSpinnerNode();
+        $.hideGlobalSpinnerNode();
       },
       success: function(html){
-        jQuery('#quick_search_results').html(html);
+        $('#quick_search_results').html(html);
       }
     });
   });
 
-  jQuery('.select_for_contact_cart').live({
+  $('.select_for_contact_cart').live({
     click: function(e){
       e.preventDefault();
-      var contact_cart_id = jQuery(this).attr('data_contact_cart_id');
-      var objectType = jQuery.data(document.body, 'selected_object_type');
-      var objectId = jQuery.data(document.body, 'selected_object_id');
-      jQuery.ajax({
+      var contact_cart_id = $(this).attr('data_contact_cart_id');
+      var objectType = $.data(document.body, 'selected_object_type');
+      var objectId = $.data(document.body, 'selected_object_id');
+      $.ajax({
         cache: false,
         type: 'POST',
         dataType: 'html',
         data: {object_id: objectId, object_type: objectType},
-        url: jQuery.rootPath() + 'contact_carts/' + contact_cart_id + '/add_object',
+        url: $.rootPath() + 'contact_carts/' + contact_cart_id + '/add_object',
         beforeSend: function(){
-          jQuery.showGlobalSpinnerNode();
+          $.showGlobalSpinnerNode();
         },
         success: function(message){
-          jQuery('#add-contact-to-list').html(message);
+          $('#add-contact-to-list').html(message);
           window.setTimeout(function(){
-            jQuery('#add-contact-to-list').dialog('close').remove();
+            $('#add-contact-to-list').dialog('close').remove();
           }, 1200);
         },
         error: function(xhr){
-          jQuery.showMajorError(xhr);
+          $.showMajorError(xhr);
         },
         complete: function(){
-          jQuery.hideGlobalSpinnerNode();
+          $.hideGlobalSpinnerNode();
         }
       });
 
     }
   });
 
-  jQuery('.add_to_list').live({
+  $('.add_to_list').live({
     click: function(e){
       e.preventDefault();
-      var objectType = jQuery(this).attr('data_object_type');
-      var objectId = jQuery(this).attr('data_object_id');
-      var objectTitle = jQuery(this).attr('title');
-      jQuery.data(document.body, 'selected_object_type', objectType);
-      jQuery.data(document.body, 'selected_object_id', objectId);
+      var objectType = $(this).attr('data_object_type');
+      var objectId = $(this).attr('data_object_id');
+      var objectTitle = $(this).attr('title');
+      $.data(document.body, 'selected_object_type', objectType);
+      $.data(document.body, 'selected_object_id', objectId);
       // Open a dialog to select the list.
-      var dialog = jQuery('<div id="add-contact-to-list"><h1>Contact lists</h1><div class="subtabs"><ul><li><a href="/contact_cart_query/yours">Mine</a></li><li><a href="/contact_cart_query/all">All</a></li><li><a href="/contact_cart_query/your_private">Private</a></li></ul></div></div>');
-      jQuery(dialog).dialog({
+      var dialog = $('<div id="add-contact-to-list"><h1>Contact lists</h1><div class="subtabs"><ul><li><a href="/contact_cart_query/yours">Mine</a></li><li><a href="/contact_cart_query/all">All</a></li><li><a href="/contact_cart_query/your_private">Private</a></li></ul></div></div>');
+      $(dialog).dialog({
         title: 'Add "'+ objectTitle + '" to a contact list',
         modal: true,
         position: 'top'
       });
-      jQuery(dialog).dialog('open');
-      jQuery(dialog).find('.subtabs').tabs({
+      $(dialog).dialog('open');
+      $(dialog).find('.subtabs').tabs({
         ajaxOptions: {
           cache: false,
           dataType: 'html',
@@ -126,34 +124,34 @@ jQuery(document).ready(function(){
     }
   });
 
-  jQuery('.control').live({
+  $('.control').live({
     click: function(e){
       e.preventDefault();
-      var id = jQuery(this).attr('id');
-      jQuery(this).bt({
+      var id = $(this).attr('id');
+      $(this).bt({
         trigger: 'none',
-        contentSelector: jQuery('#' + id + '-target'),
+        contentSelector: $('#' + id + '-target'),
         textzIndex: 101,
         boxzIndex: 100,
         wrapperzIndex: 99,
         closeWhenOthersOpen: true
       });
-      jQuery(this).btOn();
+      $(this).btOn();
     }
   });
 
-  jQuery('.expand_tag').live({
+  $('.expand_tag').live({
     click: function(e){
       var node = this;
-      jQuery(node).attr('expanded',((jQuery(node).attr('expanded') == undefined) ? 0 : 1));
+      $(node).attr('expanded',(($(node).attr('expanded') == undefined) ? 0 : 1));
       e.preventDefault();
-      if(jQuery(node).attr('expanded') == 0){
-        jQuery.ajax({
+      if($(node).attr('expanded') == 0){
+        $.ajax({
           cache: false,
           dataType: 'html',
-          url: jQuery.rootPath() + 'tags/' + jQuery(this).attr('data_tag_id') + '/children',
+          url: $.rootPath() + 'tags/' + $(this).attr('data_tag_id') + '/children',
           success: function(html){
-            jQuery(node).next().after(html);
+            $(node).next().after(html);
           }
         });
       }

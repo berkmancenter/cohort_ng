@@ -37,7 +37,6 @@ class TagsController < BaseController
     Contact.where(:id => contacts_to_reindex).solr_index
     new_tag.solr_index
     if params[:delete].to_i == 1
-      # Hasta la vista, baby.
       tag.destroy
     else
       # Just reindex.
@@ -56,10 +55,16 @@ class TagsController < BaseController
   def edit
   end
 
+  def controls
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    render :layout => ! request.xhr?
+  end
+
   def update
     tag = ActsAsTaggableOn::Tag.find(params[:id])
     contacts_to_reindex = tag.taggings.collect{|tg| tg.taggable.id}
     tag.name = params[:acts_as_taggable_on_tag][:name]
+    tag.parent_id = params[:acts_as_taggable_on_tag][:parent_id]
     if tag.save
       Contact.where(:id => contacts_to_reindex).solr_index(:batch_size => 100)
       flash[:notice] = 'We updated that tag.'

@@ -1,4 +1,4 @@
-<span class="tlist depth_<%= tag_detail.depth %>" id="tag_<%= tag_detail.id %>"><%= link_to(tag_detail.hierarchical_name(' :: '),tag_path(tag_detail)) %></span><% unless tag_detail.children.blank? %> 
+<span class="tlist depth_<%= tag_detail.depth %>" id="tag_<%= tag_detail.id %>"><%= link_to(raw(icon('add')), controls_tag_path(tag_detail), :class => "dialog-show") %> <%= link_to(tag_detail.hierarchical_name(' :: '),tag_path(tag_detail)) %></span><% unless tag_detail.children.blank? %> 
   <%= icon('arrow_right', :class => "expand_tag", :data_tag_id => tag_detail.id ) %><br/>
 <% end %>
 <div class="clear"></div>

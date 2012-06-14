@@ -4,32 +4,8 @@
   <div class="tabs">
     <ul>
       <li><%= link_to('Contacts', url_for(:controller => :contact_query, :action => :tag_contacts, :id => @tag.id)) %></li>
-      <li><a href="#tools">Tools</a></li>
+      <li><%= link_to 'Tools', controls_tag_path(@tag) %></li>
     </ul>
-    <div id="tools">
-      <ul>
-        <li><%= link_to(icon('group_add') + ' Add tag to a contact list', '#', :class => "add_to_list", :data_object_type => 'ActsAsTaggableOn::Tag', :data_object_id => @tag.id, :title => @tag) %></li>
-        <li><hr/></li>
-        <li><h3>Merge this tag into:</h3>
-        <%= form_tag(merge_tag_path(@tag), :method => :post) do %>
-          <%= select_tag(:new_tag_id, options_from_collection_for_select(ActsAsTaggableOn::Tag.all.sort_by{|t| t.hierarchical_name},'id','hierarchical_name')) %><br/>
-          <%= label_tag(:delete, "Delete tag after merging") %> <%= check_box_tag(:delete, 1, true) %> <br/>
-          <%= submit_tag('Merge') %>
-        <% end %>
-        </li>
-        <li><hr/></li>
-        <li><h3>Delete this tag entirely.</h3>
-        <p>Contacts won't be removed, of course.</p>
-        <%= link_to(raw('<button>Delete</button>'), tag_path(@tag), :class => "delete", :data_redirect_to => '/') %>
-        </li>
-        <li><hr/></li>
-        <li><h3>Edit Tag</h3>
-        <%= form_for(@tag) do |f| %>
-          <%= f.text_field :name, :size => 60 %><br/>
-          <%= submit_tag('Change tag') %>
-        <% end %>
-      </ul>
-    </div>
   </div>
 </div>
 

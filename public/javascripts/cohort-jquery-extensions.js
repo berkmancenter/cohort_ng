@@ -1,29 +1,29 @@
-jQuery.extend({
+$.extend({
   rootPath: function(){
     return '/'
   },
   showGlobalSpinnerNode: function(){
-    jQuery('#spinner').show();
+    $('#spinner').show();
   },
   hideGlobalSpinnerNode: function(){
-    jQuery('#spinner').hide();
+    $('#spinner').hide();
   },
   showMajorError: function(error){
-    jQuery('<div></div>').html("We're sorry, there appears to have been an error.<br/>" + error).dialog({
+    $('<div></div>').html("We're sorry, there appears to have been an error.<br/>" + error).dialog({
       modal: true,
       width: 600
       }).dialog('open');
   },
   interiorSpinnerNode: function(spinnerNamespace){
-    return jQuery('<img class="spinner-' + spinnerNamespace + '" src="' + jQuery.rootPath() + 'images/ajax-loader.gif" />');
+    return $('<img class="spinner-' + spinnerNamespace + '" src="' + $.rootPath() + 'images/ajax-loader.gif" />');
   },
   hideInteriorSpinnerNode: function(spinnerNamespace){
-    jQuery('.spinner-' + spinnerNamespace).remove();
+    $('.spinner-' + spinnerNamespace).remove();
   },
   initDateControl: function(){
-    jQuery('.datepicker').each(function(){
-      var dateRange = (jQuery(this).attr('id').match(/birth/)) ? 'c-115:c' : '-10y:+10y';
-      jQuery(this).datepicker({
+    $('.datepicker').each(function(){
+      var dateRange = ($(this).attr('id').match(/birth/)) ? 'c-115:c' : '-10y:+10y';
+      $(this).datepicker({
         changeMonth: true,
         changeYear: true,
         yearRange: dateRange,
@@ -32,101 +32,101 @@ jQuery.extend({
     });
   },
   updateLists: function(objectType){
-    jQuery('.' + objectType + '-list').each(function(listNode){
+    $('.' + objectType + '-list').each(function(listNode){
       var listType = 'recent';
       var elementId = false;
-      if(jQuery(this).hasClass('recent')){
+      if($(this).hasClass('recent')){
         listType = 'recent';
-      } else if(jQuery(this).hasClass('yours')){
+      } else if($(this).hasClass('yours')){
         listType = 'yours';
-      } else if(jQuery(this).hasClass('tag_contacts')){
+      } else if($(this).hasClass('tag_contacts')){
         listType = 'tag_contacts';
-        elementId = jQuery(this).attr('id').split(/\-/)[1];
-      } else if(jQuery(this).hasClass('new')){
+        elementId = $(this).attr('id').split(/\-/)[1];
+      } else if($(this).hasClass('new')){
         listType = 'new';
-      } else if(jQuery(this).hasClass('upcoming')){
+      } else if($(this).hasClass('upcoming')){
         listType = 'upcoming';
-      } else if(jQuery(this).hasClass('all_upcoming')){
+      } else if($(this).hasClass('all_upcoming')){
         listType = 'all_upcoming';
-      } else if(jQuery(this).hasClass('contact')){
+      } else if($(this).hasClass('contact')){
         listType = 'contact';
-        elementId = jQuery(this).attr('id').split(/\-/)[1];
-      } else if(jQuery(this).hasClass('all')){
+        elementId = $(this).attr('id').split(/\-/)[1];
+      } else if($(this).hasClass('all')){
         listType = 'all';
       }
-      jQuery.ajax({
+      $.ajax({
         cache: false,
         dataType: 'html',
-        url: jQuery.rootPath() + objectType + '_query/' + listType + ((elementId) ? '/' + elementId : '' ),
+        url: $.rootPath() + objectType + '_query/' + listType + ((elementId) ? '/' + elementId : '' ),
         beforeSend: function(){
-          jQuery('.' + objectType + '-list.' + listType).html(jQuery.interiorSpinnerNode(listType));
+          $('.' + objectType + '-list.' + listType).html($.interiorSpinnerNode(listType));
         },
         error: function(jqXHR, textStatus, errorThrown){
-          jQuery('.' + objectType + '-list.' + listType).html('There seems to have been a problem! fail whale here. Please try again later.<br/>Code: ' + textStatus);
+          $('.' + objectType + '-list.' + listType).html('There seems to have been a problem! fail whale here. Please try again later.<br/>Code: ' + textStatus);
         },
         complete: function(){
-          jQuery.hideInteriorSpinnerNode(listType);
+          $.hideInteriorSpinnerNode(listType);
         },
         success: function(html){
-          jQuery('.' + objectType + '-list.' + listType).html(html);
+          $('.' + objectType + '-list.' + listType).html(html);
         }
       });
     });
   },
 
   observeDestroyControls: function(){
-    jQuery('a.delete').live('click', function(e){
+    $('a.delete').live('click', function(e){
       e.preventDefault();
-      jQuery.retainTabStateFromBeautyTip(this);
+      $.retainTabStateFromBeautyTip(this);
       var objectType = '';
-      var classList = jQuery(this).attr('class').split(/\s+/)
-      jQuery(classList).each(function(index, item){
+      var classList = $(this).attr('class').split(/\s+/)
+      $(classList).each(function(index, item){
         if(item.match(/^delete\-/i)){
           objectType = item.split('-')[1];
         }
       });
-      var destroyUrl = jQuery(this).attr('href');
-      var redirectTo = jQuery(this).attr('data_redirect_to');
-      var confirmMessage = (jQuery(this).attr('message')) ? jQuery(this).attr('message') : 'Are you sure you want to delete this item?';
-      var confirmNode = jQuery('<div><p>' + confirmMessage + '</p></div>');
-      jQuery(confirmNode).dialog({
+      var destroyUrl = $(this).attr('href');
+      var redirectTo = $(this).attr('data_redirect_to');
+      var confirmMessage = ($(this).attr('message')) ? $(this).attr('message') : 'Are you sure you want to delete this item?';
+      var confirmNode = $('<div><p>' + confirmMessage + '</p></div>');
+      $(confirmNode).dialog({
         title: 'Please confirm',
         modal: true,
         width: 600,
         buttons: {
           Cancel: function(){
-            jQuery(confirmNode).dialog('close');
+            $(confirmNode).dialog('close');
           },
           'Yes': function(){
-            jQuery.ajax({
+            $.ajax({
               cache: false,
               type: 'POST',
               url: destroyUrl,
               dataType: 'html',
             data: {'_method': 'delete'},
             beforeSend: function(){
-              jQuery.showGlobalSpinnerNode();
+              $.showGlobalSpinnerNode();
             },
             error: function(xhr){
-              jQuery.showMajorError(xhr);
+              $.showMajorError(xhr);
             },
             complete: function(){
-              jQuery.hideGlobalSpinnerNode();
+              $.hideGlobalSpinnerNode();
             },
             success: function(){
               if(redirectTo != undefined){
                 window.location.href = redirectTo;
               } else {
-                jQuery.refreshActiveTabPane();
-                jQuery.updateLists(objectType);
-                jQuery(confirmNode).dialog('close');
+                $.refreshActiveTabPane();
+                $.updateLists(objectType);
+                $(confirmNode).dialog('close');
               }
             }
           });
         }
       },
       close: function(){
-        jQuery(confirmNode).remove();
+        $(confirmNode).remove();
       }
       }).dialog('open');
     });
@@ -134,66 +134,66 @@ jQuery.extend({
 
   /* 
    observeListItems: function(){
-     jQuery('.resultlist li').live('mouseover mouseout', function(e){
+     $('.resultlist li').live('mouseover mouseout', function(e){
        if(e.type == 'mouseover'){
-         jQuery(this).addClass('hover');
-         jQuery(this).find('.floating-control').show();
+         $(this).addClass('hover');
+         $(this).find('.floating-control').show();
        }
        if(e.type == 'mouseout'){
-         jQuery(this).removeClass('hover');
-         jQuery(this).find('.floating-control').hide();
+         $(this).removeClass('hover');
+         $(this).find('.floating-control').hide();
        }
      });
    },
    */
 
   observeListPagination: function(){
-    jQuery('.pagination a').live('click',function(e){
-      var paginationTarget = jQuery(this).closest('.search_results,.ui-widget-content');
+    $('.pagination a').live('click',function(e){
+      var paginationTarget = $(this).closest('.search_results,.ui-widget-content');
       e.preventDefault();
-      jQuery.ajax({
+      $.ajax({
         type: 'GET',
         cache: false,
-        url: jQuery(this).attr('href'),
+        url: $(this).attr('href'),
         dataType: 'html',
         beforeSend: function(){
-          jQuery.showGlobalSpinnerNode();
+          $.showGlobalSpinnerNode();
         },
         error: function(xhr){
-          jQuery.showMajorError(xhr);
+          $.showMajorError(xhr);
         },
         complete: function(){
-          jQuery.hideGlobalSpinnerNode();
+          $.hideGlobalSpinnerNode();
         },
         success: function(html){
-          jQuery(paginationTarget).html(html);
+          $(paginationTarget).html(html);
         }
       });
     });
   },
 
   observeDialogShow: function(rootClass){
-    jQuery(rootClass).live('click',function(e){
+    $(rootClass).live('click',function(e){
       e.preventDefault();
-      var dialogTitle = jQuery(this).attr('title');
-      jQuery.retainTabStateFromLink(this);
-      jQuery.ajax({
+      var dialogTitle = $(this).attr('title');
+      $.retainTabStateFromLink(this);
+      $.ajax({
         cache: false,
         dataType: 'html',
-        url: jQuery(this).attr('href'),
+        url: $(this).attr('href'),
         beforeSend: function(){
-          jQuery.showGlobalSpinnerNode();
+          $.showGlobalSpinnerNode();
         },
         complete: function(){
-          jQuery.hideGlobalSpinnerNode();
+          $.hideGlobalSpinnerNode();
         },
         error: function(xhr){
-          jQuery.showMajorError(xhr);
+          $.showMajorError(xhr);
         },
         success: function(html){
-          var dialogNode = jQuery('<div></div>');
-          jQuery(dialogNode).append(html);
-          jQuery(dialogNode).dialog({
+          var dialogNode = $('<div></div>');
+          $(dialogNode).append(html);
+          $(dialogNode).dialog({
             title: dialogTitle,
             //                show: 'explode',
             //                hide: 'explode',
@@ -203,24 +203,24 @@ jQuery.extend({
             position: 'top',
             buttons: {
               Close: function(){
-                jQuery(dialogNode).dialog('close');
-                jQuery(dialogNode).remove();
+                $(dialogNode).dialog('close');
+                $(dialogNode).remove();
               },
             }
           });
-          jQuery.retainTabStateFromLink();
-          jQuery('.tabs').tabs({
+          $.retainTabStateFromLink();
+          $('.tabs').tabs({
             ajaxOptions: {
               cache: false,
               dataType: 'html',
               beforeSend: function(){
-                jQuery.showGlobalSpinnerNode();
+                $.showGlobalSpinnerNode();
               },
               complete: function(){
-                jQuery.hideGlobalSpinnerNode();
+                $.hideGlobalSpinnerNode();
               },
               error: function(xhr,textStatus,errorStr){
-                jQuery.showMajorError(textStatus);
+                $.showMajorError(textStatus);
               }
             }
           });
@@ -231,70 +231,70 @@ jQuery.extend({
   },
 
   refreshActiveTabPane: function(){
-    var modified_object_class =  jQuery.data(document.body,'modified_object_class');
+    var modified_object_class =  $.data(document.body,'modified_object_class');
     //        console.log('modified_object_class to refresh: ' + modified_object_class);
     if(typeof(modified_object_class) != 'undefined'){
-      jQuery('li.' + modified_object_class).closest('.tabs').each(function(){
-        var current_index = jQuery(this).tabs('option','selected');
-        jQuery(this).tabs('load',current_index);
+      $('li.' + modified_object_class).closest('.tabs').each(function(){
+        var current_index = $(this).tabs('option','selected');
+        $(this).tabs('load',current_index);
       });
     }
   },
 
   retainTabStateFromBeautyTip: function(){
-    var targetEl = jQuery('.bt-active');
-    var modified_object_class = jQuery(targetEl).closest('li').attr('class');
+    var targetEl = $('.bt-active');
+    var modified_object_class = $(targetEl).closest('li').attr('class');
     // console.log('bt modified_object_class: ' + modified_object_class);
     if(typeof(modified_object_class) != 'undefined'){
-      jQuery.data(document.body, 'modified_object_class', modified_object_class);
+      $.data(document.body, 'modified_object_class', modified_object_class);
     }
   },
 
   retainTabStateFromLink: function(el){
-    var modified_object_class = jQuery(el).closest('li').attr('class');
+    var modified_object_class = $(el).closest('li').attr('class');
     // console.log('link modified_object_class: ' + modified_object_class);
     if(typeof(modified_object_class) != 'undefined'){
-      jQuery.data(document.body, 'modified_object_class', modified_object_class);
+      $.data(document.body, 'modified_object_class', modified_object_class);
     }
   },
 
   observeDialogForm: function(rootClass){
-    jQuery(rootClass).live('click',function(e){
-      var dialogTitle = jQuery(this).attr('title');
+    $(rootClass).live('click',function(e){
+      var dialogTitle = $(this).attr('title');
       e.preventDefault();
-      jQuery.retainTabStateFromBeautyTip();
-      jQuery.ajax({
+      $.retainTabStateFromBeautyTip();
+      $.ajax({
         cache: false,
         dataType: 'html',
-        url: jQuery(this).attr('href'),
+        url: $(this).attr('href'),
         beforeSend: function(){
-          jQuery.showGlobalSpinnerNode();
+          $.showGlobalSpinnerNode();
         },
         complete: function(){
-          jQuery.hideGlobalSpinnerNode();
+          $.hideGlobalSpinnerNode();
         },
         error: function(xhr){
-          jQuery.showMajorError(xhr);
+          $.showMajorError(xhr);
         },
         success: function(html){
-          var dialogNode = jQuery('<div></div>');
-          jQuery(dialogNode).append(html);
+          var dialogNode = $('<div></div>');
+          $(dialogNode).append(html);
 
-          jQuery(dialogNode).find('.collapsable').each(function(){
-            var toggleControl = jQuery(this).find('legend');
-            var hiddenElements = jQuery(this).find('ol').hide();
-            jQuery(toggleControl).addClass('collapsable-control').click(function(e){
+          $(dialogNode).find('.collapsable').each(function(){
+            var toggleControl = $(this).find('legend');
+            var hiddenElements = $(this).find('ol').hide();
+            $(toggleControl).addClass('collapsable-control').click(function(e){
               e.preventDefault();
-              if(jQuery(hiddenElements).is(':visible')){
-                jQuery(toggleControl).html(jQuery(toggleControl).html().replace('▼','▶'));
-                jQuery(hiddenElements).hide();
+              if($(hiddenElements).is(':visible')){
+                $(toggleControl).html($(toggleControl).html().replace('▼','▶'));
+                $(hiddenElements).hide();
               } else {
-                jQuery(toggleControl).html(jQuery(toggleControl).html().replace('▶','▼'));
-                jQuery(hiddenElements).show();
+                $(toggleControl).html($(toggleControl).html().replace('▶','▼'));
+                $(hiddenElements).show();
               }
             });
           });
-          jQuery(dialogNode).dialog({
+          $(dialogNode).dialog({
             //                    show: 'explode',
             //                    hide: 'explode',
             title: dialogTitle,
@@ -305,62 +305,62 @@ jQuery.extend({
             position: 'top',
             buttons: {
               Cancel: function(){
-                jQuery(dialogNode).dialog('close');
-                jQuery(dialogNode).remove();
+                $(dialogNode).dialog('close');
+                $(dialogNode).remove();
               },
               Submit: function(){
-                if(jQuery(dialogNode).find('form').hasClass('contact')){
-                  var tagList = jQuery('#contact_hierarchical_tags_for_edit').val().split(/\s+?,\s+?/);
-                  jQuery(dialogNode).find('.existingTags span a').each(function(){
-                    tagList.push(jQuery(this).html());
+                if($(dialogNode).find('form').hasClass('contact')){
+                  var tagList = $('#contact_hierarchical_tags_for_edit').val().split(/\s+?,\s+?/);
+                  $(dialogNode).find('.existingTags span a').each(function(){
+                    tagList.push($(this).html());
                   });
-                  tagList = jQuery.grep(tagList,function(n,i){
+                  tagList = $.grep(tagList,function(n,i){
                     return(n);
                   });
-                  jQuery('#contact_hierarchical_tag_list').val(tagList.join(','));
+                  $('#contact_hierarchical_tag_list').val(tagList.join(','));
                 }
-                jQuery(dialogNode).find('form').ajaxSubmit({
+                $(dialogNode).find('form').ajaxSubmit({
                   dataType: 'html',
                   beforeSend: function(){
-                    jQuery('.ui-dialog .ui-dialog-buttonset').prepend(jQuery.interiorSpinnerNode('objectEdit'));
+                    $('.ui-dialog .ui-dialog-buttonset').prepend($.interiorSpinnerNode('objectEdit'));
                   },
                   success: function(){
-                    //jQuery.updateLists('contact');
-                    //jQuery.updateLists('note');
-                    jQuery(dialogNode).dialog('close');
-                    jQuery.refreshActiveTabPane();
-                    jQuery('#messages').append('<div class="flash flash-notice">Added that contact.</div>');
-                    jQuery('#messages .flash-notice').effect('pulsate').hide('fade');
+                    //$.updateLists('contact');
+                    //$.updateLists('note');
+                    $(dialogNode).dialog('close');
+                    $.refreshActiveTabPane();
+                    $('#messages').append('<div class="flash flash-notice">Added that contact.</div>');
+                    $('#messages .flash-notice').effect('pulsate').hide('fade');
 
                   },
                   complete: function(){
-                    jQuery.hideInteriorSpinnerNode('objectEdit');
+                    $.hideInteriorSpinnerNode('objectEdit');
                   },
                   error: function(xhr){
-                    jQuery('#error').show().html(xhr.responseText);
+                    $('#error').show().html(xhr.responseText);
                   }
                 });
               }
             },
             open: function(){
-              jQuery('.existingTags span').bind({
+              $('.existingTags span').bind({
                 click: function(){
-                  jQuery(this).hide('slow', function(){jQuery(this).remove()});
+                  $(this).hide('slow', function(){$(this).remove()});
                 },
                 mouseover: function(){
-                  jQuery(this).css('cursor','pointer');
+                  $(this).css('cursor','pointer');
                 }
               });
-              jQuery('.tag_list').tagSuggest({
-                url: jQuery.rootPath() + 'contact_query/autocomplete_tags',
+              $('.tag_list').tagSuggest({
+                url: $.rootPath() + 'contact_query/autocomplete_tags',
                 separator: ', ',
                 delay: 500
               });
-              jQuery.initDateControl();
-              jQuery(dialogNode).find('input:visible').first().focus();
+              $.initDateControl();
+              $(dialogNode).find('input:visible').first().focus();
             },
             close: function(){
-              jQuery(dialogNode).remove();
+              $(dialogNode).remove();
             }
           });
         }
