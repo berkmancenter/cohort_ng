@@ -1,21 +1,20 @@
 <%= @contact = Contact.new %>
 
-<%= semantic_form_for(@contact) do |f| %>
-  <div id="error" class="ui-state-error ui-corner-all ui-widget" style="display: none;"></div>
+<%= semantic_form_for(@contact, :html => {:class => 'quick_contact_form'}) do |f| %>
+  <div id="quick_contact_error" class="ui-state-error ui-corner-all ui-widget" style="display: none;"></div>
 
   <%= f.inputs do %>
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <% @contact.emails.build %> 
     <%= f.semantic_fields_for :emails do |email| %>
-      <%= email.input :email, :label => ((email.object.new_record?) ? 'New Email' : 'Email') %>
+      <%= email.input :email %>
     <% end %>
-    <%= f.input :hierarchical_tags_for_edit, :value => '', :as => 'text', :input_html => {:rows => 3, :cols => 30, :class => 'tag_list'}, :hint => 'a comma separated list of tags.', :label => 'Tag list' %>
+    <%= f.input :hierarchical_tags_for_edit, :value => '', :as => 'text', :input_html => {:rows => 3, :cols => 30, :class => 'quick_tag_list'}, :hint => 'a comma separated list of tags.', :label => 'Tag list' %>
     <div class="clear"></div>
-    <%= f.input :hierarchical_tag_list, :as => :hidden %>
+    <%= f.input :hierarchical_tag_list, :as => :hidden, :input_html => {:class => 'hierarchical_tag_list'} %>
   <% end  %>
 
   <%= f.buttons %>
 
 <% end %>
-

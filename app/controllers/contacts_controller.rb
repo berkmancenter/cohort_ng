@@ -33,8 +33,8 @@ class ContactsController < BaseController
       if @contact.save
         current_user.has_role!(:owner, @contact)
         current_user.has_role!(:creator, @contact)
-        format.js { }
-        format.html {render :text => '', :layout => request.xhr? }
+        format.js {render :text => '', :layout => ! request.xhr? }
+        format.html {render :text => '', :layout => ! request.xhr? }
       else
         format.js { render :text => "We couldn't add that contact. <br />#{@contact.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
         format.html { render :text => "We couldn't add that contact. <br />#{@contact.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }

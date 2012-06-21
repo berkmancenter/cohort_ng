@@ -14,6 +14,22 @@ $.extend({
       width: 600
       }).dialog('open');
   },
+  mergeContactTagsForSubmit: function(rootNode){
+    // FIXME - there are probably scoping issues in here.
+    var tagList = [];
+    $(rootNode).find('.tag_list, .quick_tag_list').each(function(){
+      tagList = $(this).val().split(/\s+?,\s+?/);
+    });
+    $(rootNode).find('.existingTags span a').each(function(){
+      tagList.push($(this).html());
+    });
+    console.log(tagList);
+    tagList = $.grep(tagList,function(n,i){
+      return(n);
+    });
+    console.log(tagList);
+    $(rootNode).find('.hierarchical_tag_list').val(tagList.join(','));
+  },
   interiorSpinnerNode: function(spinnerNamespace){
     return $('<img class="spinner-' + spinnerNamespace + '" src="' + $.rootPath() + 'images/ajax-loader.gif" />');
   },
@@ -310,14 +326,7 @@ $.extend({
               },
               Submit: function(){
                 if($(dialogNode).find('form').hasClass('contact')){
-                  var tagList = $('#contact_hierarchical_tags_for_edit').val().split(/\s+?,\s+?/);
-                  $(dialogNode).find('.existingTags span a').each(function(){
-                    tagList.push($(this).html());
-                  });
-                  tagList = $.grep(tagList,function(n,i){
-                    return(n);
-                  });
-                  $('#contact_hierarchical_tag_list').val(tagList.join(','));
+                  $.mergeContactTagsForSubmit(dialogNode);
                 }
                 $(dialogNode).find('form').ajaxSubmit({
                   dataType: 'html',

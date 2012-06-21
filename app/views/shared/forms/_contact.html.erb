@@ -15,7 +15,7 @@
     <% end %>
     <%= f.input :hierarchical_tags_for_edit, :value => '', :as => 'text', :input_html => {:rows => 5, :cols => 40, :class => 'tag_list'}, :hint => 'a comma separated list of tags.', :label => 'Tag list' %>
     <div class="clear"></div>
-    <%= f.input :hierarchical_tag_list, :as => :hidden %>
+    <%= f.input :hierarchical_tag_list, :as => :hidden, :input_html => {:class => 'hierarchical_tag_list'} %>
   <% end %>
 
   <%= f.inputs :name => 'Email Addresses ' + ((f.object.emails.size > 0) ? "(#{f.object.emails.size})" : '' ) do %>

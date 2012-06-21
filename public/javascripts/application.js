@@ -33,15 +33,22 @@ $(document).ready(function(){
 
   $('.button').button();
   
-  $('.quick_search_tag').tagSuggest({
+  $('.quick_search_tag,.search_tag,.quick_tag_list').tagSuggest({
     url: $.rootPath() + 'contact_query/autocomplete_tags',
     delay: 500
   });
 
-  $('.search_tag').tagSuggest({
-    url: $.rootPath() + 'contact_query/autocomplete_tags',
-    separator: ', ',
-    delay: 500
+  $('.quick_contact_form').ajaxForm({
+    beforeSerialize: function(arr, $form, options){
+      $.mergeContactTagsForSubmit($('.quick_contact_form'));
+    },
+    success: function(){
+      window.location.reload();
+    },
+    error: function(e){
+      console.log(e);
+      $('#quick_contact_error').html(e.responseText).show();
+    }
   });
 
   $('#quick_search_submit').click(function(e){
