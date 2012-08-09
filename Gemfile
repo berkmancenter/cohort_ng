@@ -11,7 +11,9 @@ gem 'sunspot_rails', '1.2.1'
 gem 'carmen'
 gem 'ancestry'
 gem 'acts_as_list', '0.1.4'
-gem 'acts-as-taggable-on', '2.0.6'
+# This is a custom hacked version of acts-as-taggable-on that lives here:
+# https://github.com/berkmancenter/acts-as-taggable-on
+gem 'acts-as-taggable-on', :git => 'https://github.com/berkmancenter/acts-as-taggable-on.git'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'acl9'
