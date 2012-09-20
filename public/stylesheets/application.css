@@ -14,7 +14,7 @@ body{
   margin-top: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: #000f45;
+  background-color: #ffffff;
   float: left;
   border: 2px white;
   border-style: solid solid none solid;
@@ -28,7 +28,7 @@ body{
 
 .header h1 a{
   text-decoration: none;
-  color: white;
+  color: #000f45;
 }
 
 .body{
@@ -134,17 +134,25 @@ dd{
   margin-left: 10px;
 }
 
-.actions h2{
-  margin-bottom: .25em;
-  margin-top: 1em;
+.action-item{
+  border-bottom: 2px solid black;
+  padding: 20px;
+  padding-right: 10px;
 }
 
-.actions a{
-  font-size: 1.25em;
+.action-item h2{
+  margin: 0px;
+}
+
+.actions .action-item a{
   padding: 3px;
   text-decoration: none;
-  text-shadow: 2px 2px #ccc;
-  color: blue;
+  color: #000f45;
+}
+
+.actions .action-item a.selected{
+  border-right: 1px #000f45 solid;
+  color: #CCC;
 }
 
 .actions a:hover{

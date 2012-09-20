@@ -22,6 +22,18 @@ class ContactCartQueryController < BaseController
     @contact_carts = ContactCart.all_available(current_user).paginate(:page => params[:page], :per_page => params[:per_page] || ContactCart.per_page, :total_entries => total_entries)
     negotiate_list_query_response('contact_cart')
   end
+  
+  def recent
+    breadcrumbs.add('Recently Updated Contact Lists', contact_cart_query_recent_path)
+    @contacts = ContactCart.all_available(current_user).paginate(:order => 'updated_at desc', :page => params[:page], :per_page => params[:per_page] || ContactCart.per_page)
+    negotiate_list_query_response('contact_cart')
+  end
+
+  def new
+    breadcrumbs.add('New Contact Lists', contact_cart_query_new_path)
+    @contacts = ContactCart.all_available(current_user).paginate(:order => 'created_at desc', :page => params[:page], :per_page => params[:per_page] || ContactCart.per_page)
+    negotiate_list_query_response('contact_cart')
+  end
 
   def chooser
   end

@@ -37,6 +37,23 @@
 	margin-right: 10px;
 }
 
+.grid_2 {
+	margin-right: 0px;
+}
+
+.grid_10 {
+	margin-left: 0px;
+	border: 2px solid black;
+	padding-left: 10px;
+}
+
+.grid_12 {
+	float: right;
+	text-align: right;
+}
+
+
+
 /* Grid >> Children (Alpha ~ First, Omega ~ Last)
 ----------------------------------------------------------------------------------------------------*/
 
@@ -56,7 +73,7 @@
 }
 
 .container_12 .grid_2 {
-	width:180px;
+	width:190px;
 }
 
 .container_12 .grid_3 {
@@ -68,7 +85,7 @@
 }
 
 .container_12 .grid_5 {
-	width:480px;
+	width:380px;
 }
 
 .container_12 .grid_6 {
@@ -88,7 +105,8 @@
 }
 
 .container_12 .grid_10 {
-	width:980px;
+	width:976px;
+	min-height: 550px;
 }
 
 .container_12 .grid_11 {
@@ -96,7 +114,7 @@
 }
 
 .container_12 .grid_12 {
-	width:1180px;
+	width:370px;
 }
 
 

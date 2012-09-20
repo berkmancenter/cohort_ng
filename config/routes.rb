@@ -20,6 +20,8 @@ CohortNg::Application.routes.draw do
 
   get "contact_cart_query/yours"
   get "contact_cart_query/all"
+  get "contact_cart_query/new"
+  get "contact_cart_query/recent"
   get "contact_cart_query/your_private"
   get "contact_cart_query/chooser"
 

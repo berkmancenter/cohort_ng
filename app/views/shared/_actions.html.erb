@@ -1,24 +1,45 @@
 <div class="actions">
-  <%= link_to(icon('application_form') + ' Dashboard', root_path) %>
-  <h2>Contacts</h2>
-  <%= link_to(icon('user_add') + ' New', new_contact_path, :class => 'dialog-form', :title => "New Contact") %> |
-  <%= link_to 'Mine', contact_query_yours_path %>
+  <div class="action-item">
+  	<h2><%= link_to(icon('application_form') + ' Dashboard', root_path) %></h2>
+  </div>
+  <div class="action-item">
+  	<h2><%= link_to(icon('group') + ' Contacts', contacts_path) %></h2>
+  </div>
+  
+  <div class="action-item">
+    <h2><%= link_to icon('tag_blue') + ' Tags', tags_path %></h2>
+  </div>	
 
-  <h2>Tags</h2>
-  <%= link_to icon('tag_blue') + ' All', tags_path %>
+  <!--
+  <div class="action-item">
+  	<h2><%= link_to icon('basket_add') + ' Contact Lists', contact_cart_query_all_path %></h2>
+  	<%= link_to icon('basket_add') + ' New', new_contact_cart_path, :class => 'dialog-form', :title => 'New Contact List' %> |
+  	<%= link_to 'Mine', contact_cart_query_yours_path %>
+  </div>
+  -->
+  
+  <div class="action-item">
+  	<h2><%= link_to icon('note') + ' Notes', notes_path %></h2>
+  </div>	
 
-  <h2>Contact Lists</h2>
-  <%= link_to icon('basket_add') + ' New', new_contact_cart_path, :class => 'dialog-form', :title => 'New Contact List' %> |
-  <%= link_to 'Mine', contact_cart_query_yours_path %>
-
-  <h2>Notes</h2>
-  <%= link_to icon('note') + ' All', note_query_recent_path %> |
-  <%= link_to 'Mine', note_query_yours_path %>
-
-  <h2>Tasks</h2>
-  <%= link_to icon('note') + ' All', note_query_all_upcoming_path %> |
-  <%= link_to 'Mine', note_query_upcoming_path %>
-
-  <h2>Tools</h2>
-  <%= link_to 'Import a csv file', importer_path %>
+  <div class="action-item">
+  	<h2><%= link_to icon('tick') + ' Tasks', note_query_all_upcoming_path %></h2>
+  	<%= link_to 'All', note_query_all_upcoming_path %> |
+  	<%= link_to 'Mine', note_query_upcoming_path %>
+  </div>
+  
+  <div class="action-item">
+  	<h2><%= link_to icon('cog') + ' Tools', importer_path %></h2>
+  	<%= link_to 'Import a csv file', importer_path %>
+  </div>
+  
+  <div>
+  	<h2>Search</h2>
+  	<%= form_tag(contact_query_search_path, :method => :get) do %>
+      <%= text_field_tag(:q, params[:q], :size => 15, :id => 'search_input',:placeholder => 'search . . ') %>
+   	  <%= submit_tag('go', :class => 'button') %>
+  	<% end %>
+  	<%= image_tag('ajax-loader.gif', :id => 'spinner') %>
+  	<%= link_to 'advanced', search_index_path %>
+  </div>	
 </div>
