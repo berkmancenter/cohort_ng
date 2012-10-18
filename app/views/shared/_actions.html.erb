@@ -23,14 +23,11 @@
   </div>	
 
   <div class="action-item">
-  	<h2><%= link_to icon('tick') + ' Tasks', note_query_all_upcoming_path %></h2>
-  	<%= link_to 'All', note_query_all_upcoming_path %> |
-  	<%= link_to 'Mine', note_query_upcoming_path %>
+  	<h2><%= link_to icon('tick') + ' Tasks', tasks_notes_path %></h2>
   </div>
   
   <div class="action-item">
   	<h2><%= link_to icon('cog') + ' Tools', importer_path %></h2>
-  	<%= link_to 'Import a csv file', importer_path %>
   </div>
   
   <div>

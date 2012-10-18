@@ -3,6 +3,10 @@ class NotesController < BaseController
   def index
     breadcrumbs.add('Notes', notes_path)
   end
+  
+  def tasks
+    breadcrumbs.add('Tasks', tasks_notes_path)
+  end
 
   def show
     breadcrumbs.add('Note', note_path(params[:id]))

@@ -64,7 +64,11 @@ CohortNg::Application.routes.draw do
 
   resources :log_items
 
-  resources :notes
+  resources :notes do
+    collection do
+      get :tasks
+    end
+  end
 
   resources :addresses
 
