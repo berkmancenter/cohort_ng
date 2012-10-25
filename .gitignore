@@ -6,3 +6,11 @@ nbproject/*
 *.swp
 config/database.yml
 .rvmrc
+solr/conf/solrconfig.xml
+db/schema.rb
+config/sunspot.yml
+*/.DS_Store
+solr/*
+config/sunspot.yml
+public/images/.DS_Store
+public/images/icons/.DS_Store
