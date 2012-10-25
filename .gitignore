@@ -11,6 +11,4 @@ db/schema.rb
 config/sunspot.yml
 */.DS_Store
 solr/*
-config/sunspot.yml
-public/images/.DS_Store
-public/images/icons/.DS_Store
+.DS_Store
