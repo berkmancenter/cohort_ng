@@ -1,7 +1,7 @@
 <li class="contact-cart-<%= contact_cart.id %>">
 <% unless current_user.blank? %>
   <% if params[:select_for_contact_cart].blank? %>
-    <a href="#" class="control" id="contact_cart-control-<%= contact_cart.id %>"><%= icon('add') %></a>
+    <a href="#" class="control" id="contact_cart-control-<%= contact_cart.id %>"><%= icon('cog') %></a>
     <%= link_to(contact_cart, contact_cart, :class => 'dialog-show') %>
   <% else %>
     <a href="#" class="select_for_contact_cart" data_contact_cart_id="<%= contact_cart.id %>"><%= icon('basket_add') %></a>

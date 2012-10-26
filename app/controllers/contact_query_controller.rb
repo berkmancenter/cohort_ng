@@ -116,6 +116,9 @@ class ContactQueryController < BaseController
   end
 
   def all
+    breadcrumbs.add('My Contacts', contact_query_yours_path)
+    @contacts = Contact.paginate(:page => params[:page], :per_page => params[:per_page])
+    negotiate_list_query_response('contact')
   end
 
   def autofill

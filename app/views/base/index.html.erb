@@ -1,5 +1,7 @@
+<h1>Dashboard</h1>
+
 <div class="grid_5 alpha">
-  <h1>Contacts</h1>
+  <h2>Contacts</h2>
   <div class="tabs">
     <ul>
       <% unless current_user.blank? %>
@@ -12,8 +14,13 @@
   </div>
 </div>
 
-<div class="grid_5 omega">
-  <h1>Notes</h1>
+<div class="grid_5 alpha">
+  <h2>Quick Contact</h2>
+  <%= render :partial => 'shared/forms/contact_quick' %>
+</div>
+
+<div class="grid_5 alpha">
+  <h2>Notes</h2>
   <div class="tabs">
     <ul>
       <% unless current_user.blank? %>
@@ -29,11 +36,8 @@
   </div>
 </div>
 
-<div class="clear"></div>
-
 <div class="grid_5 alpha">
-  <% if false %>
-<!--  <h1>Tags</h1>
+  <h2>Tags</h2>
   <div class="tabs">
     <ul>
       <li><a href="#quick-search">Quick Search</a></li>
@@ -46,14 +50,12 @@
       </div>
     </div>
 
-  </div> -->
-<% end %>
-  <h1>Quick Contact</h1>
-  <%= render :partial => 'shared/forms/contact_quick' %>
+  </div>
 </div>
 
+<!--
 <div class="grid_5 omega">
-  <h1>Contact lists</h1>
+  <h2>Contact lists</h2>
   <div class="tabs">
     <ul>
       <% unless current_user.blank? %>
@@ -63,6 +65,5 @@
       <li><%= link_to('Private', contact_cart_query_your_private_path) %></li>
     </ul>
   </div>
-
 </div>
-
+-->

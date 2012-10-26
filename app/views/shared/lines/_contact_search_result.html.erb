@@ -2,7 +2,7 @@
 <tr class="contact-<%= contact.id %>">
   <td>
     <% unless current_user.blank? %>
-      <a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('add') %></a>
+      <a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('cog') %></a>
     <% end %>
     <%= link_to(contact, contact_path(contact), :class => 'dialog-show') %>
     <% unless current_user.blank? %><span id="contact-control-<%= contact.id %>-target" style="display: none;">

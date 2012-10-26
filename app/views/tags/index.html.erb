@@ -1,7 +1,9 @@
 <h1>All Tags</h1>
+
 <p style="margin-bottom: .75em;"><a href="#" id="expand_all">Expand</a></p>
 <span class="tagMatches existingTags">
   <%= render :partial => 'shared/tag_detail', :collection => @tags %>
+  <%= will_paginate(@tags) %>
 </div>
 <%= javascript_tag do %>
   jQuery(document).ready(function(){

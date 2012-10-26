@@ -1,0 +1,11 @@
+<div class="grid_9 alpha">
+  <h2>Tasks</h2>
+  <div class="tabs">
+    <ul>
+      <% unless current_user.blank? %>
+        <li><%= link_to('My to dos', note_query_upcoming_path) %></li>
+      <% end %>
+      <li><%= link_to('All To dos', note_query_all_upcoming_path) %></li>
+    </ul>
+  </div>
+</div>
