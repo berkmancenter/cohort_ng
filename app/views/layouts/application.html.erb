@@ -31,13 +31,14 @@
           <% end %>
           &nbsp;
         </div>
-        <div class="grid_4 omega" id="right-header-container">
-          <%= link_to 'advanced', search_index_path %>
-          <%= form_tag(contact_query_search_path, :method => :get) do %>
-            <%= text_field_tag(:q, params[:q], :size => 15, :id => 'search_input',:placeholder => 'search . . ') %>
-            <%= submit_tag('go', :class => 'button') %>
+        <div class="grid_12">
+          <% unless current_user.blank? %>
+            Welcome, <%= current_user.email %>
+            <%= link_to('log out', destroy_user_session_path, :confirm => "Are you sure?", :class => 'delete', :message => 'Are you sure you want to log out?') %>
+          <% else %>
+            <%= link_to('log in', new_user_session_path) %> / 
+            <%= link_to('sign up', new_user_registration_path) %>
           <% end %>
-          <%= image_tag('ajax-loader.gif', :id => 'spinner') %>
         </div>
       </div> 
     </div>
@@ -49,8 +50,11 @@
         <div class="grid_2 alpha">
           <%= render :partial => 'shared/actions' %>
         </div>
-        <div class="grid_10 omega">
-          <div class="breadcrumbs"><%= breadcrumbs.render(:format => :inline, :separator => ' &raquo; ') %></div>
+		<div class="grid_10 omega">
+          <!--<div class="breadcrumbs"><%= breadcrumbs.render(:format => :inline, :separator => ' &raquo; ') %></div>-->
+		  <div id="cog-text">
+		    Click on the <%= icon('cog') %> for more actions.
+		  </div>	
           <div class="main">
             <%= yield %>
           </div>
@@ -59,15 +63,7 @@
     </div>
 
     <div class="container_12" id="footer">
-      <div class="grid_12">
-        <% unless current_user.blank? %>
-          Welcome, <%= current_user.email %>
-          <%= link_to('log out', destroy_user_session_path, :confirm => "Are you sure?", :class => 'delete', :message => 'Are you sure you want to log out?') %>
-        <% else %>
-          <%= link_to('log in', new_user_session_path) %> / 
-          <%= link_to('sign up', new_user_registration_path) %>
-        <% end %>
-      </div>
+		footer stuff goes here.
     </div>
   </body>
 </html>

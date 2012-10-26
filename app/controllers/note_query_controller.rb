@@ -1,20 +1,20 @@
 class NoteQueryController < BaseController
   def new
     breadcrumbs.add('New Notes', note_query_new_path)
-    @notes = Note.paginate(:order => 'created_at desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
+    @notes = Note.paginate(:conditions => ["note_type <> 'task'"], :order => 'created_at desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
     negotiate_list_query_response('note')
   end
 
   def recent
     breadcrumbs.add('Recently Updated Notes', note_query_recent_path)
-    @notes = Note.paginate(:order => 'updated_at desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
+    @notes = Note.paginate(:conditions => ["note_type <> 'task'"], :order => 'updated_at desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
     negotiate_list_query_response('note')
   end
 
   def upcoming
     if current_user
       breadcrumbs.add('My Tasks', note_query_upcoming_path)
-      @notes = Note.to_dos.joins(:accepted_roles => [:users]).paginate(:conditions => ['roles.name = ? and roles.authorizable_type = ? and roles_users.user_id = ?','owner','Note', current_user.id], :order => 'due_date desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
+      @notes = Note.to_dos.joins(:accepted_roles => [:users]).paginate(:conditions => ["roles.name = ? and roles.authorizable_type = ? and roles_users.user_id = ? and note_type = ?",'owner','Note', current_user.id,'task'], :order => 'due_date desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
     end
     negotiate_list_query_response('note')
   end
@@ -28,7 +28,7 @@ class NoteQueryController < BaseController
   def yours
     if current_user
       breadcrumbs.add('My Notes', note_query_yours_path)
-      @notes = Note.joins(:accepted_roles => [:users]).paginate(:conditions => ['roles.name = ? and roles.authorizable_type = ? and roles_users.user_id = ?','owner','Note', current_user.id], :page => params[:page], :per_page => params[:per_page] || Note.per_page)
+      @notes = Note.joins(:accepted_roles => [:users]).paginate(:conditions => ['roles.name = ? and roles.authorizable_type = ? and roles_users.user_id = ? and notes.note_type <> ?','owner','Note', current_user.id, 'task'], :page => params[:page], :per_page => params[:per_page] || Note.per_page)
     end
     negotiate_list_query_response('note')
   end

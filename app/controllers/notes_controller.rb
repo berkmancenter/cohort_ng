@@ -3,6 +3,10 @@ class NotesController < BaseController
   def index
     breadcrumbs.add('Notes', notes_path)
   end
+  
+  def tasks
+    breadcrumbs.add('Tasks', tasks_notes_path)
+  end
 
   def show
     breadcrumbs.add('Note', note_path(params[:id]))
@@ -26,8 +30,13 @@ class NotesController < BaseController
     @note.attributes = params[:note]
     respond_to do|format|
       if @note.save
-        current_user.has_role!(:owner, @note)
-        current_user.has_role!(:creator, @note)
+        if params[:owner] == ""
+          current_user.has_role!(:owner, @note)
+          current_user.has_role!(:creator, @note)
+        else
+          User.find(params[:owner].to_i).has_role!(:owner, @note)  
+          current_user.has_role!(:creator, @note)
+        end  
         flash[:notice] = "Added that note"
         format.js { render :text => ''}
         format.html { render :text => '', :layout => ! request.xhr? }
@@ -40,6 +49,11 @@ class NotesController < BaseController
 
   def edit
     @note = Note.find(params[:id])
+    @role = Role.find(:first, :conditions=>{:name => 'owner', :authorizable_type => 'Note', :authorizable_id => @note.id})
+    unless @role.nil?
+      @owners = @role.users
+    end  
+    
     respond_to do|format|
       format.js { render :template => 'notes/new' }
       format.html { render :layout => ! request.xhr? }
@@ -51,7 +65,12 @@ class NotesController < BaseController
     @note.attributes = params[:note]
     respond_to do|format|
       if @note.save
-        current_user.has_role!(:editor, @note)
+        if params[:owner] == ""
+          current_user.has_role!(:editor, @note)
+        else
+          User.find(params[:owner].to_i).has_role!(:owner, @note)  
+          current_user.has_role!(:editor, @note)
+        end 
         flash[:notice] = "Updated that note"
         format.js { render :text => ''}
         format.html { render :text => '', :layout => ! request.xhr? }

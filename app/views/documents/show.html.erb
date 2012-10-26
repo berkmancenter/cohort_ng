@@ -1,6 +1,6 @@
 <div class="documents">
   <% unless current_user.blank? %>
-    <a href="#" class="control" id="document-control-<%= @document.id %>"><%= icon('add') %></a>
+    <a href="#" class="control" id="document-control-<%= @document.id %>"><%= icon('cog') %></a>
   <% end %>
   <%= link_to(@document.name, document_path(@document), :class => 'dialog-show') %>
   <% unless @document.document_type.blank? %>

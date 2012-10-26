@@ -18,7 +18,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'acl9'
 gem 'nokogiri'
-gem 'rake', '0.9.2'
+gem 'rake', '0.9.2.2'
 gem 'breadcrumbs'
 
 group :development, :test do

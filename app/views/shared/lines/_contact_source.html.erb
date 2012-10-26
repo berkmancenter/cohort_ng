@@ -1,6 +1,6 @@
 <li class="contact_source-<%= contact_source.id %>">
 <% unless current_user.blank? %>
-  <a href="#" class="control" id="contact_source-control-<%= contact_source.id %>"><%= icon('add') %></a>
+  <a href="#" class="control" id="contact_source-control-<%= contact_source.id %>"><%= icon('cog') %></a>
 <% end %>
   <%= link_to(contact_source.contact_input, contact_source.contact_input, :class => 'dialog-show') %>
 <% unless current_user.blank? %><span id="contact_source-control-<%= contact_source.id %>-target" style="display: none;">
