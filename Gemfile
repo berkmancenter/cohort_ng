@@ -13,7 +13,7 @@ gem 'ancestry'
 gem 'acts_as_list', '0.1.4'
 # This is a custom hacked version of acts-as-taggable-on that lives here:
 # https://github.com/berkmancenter/acts-as-taggable-on
-gem 'acts-as-taggable-on', :git => 'git@github.com:berkmancenter/acts-as-taggable-on.git'
+gem 'acts-as-taggable-on', :git => 'git://github.com/berkmancenter/cohort_ng.git'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'acl9'
