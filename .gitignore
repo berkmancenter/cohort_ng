@@ -12,3 +12,4 @@ config/sunspot.yml
 */.DS_Store
 solr/*
 .DS_Store
+log/*
