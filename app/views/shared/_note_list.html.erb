@@ -6,7 +6,7 @@
     <% @notes.each do |n| %>
       <li class="note-<%= n.id %>">
       <% unless current_user.blank? %>
-        <a href="#" class="control" id="note-control-<%= n.id %>"><%= icon('add') %></a>
+        <a href="#" class="control" id="note-control-<%= n.id %>"><%= icon('cog') %></a>
       <% end %>
       <%= link_to(truncate(n.note,:length => 60, :separator => ' '),n, :class => 'dialog-show') %> on <%= link_to(n.contact, contact_path(n.contact), :class => 'dialog-show') %>
       <% unless current_user.blank? %>

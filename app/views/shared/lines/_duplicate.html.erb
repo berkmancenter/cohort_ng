@@ -1,6 +1,6 @@
 <li class="contact-<%= duplicate.id %>">
 <% unless current_user.blank? %>
-  <a href="#" class="control" id="duplicate-control-<%= duplicate.id %>"><%= icon('add') %></a>
+  <a href="#" class="control" id="duplicate-control-<%= duplicate.id %>"><%= icon('cog') %></a>
 <% end %>
   <%= link_to(duplicate, contact_path(duplicate), :class => 'dialog-show') %>
 <% unless current_user.blank? %><span id="duplicate-control-<%= duplicate.id %>-target" style="display: none;">

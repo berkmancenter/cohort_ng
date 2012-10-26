@@ -17,7 +17,7 @@
 
 <div class="grid_5 alpha">
   <h2>Contacts</h2>
-  <h4><%= link_to('Add New', new_contact_path, :class => 'dialog-form', :title => "New Contact") %></h4>
+  <h4><%= link_to(icon('add') + ' Add New', new_contact_path, :class => 'dialog-form', :title => "New Contact") %></h4>
   <div class="tabs">
     <ul>
       <% unless current_user.blank? %>
@@ -33,7 +33,7 @@
 
 <div class="grid_5 alpha">
   <h2>Contact Lists</h2>
-  <h4><%= link_to 'Add New', new_contact_cart_path, :class => 'dialog-form', :title => 'New Contact List' %></h4>
+  <h4><%= link_to icon('add') + ' Add New', new_contact_cart_path, :class => 'dialog-form', :title => 'New Contact List' %></h4>
   <div class="tabs">
     <ul>
       <% unless current_user.blank? %>
