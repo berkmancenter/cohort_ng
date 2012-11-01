@@ -13,4 +13,13 @@
     <span id="contact_cart-control-<%= contact_cart.id %>-target" style="display: none;"><%= link_to(icon('note_edit') + ' Edit', edit_contact_cart_path(contact_cart),:class => 'dialog-form', :title => 'Edit contact list') %><br/><%= link_to(icon('note_delete') + ' Delete',contact_cart_path(contact_cart), :method => :delete, :title => 'Delete contact list', :class => 'delete delete-contact_cart') %></span>
   <% end %>
 <% end %>
+
+<% unless current_user.blank? %>
+  <% if params[:select_for_contact_cart].blank? %>
+    <span style="font-size: .70em; margin-left: 5px;">
+	  <%= link_to(icon('note_edit') + ' Edit', edit_contact_cart_path(contact_cart),:class => 'dialog-form', :title => 'Edit contact list') %> 
+	  <%= link_to(icon('note_delete') + ' Delete',contact_cart_path(contact_cart), :method => :delete, :title => 'Delete contact list', :class => 'delete delete-contact_cart') %>
+  </span>
+  <% end %>
+<% end %>  
 </li>
