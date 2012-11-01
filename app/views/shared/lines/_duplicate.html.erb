@@ -5,7 +5,8 @@
   <%= link_to(duplicate, contact_path(duplicate), :class => 'dialog-show') %>
 <% unless current_user.blank? %><span id="duplicate-control-<%= duplicate.id %>-target" style="display: none;">
   <%= link_to(icon('page_add') + ' Add Document',new_document_path(:contact_id => duplicate.id), :title => 'Add Document') %><br/>
-<%= link_to(icon('note_add') + ' Add Note',new_note_path(:contact_id => duplicate.id),:class => 'dialog-form', :title => "Add Note") %><br/>
+  <%= link_to(icon('note_add') + ' Add Note',new_note_path(:contact_id => duplicate.id, :task => 'general'),:class => 'dialog-form', :title => "Add Note") %><br/>
+  <%= link_to(icon('note_add') + ' Add Task',new_note_path(:contact_id => duplicate.id, :task => 'task'),:class => 'dialog-form', :title => "Add Task") %><br/>
 <%= link_to(icon('user_edit') + ' Edit Contact',edit_contact_path(duplicate), :title => 'Edit Contact', :class => 'dialog-form') %><br/>
 <%= link_to(icon('user_delete') + ' Delete contact',contact_path(duplicate), :title => 'Delete Contact', :method => :delete, :class => 'delete delete-contact') %><br/>
 <%= link_to(icon('group_add') + ' Add to list', '#', :class => "add_to_list") %>

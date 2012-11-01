@@ -18,7 +18,7 @@ class NotesController < BaseController
   end
 
   def new
-    @note = Note.new(:contact_id => params[:contact_id])
+    @note = Note.new(:contact_id => params[:contact_id], :note_type => params[:type])
     respond_to do|format|
       format.js { }
       format.html { render :layout => ! request.xhr? }
@@ -30,7 +30,7 @@ class NotesController < BaseController
     @note.attributes = params[:note]
     respond_to do|format|
       if @note.save
-        if params[:owner] == ""
+        if params[:owner] == "" || params[:owner].nil?
           current_user.has_role!(:owner, @note)
           current_user.has_role!(:creator, @note)
         else
