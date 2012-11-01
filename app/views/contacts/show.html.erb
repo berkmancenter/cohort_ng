@@ -1,4 +1,4 @@
-<h1><%= @contact %> <%= link_to(icon('user_edit'),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form') %></h1>
+<h1><%= @contact %></h1><%= link_to(raw("#{icon('user_edit')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %>
 
 <div class="tabs" style="margin: 1em 0 1em 0em;">
   <ul>
@@ -41,6 +41,7 @@
     <% end %>
   </div>
 </div>
-<p><%= link_to(raw("New note #{icon('note_add')}"),new_note_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Note") %></p>
-<p><%= link_to(raw("New document #{icon('page_add')}"),new_document_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Document") %></p>
+<p><%= link_to(raw("#{icon('note_add')} New note"),new_note_path(:contact_id => @contact.id, :type => 'general'),:class => 'dialog-form', :title => "Add Note") %></p>
+<p><%= link_to(raw("#{icon('note_add')} New task"),new_note_path(:contact_id => @contact.id, :type => 'task'),:class => 'dialog-form', :title => "Add Task") %></p>
+<p><%= link_to(raw("#{icon('page_add')} New document"),new_document_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Document") %></p>
 

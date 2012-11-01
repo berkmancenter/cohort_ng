@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/berkmancenter/acts-as-taggable-on.git
+  remote: git://github.com/berkmancenter/acts-as-taggable-on.git
   revision: c7f29faa7fca4f3143431e951cce1b282ef2889a
   specs:
     acts-as-taggable-on (2.0.6)

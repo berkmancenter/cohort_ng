@@ -9,16 +9,7 @@
     <%= f.input :last_name %>
   <% end  %>
 
-  <%= f.inputs do %>
-    <% unless f.object.new_record? %>
-      <%= render :partial => 'shared/tag_list_for_display', :object => f.object.tags %>
-    <% end %>
-    <%= f.input :hierarchical_tags_for_edit, :value => '', :as => 'text', :input_html => {:rows => 5, :cols => 40, :class => 'tag_list'}, :hint => 'a comma separated list of tags.', :label => 'Tag list' %>
-    <div class="clear"></div>
-    <%= f.input :hierarchical_tag_list, :as => :hidden, :input_html => {:class => 'hierarchical_tag_list'} %>
-  <% end %>
-
-  <%= f.inputs :name => 'Email Addresses ' + ((f.object.emails.size > 0) ? "(#{f.object.emails.size})" : '' ) do %>
+  <%= f.inputs :name => '&#9654; Email Addresses ' + ((f.object.emails.size > 0) ? "(#{f.object.emails.size})" : '' ), :class => 'collapsable' do %>
     <% @contact.emails.build %> 
     <%= f.semantic_fields_for :emails do |email| %>
       <%= f.inputs :class => 'block' do %>
@@ -30,6 +21,30 @@
         <% end %>
       <% end %>
     <% end %>
+  <% end %>
+  
+  <%= f.inputs :name => '&#9654; Notes ' + ((f.object.notes.size > 0) ? "(#{f.object.notes.size})" : '' ), :class => 'collapsable' do %>
+    <% @contact.notes.build %> 
+    <%= f.semantic_fields_for :notes do |note| %>
+      <%= f.inputs :class => 'block' do %>
+        <% if note.object.new_record? %>
+          <h3>New Note</h3>
+        <% end %>
+        <%= render :partial => 'shared/forms/note_fields', :locals => {:f => note } %>
+        <% unless note.object.new_record? %>
+          <%= note.input :_destroy, :as => :boolean, :label => 'Delete?' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  
+  <%= f.inputs :name => '&#9654; Tags', :class => 'collapsable' do %>
+    <% unless f.object.new_record? %>
+      <%= render :partial => 'shared/tag_list_for_display', :object => f.object.tags %>
+    <% end %>
+    <%= f.input :hierarchical_tags_for_edit, :value => '', :as => 'text', :input_html => {:rows => 5, :cols => 40, :class => 'tag_list'}, :hint => 'a comma separated list of tags.', :label => 'Tag list' %>
+    <div class="clear"></div>
+    <%= f.input :hierarchical_tag_list, :as => :hidden, :input_html => {:class => 'hierarchical_tag_list'} %>
   <% end %>
 
   <%= f.inputs :name => '&#9654; Phone Numbers ' + ((f.object.phone_numbers.size > 0) ? "(#{f.object.phone_numbers.size})" : '' ), :class => 'collapsable' do %>
@@ -63,21 +78,6 @@
         <%= add.input :country, :include_blank => true, :required => true %>
         <% unless add.object.new_record? %>
           <%= add.input :_destroy, :as => :boolean, :label => 'Delete?' %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <%= f.inputs :name => '&#9654; Notes ' + ((f.object.notes.size > 0) ? "(#{f.object.notes.size})" : '' ), :class => 'collapsable' do %>
-    <% @contact.notes.build %> 
-    <%= f.semantic_fields_for :notes do |note| %>
-      <%= f.inputs :class => 'block' do %>
-        <% if note.object.new_record? %>
-          <h3>New Note</h3>
-        <% end %>
-        <%= render :partial => 'shared/forms/note_fields', :locals => {:f => note } %>
-        <% unless note.object.new_record? %>
-          <%= note.input :_destroy, :as => :boolean, :label => 'Delete?' %>
         <% end %>
       <% end %>
     <% end %>
