@@ -1,5 +1,5 @@
 <%= f.input :note_type, :collection => Note.note_type_options_for_select %>
-<% if @note.note_type == 'general' %>
+<% unless @note.nil? || @note.note_type == 'task' %>
   <%= f.input :note, :as => :text, :input_html => { :rows => 5 } %>
 <% else %>
   <%= f.input :note, :as => :text, :input_html => { :rows => 5 } %>

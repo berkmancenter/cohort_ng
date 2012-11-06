@@ -16,7 +16,11 @@
 
 <div class="grid_5 alpha">
   <h2>Quick Contact</h2>
-  <%= render :partial => 'shared/forms/contact_quick' %>
+  <div class="tabs">
+	<ul>
+	  <li><%= link_to('New', quick_contacts_path) %><br /></li>
+    </ul>
+  </div>	
 </div>
 
 <div class="grid_5 alpha">
@@ -36,30 +40,7 @@
   <h2>Tags</h2>
   <div class="tabs">
     <ul>
-      <li><a href="#quick-search">Quick Search</a></li>
       <li><%= link_to('Recent Taggings', tag_query_recent_taggings_path) %></li>
     </ul>
-
-    <div id="quick-search">
-      <input placeholder="type here, choose a tag, and hit 'go'" type="text" class="quick_search_tag" id="quick_search_tag" style="width: 75%"><input type="submit" value="go" id="quick_search_submit"><br/>
-      <div id="quick_search_results">
-      </div>
-    </div>
-
   </div>
 </div>
-
-<!--
-<div class="grid_5 omega">
-  <h2>Contact lists</h2>
-  <div class="tabs">
-    <ul>
-      <% unless current_user.blank? %>
-        <li><%= link_to('Mine', contact_cart_query_yours_path) %></li>
-      <% end %>
-      <li><%= link_to('All', contact_cart_query_all_path) %></li>
-      <li><%= link_to('Private', contact_cart_query_your_private_path) %></li>
-    </ul>
-  </div>
-</div>
--->

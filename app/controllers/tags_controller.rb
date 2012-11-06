@@ -1,8 +1,9 @@
 class TagsController < BaseController
   def index
     breadcrumbs.add('Tags', tags_path)
-    @tags = ActsAsTaggableOn::Tag.where(:ancestry => nil).paginate(:order => 'name', :page => params[:page], :per_page => params[:per_page])
-    #@tags = @tags.sort_by{|t| t.hierarchical_name(' :: ')}
+    @tags = ActsAsTaggableOn::Tag.where(:ancestry => nil)
+    #.paginate(:order => 'name', :page => params[:page], :per_page => params[:per_page])
+    @tags = @tags.sort_by{|t| t.hierarchical_name(' :: ')}
   end
 
   def show
