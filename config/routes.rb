@@ -59,6 +59,7 @@ CohortNg::Application.routes.draw do
   get "note_query/recent"
 
   match 'note_query/contact/:id' => 'note_query#contact', :as => 'note_query_contact'
+  match 'note_query/contact_tasks/:id' => 'note_query#contact_tasks', :as => 'note_query_contact_tasks'
 
   resources :documents
 
@@ -88,7 +89,11 @@ CohortNg::Application.routes.draw do
 
   match 'contact_query/autocomplete_tags' => 'contact_query#autocomplete_tags'
 
-  resources :contacts
+  resources :contacts do
+    collection do
+      get :quick  
+    end
+  end    
 
   devise_for :users
 

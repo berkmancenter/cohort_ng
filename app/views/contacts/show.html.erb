@@ -4,6 +4,7 @@
   <ul>
     <li><a href="#about-<%= @contact.id %>">About</a></li>
     <li><%= link_to('Notes', url_for(:controller => 'note_query', :action => 'contact', :id => @contact.id)) %></li>
+	<li><%= link_to('Tasks', url_for(:controller => 'note_query', :action => 'contact_tasks', :id => @contact.id)) %></li>
     <li><%= link_to('Documents', url_for(:controller => 'document_query', :action => 'contact', :id => @contact.id)) %></li>
     <% unless current_user.blank? %>
       <li><%= link_to('Possible duplicates', url_for(:controller => 'contact_query', :action => 'similar_names', :id => @contact.id)) %></li>
