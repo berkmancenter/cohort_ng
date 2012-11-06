@@ -16,7 +16,7 @@
         <li><hr/></li>
         <li><h3>Edit Tag</h3>
         <%= form_for(@tag) do |f| %>
-          <%= f.select(:parent_id, ActsAsTaggableOn::Tag.find(:all, :conditions => ['id != ?', @tag.id]).sort_by{|t| t.hierarchical_name}.collect{|t| [t.hierarchical_name, t.id]}) %><br/>
+          <%= f.select(:parent_id, ActsAsTaggableOn::Tag.find(:all, :conditions => ['id != ?', @tag.id]).sort_by{|t| t.hierarchical_name}.collect{|t| [t.hierarchical_name, t.id]}, :prompt => "Nest Under...") %><br/>
           <%= f.text_field :name, :size => 60 %><br/>
           <%= submit_tag('Change tag') %>
         <% end %>

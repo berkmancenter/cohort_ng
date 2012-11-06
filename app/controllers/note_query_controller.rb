@@ -36,7 +36,20 @@ class NoteQueryController < BaseController
 
   def contact
     breadcrumbs.add('Notes on this contact', note_query_contact_path(params[:id]))
-    @notes = Note.paginate(:conditions => ['contact_id = ?', params[:id]], :order => 'created_at', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
+    @notes = Note.paginate(:conditions => ['contact_id = ? and note_type <> ?', params[:id], 'task'], :order => 'created_at', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
+    respond_to do |format|
+      format.js {
+        render :partial => "shared/contact_note_list"
+      }
+      format.html {
+        render :partial => "shared/contact_note_list", :layout => ! request.xhr? 
+      }
+    end
+  end
+  
+  def contact_tasks
+    breadcrumbs.add('Tasks on this contact', note_query_contact_tasks_path(params[:id]))
+    @notes = Note.paginate(:conditions => ['contact_id = ? and note_type = ?', params[:id], 'task'], :order => 'created_at', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
     respond_to do |format|
       format.js {
         render :partial => "shared/contact_note_list"
