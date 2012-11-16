@@ -3,8 +3,6 @@
 <div class="tabs" style="margin: 1em 0 1em 0em;">
   <ul>
     <li><a href="#about-<%= @contact.id %>">About</a></li>
-    <li><%= link_to('Notes', url_for(:controller => 'note_query', :action => 'contact', :id => @contact.id)) %></li>
-	<li><%= link_to('Tasks', url_for(:controller => 'note_query', :action => 'contact_tasks', :id => @contact.id)) %></li>
     <li><%= link_to('Documents', url_for(:controller => 'document_query', :action => 'contact', :id => @contact.id)) %></li>
     <% unless current_user.blank? %>
       <li><%= link_to('Possible duplicates', url_for(:controller => 'contact_query', :action => 'similar_names', :id => @contact.id)) %></li>
@@ -40,8 +38,27 @@
       </div>
       <div class="clear"></div>
     <% end %>
+	
+    <% @notes = Note.paginate(:conditions => ["note_type  <> 'task' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
+    <% unless @notes.empty? %>
+      <h2 class="contact_section_header collapsable">Notes</h2>
+      <div class="notes">
+        <%= render :partial => 'shared/note_list', :locals => {:title => "" } %>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+	
+    <% @notes = Note.paginate(:conditions => ["note_type = 'task' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
+    <% unless @notes.empty? %>
+      <h2 class="collapsable">Tasks</h2>
+      <div class="tasks">
+        <%= render :partial => 'shared/note_list', :locals => {:title => "" } %>
+      </div>
+      <div class="clear"></div>
+    <% end %>
   </div>
 </div>
+<br />
 <p><%= link_to(raw("#{icon('note_add')} New note"),new_note_path(:contact_id => @contact.id, :type => 'general'),:class => 'dialog-form', :title => "Add Note") %></p>
 <p><%= link_to(raw("#{icon('note_add')} New task"),new_note_path(:contact_id => @contact.id, :type => 'task'),:class => 'dialog-form', :title => "Add Task") %></p>
 <p><%= link_to(raw("#{icon('page_add')} New document"),new_document_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Document") %></p>
