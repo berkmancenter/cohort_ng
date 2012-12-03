@@ -16,6 +16,15 @@
 
     <%= render :partial => 'shared/tag_list_for_display', :object => @contact.tags %> 
 
+    <% unless @contact.tags.empty? || @contact.organizations.empty? %>
+      <h2 class="contact_section_header">Organizations</h2>
+      <div class="organizations">
+        <%= render :partial => 'shared/lines/organization', :collection => @contact.organizations %>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+	
+	
     <% unless @contact.emails.blank? %>
       <h2 class="contact_section_header">Email addresses</h2>
       <div class="emails">

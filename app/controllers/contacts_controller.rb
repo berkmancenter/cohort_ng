@@ -89,14 +89,7 @@ class ContactsController < BaseController
   end
 
   def quick
-    respond_to do |format|
-      format.js {
-        render :partial => "shared/forms/contact_quick"
-      }
-      format.html {
-        render :partial => "shared/forms/contact_quick", :layout => ! request.xhr? 
-      }
-    end
+    render :partial => "shared/forms/contact_quick"
   end
 
 end
