@@ -18,8 +18,11 @@
   <h2>Quick Contact</h2>
   <div class="tabs">
 	<ul>
-	  <li><%= link_to('New', quick_contacts_path) %><br /></li>
+	  <li><a href="#">New</a></li>
     </ul>
+	<div id="tabs-1" class="ui-tabs-panel">
+	  <%= render :partial => 'shared/forms/contact_quick' %>
+	</div>	
   </div>	
 </div>
 
@@ -40,7 +43,7 @@
   <h2>Tags</h2>
   <div class="tabs">
     <ul>
-      <li><%= link_to('Recent Taggings', tag_query_recent_taggings_path) %></li>
+      <li><%= link_to('Recent Taggings', tag_query_recent_taggings_path(:per_page => 5)) %></li>
     </ul>
   </div>
 </div>

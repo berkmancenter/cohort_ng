@@ -56,7 +56,7 @@ class ContactQueryController < BaseController
     # logger.warn("Tag ids: #{tag_ids.inspect}")
     @contact_query = Sunspot.new_search(Contact)
     @contact_query.build do
-      with(:tag_ids).any_of tag_ids
+      with(:tag_ids).any_of(tag_ids)
       with :active, true
       with :deleted, false
       paginate :page => params[:page], :per_page => cookies[:per_page] || Contact.per_page

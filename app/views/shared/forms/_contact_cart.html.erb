@@ -3,6 +3,6 @@
   <%= f.inputs :name => 'Contact List' do %>
     <%= f.input :name %>
     <%= f.input :description, :as => :text %>
-    <%= f.input :global, :hint => 'list can be viewed / edited by everyone.' %>
+    <p><%= f.input :global, :label => 'Global - list can be viewed / edited by everyone.' %></p>
   <% end %>
 <% end %>
