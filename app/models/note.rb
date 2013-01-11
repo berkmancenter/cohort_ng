@@ -24,6 +24,10 @@ class Note < ActiveRecord::Base
   def due_date_display
     (self.due_date.year == Time.now.year) ? self.due_date.to_s(:compact_date) :  self.due_date.to_s(:compact_date_with_year)
   end
+  
+  def create_date_display
+    (self.created_at.year == Time.now.year) ? self.created_at.to_s(:compact_date) :  self.created_at.to_s(:compact_date_with_year)
+  end
 
   def to_s
     "#{note_type}, #{note}"
