@@ -1,7 +1,7 @@
 source :rubygems
 require 'rubygems'
 
-gem "rails", "~> 3.0.15"
+gem "rails", "~> 3.0.19"
 gem 'jquery-rails'
 gem "formtastic", '1.2.4'
 gem "will_paginate"

@@ -5,20 +5,23 @@
       <%= link_to(icon('note_edit'), edit_note_path(note), :class => 'dialog-form', :title => 'Edit note.') %>
     </div>
   <% end %>
-  <div class="meta">
-    <% unless note.priority.blank? %>
-      <div class="priority">
-        <%= note.priority %>
-      </div>
-    <% end %>
-    <% unless note.due_date.blank? %>
-      <div class="due_date">
-        <%= note.due_date_display %>
-      </div>
-    <% end %>
-  </div>
   <div class="note_content">
     <%= note.note %>
+  </div>
+  <div class="meta">
+    <% unless note.due_date.blank? %>
+      <div class="due_date">
+        <strong>Due On:</strong> <%= note.due_date_display %>
+      </div>
+    <% end %>
+    <div class="due_date">
+	  <strong>Created On:</strong> <%= note.create_date_display %>
+    </div>
+    <% unless note.priority.blank? %>
+      <div class="due_date">
+        <strong>Priority:</strong> <%= note.priority %>
+      </div>
+    <% end %>
   </div>
   <div class="clear"></div>
 </div>
