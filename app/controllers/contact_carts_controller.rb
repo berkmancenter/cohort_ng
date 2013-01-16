@@ -21,7 +21,7 @@ class ContactCartsController < BaseController
       format.js{ render :text => message }
       format.html{ render :text => message, :layout => ! request.xhr? }
     end
-  rescue Exception => e
+    rescue Exception => e
     respond_to do|format|
       format.js { render :text => "We couldn't add that item. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
       format.html { render :text => "We couldn't add that item. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
