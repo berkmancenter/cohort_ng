@@ -1,6 +1,6 @@
 <h2>Tag: "<%= @tag.hierarchical_name %>"</h2>
 
-<div class="grid_5 alpha">
+<div class="grid_7 alpha">
   <div class="tabs">
     <ul>
       <li><%= link_to('Contacts', url_for(:controller => :contact_query, :action => :tag_contacts, :id => @tag.id)) %></li>
@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<div class="grid_4 omega">
+<div class="grid_2 omega">
   <span class="tagMatches existingTags">
     <% unless @tag.ancestors.empty? %>
       <% @tag.ancestors.each do |t| %>
@@ -17,7 +17,7 @@
       <div class="clear"></div>
     <% end %>
     <% end %>
-    <h3>Includes items tagged with:</h3>
+    <h3>Show items tagged with:</h3>
     <div style="margin-left: 1em">
       <% @tag.descendants.sort_by{|d| d.hierarchical_name}.each do|d| %>
         <span><%= link_to(d.hierarchical_name, tag_path(d)) %></span>

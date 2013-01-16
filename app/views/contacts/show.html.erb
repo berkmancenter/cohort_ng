@@ -1,4 +1,6 @@
-<h1><%= @contact %></h1><%= link_to(raw("#{icon('user_edit')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %>
+<% unless current_user.blank? %>
+  <h1><%= @contact %></h1><%= link_to(raw("#{icon('user_edit')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %>
+<% end %>
 
 <div class="tabs" style="margin: 1em 0 1em 0em;">
   <ul>
@@ -12,6 +14,7 @@
   <div id="about-<%= @contact.id %>">
     <% unless @contact.birthday.blank? %>
       <div class="label">Birthday:</div> <%= @contact.birthday %>
+	  <div class="clear"></div>
     <% end %>
 
     <%= render :partial => 'shared/tag_list_for_display', :object => @contact.tags %> 
@@ -68,7 +71,10 @@
   </div>
 </div>
 <br />
-<p><%= link_to(raw("#{icon('note_add')} New note"),new_note_path(:contact_id => @contact.id, :type => 'general'),:class => 'dialog-form', :title => "Add Note") %></p>
-<p><%= link_to(raw("#{icon('note_add')} New task"),new_note_path(:contact_id => @contact.id, :type => 'task'),:class => 'dialog-form', :title => "Add Task") %></p>
-<p><%= link_to(raw("#{icon('page_add')} New document"),new_document_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Document") %></p>
+
+<% unless current_user.blank? %>
+  <p><%= link_to(raw("#{icon('note_add')} New note"),new_note_path(:contact_id => @contact.id, :type => 'general'),:class => 'dialog-form', :title => "Add Note") %></p>
+  <p><%= link_to(raw("#{icon('note_add')} New task"),new_note_path(:contact_id => @contact.id, :type => 'task'),:class => 'dialog-form', :title => "Add Task") %></p>
+  <p><%= link_to(raw("#{icon('page_add')} New document"),new_document_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Document") %></p>
+<% end %>  
 
