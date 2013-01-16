@@ -52,9 +52,11 @@
         </div>
 		<div class="grid_10 omega">
           <!--<div class="breadcrumbs"><%= breadcrumbs.render(:format => :inline, :separator => ' &raquo; ') %></div>-->
-		  <div id="cog-text">
-		    Click on the <%= icon('cog') %> for more actions.
-		  </div>	
+		  <% unless current_user.blank? %>
+		    <div id="cog-text">
+		      Click on the <%= icon('cog') %> for more actions.
+		    </div>	
+		  <% end %>	
           <div class="main">
             <%= yield %>
           </div>
