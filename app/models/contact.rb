@@ -90,9 +90,6 @@ class Contact < ActiveRecord::Base
         with :ancestor_ids, organization_root_tag_id
       end
     end
-    p "orgs"
-    p organizations.execute
-    
     organizations.execute
     organizations.results
   end

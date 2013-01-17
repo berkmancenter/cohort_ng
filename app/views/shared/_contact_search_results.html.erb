@@ -3,9 +3,11 @@
   <h3><%= page_entries_info contact_query.results %></h3>
   <table>
     <tr>
-      <td>&nbsp;</td>
-      <td>Email</td>
-      <td>Organization</td>
+	  <th>&nbsp;</th>	
+      <th>Name</th>
+      <th>Email</th>
+      <th>Organization</th>
+  	  <th>Last Updated</th>
     </tr>
     <%= render :partial => 'shared/lines/contact_search_result', :collection => contact_query.results %>
   </table>

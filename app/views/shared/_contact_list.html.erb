@@ -2,9 +2,18 @@
   <h1><%= title %></h1>
 <% end %>
 <% unless @contacts.blank? %>
-  <ul class="resultlist">
+  <table>
+    <tr>
+	  <th>&nbsp;</th>	
+      <th>Name</th>
+      <th>Email</th>
+      <th>Organization</th>
+	  <th>Last Updated</th>
+	  <th>Actions</th>
+    </tr>
     <%= render :partial => 'shared/lines/contact', :collection => @contacts %>
-  </ul>
+  </table>
+  
   <%= will_paginate(@contacts) %>
 <% else %>
   <h2>None found.</h2>
