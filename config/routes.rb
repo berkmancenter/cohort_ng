@@ -32,6 +32,7 @@ CohortNg::Application.routes.draw do
       get :tags
       get :saved_searches
       post :remove_contact
+      get :search
     end
   end
 
