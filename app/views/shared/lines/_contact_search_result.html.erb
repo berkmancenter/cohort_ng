@@ -1,11 +1,11 @@
 <% contact = contact_search_result %>
 <tr class="contact-<%= contact.id %>">
-  <td>
+  
     <% unless current_user.blank? %>
-      <a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('cog') %></a>
-	  <span style="font-size: .70em; margin-left: 5px;"><%= link_to(icon('user_edit'),edit_contact_path(contact), :title => 'Edit Contact', :class => 'dialog-form') %></span>
+      <td><a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('cog') %></a>
+	  <span style="font-size: .70em; margin-left: 5px;"><%= link_to(icon('user_edit'),edit_contact_path(contact), :title => 'Edit Contact', :class => 'dialog-form') %></span></td>
     <% end %>
-    <%= link_to(contact, contact_path(contact), :class => 'dialog-show') %>
+    <td><%= link_to(contact, contact_path(contact), :class => 'dialog-show') %></td>
     <% unless current_user.blank? %><span id="contact-control-<%= contact.id %>-target" style="display: none;">
         <%= link_to(icon('page_add') + ' Add Document',new_document_path(:contact_id => contact.id), :title => 'Add Document') %><br/>
         <%= link_to(icon('note_add') + ' Add Note',new_note_path(:contact_id => contact.id, :task => 'general'),:class => 'dialog-form', :title => "Add Note") %><br/>
@@ -15,7 +15,8 @@
         <%= link_to(icon('group_add') + ' Add to list', '#', :class => "add_to_list", :data_object_type => 'Contact', :data_object_id => contact.id, :title => contact) %>
       </span>
     <% end %>
-  </td>
-  <td><%= raw contact.email_addresses.collect{|e| mail_to(e)}.join(', ') %></td>
+  
+  <td><%= mail_to(contact.emails[0].email) %></td>
   <td><%= render :partial => 'shared/tag_list_for_display', :object => contact.organizations %></td>
+  <td><%= contact.updated_at %></td>
 </tr>

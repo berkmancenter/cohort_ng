@@ -133,5 +133,9 @@ class ContactCartsController < BaseController
     @contact_sources = @contact_cart.contact_sources.contact_input_sources.paginate(:page => params[:page], :per_page => params[:per_page])
     negotiate_list_query_response('contact_contact_source')
   end
+  
+  def search
+    render :partial => 'search' 
+  end  
 
 end

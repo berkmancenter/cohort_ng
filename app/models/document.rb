@@ -66,7 +66,10 @@ class Document < ActiveRecord::Base
           FileUtils.chmod 0755, "#{RAILS_ROOT}/public/images/thumbs/#{geometry}/"
         end
         image = MiniMagick::Image.open(self.file_attachment.path)
-        image.quality quality
+        
+        #the line below was causing: ActionView::Template::Error (can't convert Fixnum into String)
+        #image.quality quality
+        
         if square
           if image[:width] < image[:height]
             remove = ((image[:height] - image[:width])/2).round
