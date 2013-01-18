@@ -13,11 +13,15 @@
   </ul>
   <div id="about-<%= @contact.id %>">
     <% unless @contact.birthday.blank? %>
-      <div class="label">Birthday:</div> <%= @contact.birthday %>
+	  <h2 class="contact_section_header">Birthday</h2>
+      <%= @contact.birthday %>
 	  <div class="clear"></div>
     <% end %>
 
-    <%= render :partial => 'shared/tag_list_for_display', :object => @contact.tags %> 
+	<% unless @contact.tags.empty? %>
+	  <h2 class="contact_section_header">Tags</h2>
+      <%= render :partial => 'shared/tag_list_for_display', :object => @contact.tags %> 
+	<% end %>  
 
     <% unless @contact.tags.empty? || @contact.organizations.empty? %>
       <h2 class="contact_section_header">Organizations</h2>
@@ -27,6 +31,11 @@
       <div class="clear"></div>
     <% end %>
 	
+    <% unless @contact.title.blank? %>
+      <h2 class="contact_section_header">Title</h2>
+	  <%= @contact.title %>
+	  <div class="clear"></div>
+    <% end %>
 	
     <% unless @contact.emails.blank? %>
       <h2 class="contact_section_header">Email addresses</h2>
@@ -68,6 +77,11 @@
       </div>
       <div class="clear"></div>
     <% end %>
+	
+    <h2 class="contact_section_header">Additional Info</h2>
+	Date Added: <%= @contact.created_at %><br />
+	Last Modified: <%= @contact.updated_at %>
+	<div class="clear"></div>
   </div>
 </div>
 <br />

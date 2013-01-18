@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111130191300) do
+ActiveRecord::Schema.define(:version => 20130117155643) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_type", :limit => 20,  :default => "unknown"
@@ -65,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20111130191300) do
     t.boolean  "deleted",                   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   add_index "contacts", ["active"], :name => "index_contacts_on_active"

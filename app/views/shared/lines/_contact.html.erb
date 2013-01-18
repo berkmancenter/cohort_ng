@@ -1,11 +1,11 @@
-<li class="contact-<%= contact.id %>">
+<tr class="contact-<%= contact.id %>">
 <% unless current_user.blank? %>
-  <a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('cog') %></a>
+  <td><a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('cog') %></a></td>
 <% end %>
-<%= link_to(contact, contact_path(contact), :class => 'dialog-show') %>
-<%= mail_to(contact.emails[0].email) %>
-<%= contact.organizations[0] %>
-<%= contact.updated_at %>
+<td><%= link_to(contact, contact_path(contact), :class => 'dialog-show') %></td>
+<td><%= mail_to(contact.emails[0].email) %></td>
+<td><%= contact.organizations[0] %></td>
+<td><%= contact.updated_at %></td>
 <% unless current_user.blank? %><span id="contact-control-<%= contact.id %>-target" style="display: none;">
     <%= link_to(icon('page_add') + ' Add Document',new_document_path(:contact_id => contact.id), :title => 'Add Document') %><br/>
     <%= link_to(icon('note_add') + ' Add Note',new_note_path(:contact_id => contact.id, :task => 'general'),:class => 'dialog-form', :title => "Add Note") %><br/>
@@ -16,9 +16,11 @@
   </span>
 <% end %>
 <% unless current_user.blank? %>
+<td>
   <span style="font-size: .70em; margin-left: 5px;">
     <%= link_to(icon('user_edit') + ' Edit',edit_contact_path(contact), :title => 'Edit Contact', :class => 'dialog-form') %> 
     <%= link_to(icon('user_delete') + ' Delete',contact_path(contact), :title => 'Delete Contact', :method => :delete, :class => 'delete delete-contact') %>
   </span>
+</td>  
 <% end %>
-</li>
+</tr>

@@ -8,6 +8,7 @@
       <% if @contact_cart.active_contact_input_types.include?('ActsAsTaggableOn::Tag') %>
         <li><%= link_to('Tags', tags_contact_cart_path(@contact_cart)) %></li>
       <% end %>
+	  <li><%= link_to('Add Contacts', search_contact_cart_path) %></li>
     </ul>
   </div>
 </div>
