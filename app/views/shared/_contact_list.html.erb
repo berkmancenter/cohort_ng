@@ -4,12 +4,11 @@
 <% unless @contacts.blank? %>
   <table>
     <tr>
-	  <th>&nbsp;</th>	
+	  <th>Actions</th>	
       <th>Name</th>
       <th>Email</th>
       <th>Organization</th>
 	  <th>Last Updated</th>
-	  <th>Actions</th>
     </tr>
     <%= render :partial => 'shared/lines/contact', :collection => @contacts %>
   </table>
