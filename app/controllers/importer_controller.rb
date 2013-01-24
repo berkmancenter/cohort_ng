@@ -71,6 +71,10 @@ class ImporterController < BaseController
             contact.phone_numbers << PhoneNumber.new(:phone => phone) 
           end
         end
+        
+        if ! row['address_1'].blank?
+          contact.addresses << Address.new(:address_1 => row['address_1'], :address_2 => row['address_2'], :city => row['city'], :state => row['state'], :postal_code => row['postal_code'], :country => row['country'])
+        end
 
         if contact.new_record?
           contact.emails = [Email.new(:email => email)]

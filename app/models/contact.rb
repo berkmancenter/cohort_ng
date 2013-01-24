@@ -54,7 +54,7 @@ class Contact < ActiveRecord::Base
   }
 
   def self.bulk_updateable_columns
-    ['first_name','last_name','birthday']
+    ['first_name','last_name','birthday','title']
   end
 
   def self.find_or_init_by_email(email)
