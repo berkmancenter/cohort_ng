@@ -1,13 +1,3 @@
-<div class="grid_9 alpha">
-  <h2>Tags</h2>
-  <div class="tabs">
-    <ul>
-      <li><%= link_to('All', display_tags_path) %></li>
-    </ul>
-  </div>
-</div>
-
-<!--
 <p style="margin-bottom: .75em;"><a href="#" id="expand_all">Expand</a></p>
 <span class="tagMatches existingTags">
   <%= render :partial => 'shared/tag_detail', :collection => @tags %>
@@ -20,5 +10,6 @@
     });
   });
 <% end %>
--->
 
+
+<%= will_paginate(@tags) %>	

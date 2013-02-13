@@ -33,6 +33,7 @@ class ContactsController < BaseController
       if @contact.save
         current_user.has_role!(:owner, @contact)
         current_user.has_role!(:creator, @contact)
+        flash[:notice] = "Created that contact"
         format.js {render :text => '', :layout => ! request.xhr? }
         format.html {render :text => '', :layout => ! request.xhr? }
       else
