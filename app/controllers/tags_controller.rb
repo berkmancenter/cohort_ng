@@ -18,6 +18,13 @@ class TagsController < BaseController
     breadcrumbs.add(@tag.hierarchical_name, tag_path(@tag))
     render :layout => ! request.xhr?
   end
+  
+  def related
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    breadcrumbs.add('Tags', tags_path)
+    breadcrumbs.add(@tag.hierarchical_name, tag_path(@tag))
+    render :partial => "related"
+  end
 
   def children
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
