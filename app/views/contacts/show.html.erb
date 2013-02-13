@@ -1,6 +1,9 @@
+<h1><%= @contact %></h1>
 <% unless current_user.blank? %>
-  <h1><%= @contact %></h1><%= link_to(raw("#{icon('user_edit')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %>
+  <%= link_to(raw("#{icon('user_edit')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %> <br />
 <% end %>
+
+<%= link_to "Google #{@contact}", "https://www.google.com/search?q=#{@contact.first_name}+#{@contact.last_name}", :target => "_blank" %>
 
 <div class="tabs" style="margin: 1em 0 1em 0em;">
   <ul>
