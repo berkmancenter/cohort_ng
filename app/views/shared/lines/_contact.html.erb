@@ -20,7 +20,7 @@
   <td></td>  
 <% end %>
 
-<td><%= contact.updated_at %></td>
+<td><%= contact.updated_at.strftime("%Y-%m-%d") %></td>
 <% unless current_user.blank? %><span id="contact-control-<%= contact.id %>-target" style="display: none;">
     <%= link_to(icon('page_add') + ' Add Document',new_document_path(:contact_id => contact.id), :title => 'Add Document') %><br/>
     <%= link_to(icon('note_add') + ' Add Note',new_note_path(:contact_id => contact.id, :task => 'general'),:class => 'dialog-form', :title => "Add Note") %><br/>
