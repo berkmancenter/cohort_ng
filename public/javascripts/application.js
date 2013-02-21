@@ -35,6 +35,7 @@ $(document).ready(function(){
   
   $('.quick_search_tag,.search_tag,.quick_tag_list').tagSuggest({
     url: $.rootPath() + 'contact_query/autocomplete_tags',
+	separator: ', ',
     delay: 500
   });
 

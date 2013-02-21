@@ -9,7 +9,19 @@
       <th>Organization</th>
   	  <th>Last Updated</th>
     </tr>
-    <%= render :partial => 'shared/lines/contact_search_result', :collection => contact_query.results %>
+	
+	<% form_tag({:controller => 'contact_carts', :action => 'add_group'}, :id => 'contacts_form') do %>
+	
+	  <%= check_box_tag('check_all', 'check_all', false,  :onClick => "$$('#contacts_form input.check').each(function(box){box.checked=($('check_all').checked)?true:false});")%> Select All <br /><br />
+      <%= render :partial => 'shared/lines/contact_search_result', :collection => contact_query.results %>
+	
+  	  <tr>
+		  <td colspan=3>Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name")) %></td>
+	  </tr>
+  	  <tr>
+		  <td colspan=3><%= submit_tag 'Add to Contact List' %></td>
+	  </tr>
+	<% end %>
   </table>
   <%= will_paginate(contact_query.results) %>
 <% else %>

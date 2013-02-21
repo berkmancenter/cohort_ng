@@ -26,6 +26,10 @@ CohortNg::Application.routes.draw do
   get "contact_cart_query/chooser"
 
   resources :contact_carts do
+    collection do
+      post :add_group
+    end
+    
     member do
       post :add_object
       get :contacts
@@ -49,6 +53,7 @@ CohortNg::Application.routes.draw do
       get :children
       post :merge
       get :controls
+      get :related
     end 
   end
   
