@@ -1,6 +1,10 @@
 class SearchController < BaseController
   def index
   end
+  
+  def advanced
+    render :partial => 'search_form'
+  end
 
   def contacts
     qparams = params[:search]

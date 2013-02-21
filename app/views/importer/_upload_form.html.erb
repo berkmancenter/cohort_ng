@@ -1,0 +1,20 @@
+<h2>Upload file for Data Import</h2>
+<p>More details about file formats here. . . but csv.</p>
+
+<% if @import_errors %>
+  <h3 class="error">The following records couldn't be imported.</h3>
+  <% @import_errors.each do|err| %>
+    <div>
+      <%= [err[0]['first_name'], err[0]['last_name'], err[0]['email_addresses'], 'Error: ' + err[1]].join(',') %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= semantic_form_for(:importer, :url => url_for(:controller => :importer, :action => :upload_file), :method => :post, :html => {:multipart => true}) do|f| %>
+  <% f.inputs do %>
+    <%= f.input(:imported_file, :as => 'file', :label => 'Upload a file') %>
+  <% end %>
+  <% f.buttons do %>
+    <%= f.commit_button('Upload File') %>
+  <% end %>
+<% end %>
