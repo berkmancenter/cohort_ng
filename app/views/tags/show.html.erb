@@ -1,28 +1,11 @@
 <h2>Tag: "<%= @tag.hierarchical_name %>"</h2>
 
-<div class="grid_7 alpha">
+<div class="grid_9 alpha">
   <div class="tabs">
     <ul>
       <li><%= link_to('Contacts', url_for(:controller => :contact_query, :action => :tag_contacts, :id => @tag.id)) %></li>
-      <li><%= link_to 'Tools', controls_tag_path(@tag) %></li>
+      <li><%= link_to 'Related Tags', related_tag_path(@tag) %></li>
+	  <li><%= link_to 'Tools', controls_tag_path(@tag) %></li>
     </ul>
   </div>
-</div>
-
-<div class="grid_2 omega">
-  <span class="tagMatches existingTags">
-    <% unless @tag.ancestors.empty? %>
-      <% @tag.ancestors.each do |t| %>
-      <span><%= link_to(t, tag_path(t)) %></span>
-      <div class="clear"></div>
-    <% end %>
-    <% end %>
-    <h3>Show items tagged with:</h3>
-    <div style="margin-left: 1em">
-      <% @tag.descendants.sort_by{|d| d.hierarchical_name}.each do|d| %>
-        <span><%= link_to(d.hierarchical_name, tag_path(d)) %></span>
-        <div class="clear"></div>
-      <% end %>
-    </div>
-  </span>
 </div>
