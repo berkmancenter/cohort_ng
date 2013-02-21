@@ -15,7 +15,11 @@
 <% end %>
 
 <% unless contact.tags.empty? %>
-  <td><%= contact.organizations[0] %></td>
+  <% unless contact.organizations[0].nil? %>
+    <td><span class="tagMatches"><%= link_to(contact.organizations[0],tag_path(contact.organizations[0])) %></span></td> 
+  <% else %>
+    <td></td>	 
+  <% end %>	
 <% else %>
   <td></td>  
 <% end %>
