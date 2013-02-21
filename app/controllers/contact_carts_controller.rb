@@ -9,7 +9,7 @@ class ContactCartsController < BaseController
     object_id = params[:object_id]
 
     contact_input = params[:object_type].constantize.find(params[:object_id])
-
+    
     message = ''
     unless @contact_cart.contact_sources.collect{|cs| cs.contact_input}.include?(contact_input)
       ContactSource.create!(:contact_input => contact_input, :contact_cart => @contact_cart)
@@ -25,6 +25,32 @@ class ContactCartsController < BaseController
     respond_to do|format|
       format.js { render :text => "We couldn't add that item. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
       format.html { render :text => "We couldn't add that item. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
+    end
+  end
+  
+  def add_group
+    @contact_cart = ContactCart.find_or_create_by_id(params[:contact_list].to_i)
+    unless @contact_cart
+      # autovivify
+      @contact_cart = ContactCart.create(:name => "Contact List created on #{Time.now.to_s(:compact_datetime)}", :global => true)
+    end
+    object_ids = params[:contacts_to_list]
+    @message = ''
+    
+    object_ids.each do |id|
+      contact_input = Contact.find(id.to_i) 
+      unless @contact_cart.contact_sources.collect{|cs| cs.contact_input}.include?(contact_input)
+        ContactSource.create!(:contact_input => contact_input, :contact_cart => @contact_cart)
+        @message += "\n" + "Added #{contact_input.first_name} #{contact_input.last_name}. Cheers!"
+      else
+        @message += "\n" + "#{contact_input.first_name} #{contact_input.last_name} was already in this contact list."
+      end
+    end
+    
+    respond_to do|format|
+      flash[:notice] = @message
+      format.js{ redirect_to :back }
+      format.html{ redirect_to :back }
     end
   end
 
