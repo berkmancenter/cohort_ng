@@ -260,8 +260,13 @@ form.formtastic fieldset > ol > li {
   line-height: 1.6em;
 }
 
-table td{
-  padding: 2px 4px 2px 4px;
+table tr{
+   text-align: left;
+}
+
+td, th
+{
+  padding-right:15px;
 }
 
 .contact_section_header{

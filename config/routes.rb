@@ -3,7 +3,13 @@ CohortNg::Application.routes.draw do
   post "importer/upload_file"
   get "importer/index"
   get "importer/", :controller => :importer, :action => :index
-  get "importer/import"
+  get "importer/import" 
+  
+  resources :importer do
+    collection do
+      get :upload
+    end
+  end 
 
   get "document_query/new"
   get "document_query/recent"
@@ -15,6 +21,12 @@ CohortNg::Application.routes.draw do
   get "search/notes"
   get "search/tags"
   get "search/documents"
+  
+  resources :search do
+    collection do
+      get :advanced
+    end
+  end
 
   resources :saved_searches
 

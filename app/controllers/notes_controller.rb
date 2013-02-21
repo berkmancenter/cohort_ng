@@ -65,7 +65,7 @@ class NotesController < BaseController
     @note.attributes = params[:note]
     respond_to do|format|
       if @note.save
-        if params[:owner] == ""
+        if params[:owner] == "" || params[:owner].nil?
           current_user.has_role!(:editor, @note)
         else
           User.find(params[:owner].to_i).has_role!(:owner, @note)  

@@ -3,6 +3,10 @@ class ImporterController < BaseController
   def index
     breadcrumbs.add('Import Contacts', importer_path)
   end
+  
+  def upload
+    render :partial => 'upload_form' 
+  end
 
   def upload_file
 
