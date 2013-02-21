@@ -8,8 +8,18 @@
   </td>
 <% end %>
 <td><%= link_to(contact, contact_path(contact), :class => 'dialog-show') %></td>
-<td><%= mail_to(contact.emails[0].email) %></td>
-<td><%= contact.organizations[0] %></td>
+<% unless contact.emails[0].nil? %>
+  <td><%= mail_to(contact.emails[0].email) %></td>
+<% else %>
+  <td></td>  
+<% end %>
+
+<% unless contact.tags.empty? %>
+  <td><%= contact.organizations[0] %></td>
+<% else %>
+  <td></td>  
+<% end %>
+
 <td><%= contact.updated_at %></td>
 <% unless current_user.blank? %><span id="contact-control-<%= contact.id %>-target" style="display: none;">
     <%= link_to(icon('page_add') + ' Add Document',new_document_path(:contact_id => contact.id), :title => 'Add Document') %><br/>
