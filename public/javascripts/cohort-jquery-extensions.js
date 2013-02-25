@@ -93,7 +93,8 @@ $.extend({
   observeDestroyControls: function(){
     $('a.delete').live('click', function(e){
       e.preventDefault();
-      $.retainTabStateFromBeautyTip(this);
+      //$.retainTabStateFromBeautyTip(this);
+      var cmdTabs = $(this).closest('.tabs');
       var objectType = '';
       var classList = $(this).attr('class').split(/\s+/)
       $(classList).each(function(index, item){
@@ -133,7 +134,8 @@ $.extend({
               if(redirectTo != undefined){
                 window.location.href = redirectTo;
               } else {
-                $.refreshActiveTabPane();
+                //$.refreshActiveTabPane();
+                $.refreshTabPane(cmdTabs);
                 $.updateLists(objectType);
                 $(confirmNode).dialog('close');
               }
@@ -246,6 +248,16 @@ $.extend({
 
   },
 
+  /**
+   * @param {jQuery} tabs The .tabs group to refresh
+   */
+  refreshTabPane: function( tabs ){
+    tabs.each( function() {
+      var current_index = $(this).tabs('option','selected');
+      $(this).tabs('load',current_index);
+    });
+  },
+
   refreshActiveTabPane: function(){
     var modified_object_class =  $.data(document.body,'modified_object_class');
     //        console.log('modified_object_class to refresh: ' + modified_object_class);
@@ -278,7 +290,8 @@ $.extend({
     $(rootClass).live('click',function(e){
       var dialogTitle = $(this).attr('title');
       e.preventDefault();
-      $.retainTabStateFromBeautyTip();
+      //$.retainTabStateFromBeautyTip();
+      var cmdTabs = $(this).closest('.tabs');
       $.ajax({
         cache: false,
         dataType: 'html',
@@ -337,7 +350,8 @@ $.extend({
                     //$.updateLists('contact');
                     //$.updateLists('note');
                     $(dialogNode).dialog('close');
-                    $.refreshActiveTabPane();
+                    //$.refreshActiveTabPane();
+                    $.refreshTabPane(cmdTabs);
                     $('#messages').append('<div class="flash flash-notice">Added that contact.</div>');
                     $('#messages .flash-notice').effect('pulsate').hide('fade');
 
