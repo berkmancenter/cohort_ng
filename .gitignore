@@ -13,3 +13,5 @@ config/sunspot.yml
 solr/*
 .DS_Store
 log/*
+public/images/thumbs/
+public/uploads/
