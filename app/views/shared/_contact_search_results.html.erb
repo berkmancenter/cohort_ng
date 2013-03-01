@@ -1,29 +1,29 @@
-<% unless contact_query.blank? || contact_query.results.blank? %>
-  <h1>Search Results</h1>
-  <h3><%= page_entries_info contact_query.results %></h3>
-  <table>
-    <tr>
-	  <th>&nbsp;</th>	
-      <th>Name</th>
-      <th>Email</th>
-      <th>Organization</th>
-  	  <th>Last Updated</th>
-    </tr>
-	
-	<% form_tag({:controller => 'contact_carts', :action => 'add_group'}, :id => 'contacts_form') do %>
-	
-	  <%= check_box_tag('check_all', 'check_all', false,  :onClick => "$$('#contacts_form input.check').each(function(box){box.checked=($('check_all').checked)?true:false});")%> Select All <br /><br />
+<% form_tag({:controller => 'contact_carts', :action => 'add_group'}, :id => 'contacts_form') do %>
+  <% unless contact_query.blank? || contact_query.results.blank? %>
+    <h1>Search Results</h1>
+    <h3><%= page_entries_info contact_query.results %></h3>
+	<p>
+		Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name")) %>
+	    <%= submit_tag 'Add to Contact List' %>
+    </p>
+	<br />
+    <table>
+	  <tr>
+	    <th>Actions</th>	
+        <th>Name</th>
+        <th>Email</th>
+        <th>Organization</th>
+  	    <th>Last Updated</th>
+      </tr>
       <%= render :partial => 'shared/lines/contact_search_result', :collection => contact_query.results %>
-	
-  	  <tr>
-		  <td colspan=3>Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name")) %></td>
-	  </tr>
-  	  <tr>
-		  <td colspan=3><%= submit_tag 'Add to Contact List' %></td>
-	  </tr>
-	<% end %>
-  </table>
-  <%= will_paginate(contact_query.results) %>
-<% else %>
-  <h2>None found.</h2>
-<% end %>
+    </table>
+	<br />
+	<p>
+		Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name")) %>
+	    <%= submit_tag 'Add to Contact List' %>
+    </p>
+    <%= will_paginate(contact_query.results) %>
+  <% else %>
+    <h2>None found.</h2>
+  <% end %>
+<% end %>  

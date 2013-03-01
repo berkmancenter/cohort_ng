@@ -10,7 +10,19 @@
       <li><%= link_to('New', contact_query_new_path) %></li>
       <li><%= link_to('Updated', contact_query_recent_path) %></li>
     </ul>
+  </div>
+</div>
 
+<div class="grid_9 alpha">
+  <h2>Notes</h2>
+  <div class="tabs">
+    <ul>
+      <% unless current_user.blank? %>
+        <li><%= link_to('Mine', note_query_yours_path) %></li>
+      <% end %>
+      <li><%= link_to('New', note_query_new_path) %></li>
+      <li><%= link_to('Updated', note_query_recent_path) %></li>
+    </ul>
   </div>
 </div>
 
@@ -27,19 +39,6 @@
   </div>	
 </div>
 <% end %>
-
-<div class="grid_5 alpha">
-  <h2>Notes</h2>
-  <div class="tabs">
-    <ul>
-      <% unless current_user.blank? %>
-        <li><%= link_to('Mine', note_query_yours_path) %></li>
-      <% end %>
-      <li><%= link_to('New', note_query_new_path) %></li>
-      <li><%= link_to('Updated', note_query_recent_path) %></li>
-    </ul>
-  </div>
-</div>
 
 <div class="grid_5 alpha">
   <h2>Tags</h2>
