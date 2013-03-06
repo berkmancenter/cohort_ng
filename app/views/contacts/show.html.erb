@@ -1,9 +1,19 @@
-<h1><%= @contact %></h1>
-<% unless current_user.blank? %>
-  <%= link_to(raw("#{icon('user_edit')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %> <br />
-<% end %>
 
-<%= link_to "Google #{@contact}", "https://www.google.com/search?q=#{@contact.first_name}+#{@contact.last_name}", :target => "_blank" %>
+<span style="float:left; width:60%">
+  <h1><%= @contact %></h1>
+</span>
+
+<span style="float:right; text-align:right; width:40%; margin:12px 0 25px 0;">
+	<%= link_to(raw("#{icon('google')} Google #{@contact}"), "https://www.google.com/search?q=#{@contact.first_name}+#{@contact.last_name}", :target => "_blank") %>
+</span>
+
+
+
+
+  <% unless current_user.blank? %>
+    <%= link_to(raw("#{icon('user_edit')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %> <br />
+  <% end %>
+
 
 <div class="tabs" style="margin: 1em 0 1em 0em;">
   <ul>
