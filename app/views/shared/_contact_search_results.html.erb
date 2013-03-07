@@ -28,8 +28,13 @@
 		<h3>Add Task</h3>
 		Task: <%= text_area_tag :task %><br />
 		Priority: <%= select_tag(:priority, options_for_select((0..100).to_a)) %><br />
-		Due Date: <%= date_select(:due_date, Date.today) %>
+		Due Date: <%= date_select(:due_date, Date.today) %><br />
+		Owner: <%= select_tag :owner, options_from_collection_for_select(User.all, "id", "email"), :include_blank => true %>
 	</p>
+	<p>
+		<h3>Add Tags</h3>
+	    Tags: <%= text_area_tag :hierarchical_tag_list %>
+	</p>	
 	<br />
 	<p>
 		<%= submit_tag 'Submit' %>

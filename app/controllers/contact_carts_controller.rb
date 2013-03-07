@@ -75,14 +75,28 @@ class ContactCartsController < BaseController
         @task = Note.create(:contact_id => id, :note_type => 'task', :note => params[:task], :priority => params[:priority], :due_date => Date.parse(params[:due_date].to_a.sort.collect{|c| c[1]}.join("-")).to_s)
         
         if @task.save
-          current_user.has_role!(:owner, @task)
-          current_user.has_role!(:creator, @task)
+          if params[:owner] == "" || params[:owner].nil?
+            current_user.has_role!(:owner, @task)
+            current_user.has_role!(:creator, @task)
+          else
+            User.find(params[:owner].to_i).has_role!(:owner, @task)  
+            current_user.has_role!(:creator, @task)
+          end
           @message += "\n" + "Added note on #{contact_input.first_name} #{contact_input.last_name}."
         else
           @message = "\n" + "We couldn't add that note. <br />#{@note.errors.full_messages.join('<br/>')}"
         end
       end
-    end  
+    end
+    unless params[:hierarchical_tag_list].blank?
+      object_ids.each do |id|
+        contact_input = Contact.find(id.to_i)
+        tags = contact_input.hierarchical_tag_list
+        contact_input.hierarchical_tag_list = tags + ", " + params[:hierarchical_tag_list]
+        
+        @message += "\n" + "Added tags on #{contact_input.first_name} #{contact_input.last_name}."
+      end
+    end
     
     respond_to do|format|
       flash[:notice] = @message
