@@ -2,10 +2,6 @@
   <% unless contact_query.blank? || contact_query.results.blank? %>
     <h1>Search Results</h1>
     <h3><%= page_entries_info contact_query.results %></h3>
-	<p>
-		Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name")) %>
-	    <%= submit_tag 'Add to Contact List' %>
-    </p>
 	<br />
     <table>
 	  <tr>
@@ -18,10 +14,27 @@
       <%= render :partial => 'shared/lines/contact_search_result', :collection => contact_query.results %>
     </table>
 	<br />
+	<h1>Bulk Actions</h1>
 	<p>
-		Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name")) %>
-	    <%= submit_tag 'Add to Contact List' %>
-    </p>
+		<h3>Add to Contact List</h3>
+		Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name"), :include_blank => true) %>
+	</p>	
+	<p>
+		<h3>Add Note</h3>
+		Type: <%= select_tag(:note_type, options_for_select(Note.note_type_options_for_select)) %><br />
+		Note: <%= text_area_tag :note %>
+	</p>
+	<p>
+		<h3>Add Task</h3>
+		Task: <%= text_area_tag :task %><br />
+		Priority: <%= select_tag(:priority, options_for_select((0..100).to_a)) %><br />
+		Due Date: <%= date_select(:due_date, Date.today) %>
+	</p>
+	<br />
+	<p>
+		<%= submit_tag 'Submit' %>
+	</p>	
+    
     <%= will_paginate(contact_query.results) %>
   <% else %>
     <h2>None found.</h2>
