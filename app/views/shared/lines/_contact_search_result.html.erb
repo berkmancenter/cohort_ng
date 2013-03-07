@@ -18,6 +18,15 @@
     <% end %>
   
   <td><%= mail_to(contact.emails[0].email) %></td>
-  <td><%= render :partial => 'shared/tag_list_for_display', :object => contact.organizations %></td>
+  <% unless contact.tags.empty? %>
+    <% unless contact.organizations[0].nil? %>
+      <td><span class="tagMatches"><%= link_to(contact.organizations[0],tag_path(contact.organizations[0])) %></span></td> 
+    <% else %>
+      <td></td>	 
+    <% end %>	
+  <% else %>
+    <td></td>  
+  <% end %>
+  
   <td><%= contact.updated_at %></td>
 </tr>
