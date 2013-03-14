@@ -92,13 +92,5 @@ class ContactsController < BaseController
   def quick
     render :partial => "shared/forms/contact_quick"
   end
-  
-  #def delete_all
-  #  @contacts = Contact.all
-  #  @contacts.each do |contact|
-  #    contact.destroy
-  #  end  
-  #  redirect_to :back
-  #end
 
 end
