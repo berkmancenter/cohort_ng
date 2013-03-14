@@ -113,8 +113,7 @@ CohortNg::Application.routes.draw do
 
   resources :contacts do
     collection do
-      get :quick 
-      #get :delete_all 
+      get :quick
     end
   end    
 
