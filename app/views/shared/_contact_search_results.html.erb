@@ -14,6 +14,8 @@
       <%= render :partial => 'shared/lines/contact_search_result', :collection => contact_query.results %>
     </table>
 	<br />
+	
+	
 	<h1>Bulk Actions</h1>
 	<p>
 		<h3>Add to Contact List</h3>
@@ -33,7 +35,8 @@
 	</p>
 	<p>
 		<h3>Add Tags</h3>
-	    Tags: <%= text_area_tag :hierarchical_tag_list %>
+	    Tags: <%= text_area_tag :hierarchical_tag_list, nil, :class => 'tag_list' %>
+		<div class="clear"></div>
 	</p>	
 	<br />
 	<p>
