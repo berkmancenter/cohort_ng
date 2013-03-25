@@ -2,7 +2,8 @@ class Note < ActiveRecord::Base
   include CohortModelExtensions
   acts_as_authorization_object
 
-  scope :to_dos, where('due_date is not null')
+  #scope :to_dos, where('due_date is not null')
+  scope :to_dos, where("note_type = 'task'")
   
   def self.per_page
     25
