@@ -16,6 +16,15 @@ namespace :cohort do
     u.create_random_password
     u.save
   end
+  
+  desc "default user"
+  task(:default_user => :environment) do
+    u = User.new(:email => 'admin@example.com')
+    u.create_random_password
+    u.save
+    puts "User email is: #{u.email}"
+    puts "User password is: #{u.password}"
+  end
 
   desc 'create some fake data'
   task(:fake_data => :environment) do

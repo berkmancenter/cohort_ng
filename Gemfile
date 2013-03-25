@@ -7,7 +7,8 @@ gem "formtastic", '1.2.4'
 gem "will_paginate"
 gem 'pg'
 gem "devise"
-gem 'sunspot_rails', '1.2.1'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 gem 'carmen'
 gem 'ancestry'
 gem 'acts_as_list', '0.1.4'
