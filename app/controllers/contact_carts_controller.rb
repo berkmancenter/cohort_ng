@@ -94,6 +94,13 @@ class ContactCartsController < BaseController
         tags = contact_input.hierarchical_tag_list
         contact_input.hierarchical_tag_list = tags + ", " + params[:hierarchical_tag_list]
         
+        contact_input.tags.each do |string_tag|
+          tag = ActsAsTaggableOn::Tag.find(string_tag)
+          contacts_to_reindex = tag.taggings.collect{|tg| tg.taggable.id}
+          if tag.save
+            Contact.where(:id => contacts_to_reindex).solr_index(:batch_size => 100)
+          end
+        end
         @message += "\n" + "Added tags on #{contact_input.first_name} #{contact_input.last_name}."
       end
     end
