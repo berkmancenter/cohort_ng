@@ -26,7 +26,9 @@ $(document).ready(function(){
         $.hideGlobalSpinnerNode();
       },
       error: function(xhr,textStatus,errorStr){
-        $.showMajorError(textStatus);
+        if (xhr.status !== 0 && xhr.readyState !== 0) {
+		  $.showMajorError(textStatus);
+		}
       }
     }
   });
@@ -63,7 +65,7 @@ $(document).ready(function(){
         $.showGlobalSpinnerNode();
       },
       error: function(jqXHR, textStatus, errorThrown){
-        $.showMajorError(textStatus);
+		$.showMajorError(textStatus);
       },
       complete: function(){
         $.hideGlobalSpinnerNode();
