@@ -25,10 +25,13 @@
     <% end %>
   </ul>
   <div id="about-<%= @contact.id %>">
-    <% unless @contact.birthday.blank? %>
-	  <h2 class="contact_section_header">Birthday</h2>
-      <%= @contact.birthday %>
-	  <div class="clear"></div>
+	<% @notes = Note.paginate(:conditions => ["note_type = 'about' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
+    <% unless @notes.empty? %>
+      <h2 class="contact_section_header collapsable">About</h2>
+      <div class="notes">
+        <%= render :partial => 'shared/note_list', :locals => {:title => "" } %>
+      </div>
+      <div class="clear"></div>
     <% end %>
 
 	<% unless @contact.tags.empty? %>
@@ -73,7 +76,7 @@
       <div class="clear"></div>
     <% end %>
 	
-    <% @notes = Note.paginate(:conditions => ["note_type  <> 'task' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
+    <% @notes = Note.paginate(:conditions => ["note_type = 'general' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
     <% unless @notes.empty? %>
       <h2 class="contact_section_header collapsable">Notes</h2>
       <div class="notes">
@@ -90,6 +93,12 @@
       </div>
       <div class="clear"></div>
     <% end %>
+
+	<% unless @contact.birthday.blank? %>
+	  <h2 class="contact_section_header">Birthday</h2>
+      <%= @contact.birthday %>
+	  <div class="clear"></div>
+    <% end %>
 	
     <h2 class="contact_section_header">Additional Info</h2>
 	Date Added: <%= @contact.created_at %><br />
@@ -103,5 +112,6 @@
   <p><%= link_to(raw("#{icon('note_add')} New note"),new_note_path(:contact_id => @contact.id, :type => 'general'),:class => 'dialog-form', :title => "Add Note") %></p>
   <p><%= link_to(raw("#{icon('note_add')} New task"),new_note_path(:contact_id => @contact.id, :type => 'task'),:class => 'dialog-form', :title => "Add Task") %></p>
   <p><%= link_to(raw("#{icon('page_add')} New document"),new_document_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Document") %></p>
+  <p><%= link_to(raw("#{icon('note_add')} Add About Text"),new_note_path(:contact_id => @contact.id, :type => 'about'),:class => 'dialog-form', :title => "Add About") %></p>
 <% end %>  
 
