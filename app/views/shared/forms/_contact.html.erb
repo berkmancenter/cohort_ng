@@ -85,6 +85,10 @@
 
   <%= f.inputs :name => '&#9654; Miscellaneous ', :class => 'collapsable' do %>
     <%= f.input :birthday, :as => 'string', :required => false, :input_html => {:class => "datepicker"}, :hint => 'In YYYY-MM-DD format' %>
+	<%= f.input :website, :as => 'string', :required => false, :label => 'Website' %>
+	<%= f.input :twitter, :as => 'string', :required => false, :label => 'Twitter' %>
+	<%= f.input :facebook, :as => 'string', :required => false, :label => 'Facebook' %>
+	<%= f.input :linkedin, :as => 'string', :required => false, :label => 'LinkedIn' %>
   <% end %>
 
 <% end %>
