@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130306213025) do
+ActiveRecord::Schema.define(:version => 20130507202717) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_type", :limit => 20,  :default => "unknown"
@@ -67,6 +67,10 @@ ActiveRecord::Schema.define(:version => 20130306213025) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
+    t.string   "website"
+    t.string   "twitter"
+    t.string   "facebook"
+    t.string   "linkedin"
   end
 
   add_index "contacts", ["active"], :name => "index_contacts_on_active"
