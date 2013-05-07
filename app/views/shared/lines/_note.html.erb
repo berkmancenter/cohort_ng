@@ -22,6 +22,14 @@
         <strong>Priority:</strong> <%= note.priority %>
       </div>
     <% end %>
+	<% unless @owners.nil? %>
+      <div class="due_date">
+        <strong>Owner:</strong> 
+		  <% @owners.each do |o| %>
+		     <%= o.email %>
+		  <% end %>	
+      </div>
+    <% end %>
   </div>
   <div class="clear"></div>
 </div>
