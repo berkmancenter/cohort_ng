@@ -9,7 +9,7 @@ class Note < ActiveRecord::Base
     25
   end
 
-  NOTE_TYPES = {'general' => 'General','task' => 'Task'}
+  NOTE_TYPES = {'general' => 'General','task' => 'Task','about' => 'About'}
   belongs_to :contact, :validate => true
   validates_inclusion_of :note_type, :in => NOTE_TYPES.keys
   validates_numericality_of :priority, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100, :allow_nil => true
