@@ -94,9 +94,13 @@
       <div class="clear"></div>
     <% end %>
 
+	<h2 class="contact_section_header">Miscellaneous</h2>
 	<% unless @contact.birthday.blank? %>
-	  <h2 class="contact_section_header">Birthday</h2>
-      <%= @contact.birthday %>
+	  Website: <%= @contact.website %><br />
+	  Twitter: <%= @contact.twitter %><br />
+	  Facebook: <%= @contact.facebook %><br />
+	  LinkedIn: <%= @contact.linkedin %><br /><br />
+	  Birthday: <%= @contact.birthday %>
 	  <div class="clear"></div>
     <% end %>
 	
