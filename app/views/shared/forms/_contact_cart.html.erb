@@ -1,8 +1,8 @@
 <%= semantic_form_for(@contact_cart) do |f| %>
   <div id="error" class="ui-state-error ui-corner-all ui-widget" style="display: none;"></div>
   <%= f.inputs :name => 'Contact List' do %>
-    <%= f.input :name %>
-    <%= f.input :description, :as => :text %>
+    <%= f.input :name, :hint => "Please use the naming scheme [project or purpose] descriptor (date), i.e. [Network of Centers] Steering Committee (12-12-2012)" %>
+    <%= f.input :description, :as => :text, :hint => "Once you have created a list, you can click back on it to search and add contacts to it." %>
     <p><%= f.input :global, :label => 'Global - list can be viewed / edited by everyone.' %></p>
   <% end %>
 <% end %>

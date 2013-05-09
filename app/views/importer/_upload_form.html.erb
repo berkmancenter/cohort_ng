@@ -1,6 +1,9 @@
-<h2>Upload file for Data Import</h2>
-<p>More details about file formats here. . . but csv.</p>
-
+<h2>Import Contact Data Into Cohort</h2>
+<p>You can upload existing contact lists, such as ones previously saved as spreadsheets, (as .csv or .xls files) for import into the system. Cohort will de-duplicate contacts based on email addresses, i.e. if a contact already exists in the database that is listed within the spreadsheet you are uploading, it won't recreate the person's entry in the system. However, if there is additional information included in the file you are uploading, such as tags, the system will add those to the existing contact.</p>
+<br />
+<h3>How to Upload a File</h3>
+<p>Use this template, with data inputted under appropriate headers, in order to upload contacts into the system. Please be sure the data is as clean as possible. Extraneous or out of place data uploaded to cannot be undone! The spreadsheet should contain at least one tag that includes information about the list and its origins (please be sure to tag with the proper scheme within the hierarchy, if applicable; you can see the hierarchy of tags by clicking on the "Tags" link on the sidebar). The header of the spreadsheet acts as the top level tag, and data inputted under it will be nested within that category.</p>
+<br /><br />
 <% if @import_errors %>
   <h3 class="error">The following records couldn't be imported.</h3>
   <% @import_errors.each do|err| %>
@@ -15,6 +18,6 @@
     <%= f.input(:imported_file, :as => 'file', :label => 'Upload a file') %>
   <% end %>
   <% f.buttons do %>
-    <%= f.commit_button('Upload File') %>
+    <%= f.submit 'Upload File', :class => 'button' %>
   <% end %>
 <% end %>
