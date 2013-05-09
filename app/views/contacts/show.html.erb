@@ -96,10 +96,10 @@
 
 	<h2 class="contact_section_header">Miscellaneous</h2>
 	<% unless @contact.birthday.blank? %>
-	  Website: <%= @contact.website %><br />
-	  Twitter: <%= @contact.twitter %><br />
-	  Facebook: <%= @contact.facebook %><br />
-	  LinkedIn: <%= @contact.linkedin %><br /><br />
+	  Website: <%= link_to @contact.website, @contact.website, :target => "blank" %><br />
+	  Twitter: <%= link_to @contact.twitter, @contact.twitter, :target => "blank" %><br />
+	  Facebook: <%= link_to @contact.facebook, @contact.facebook, :target => "blank" %><br />
+	  LinkedIn: <%= link_to @contact.linkedin, @contact.linkedin, :target => "blank" %><br /><br />
 	  Birthday: <%= @contact.birthday %>
 	  <div class="clear"></div>
     <% end %>
