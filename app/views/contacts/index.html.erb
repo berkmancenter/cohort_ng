@@ -18,6 +18,7 @@
 
 <div class="grid_9 alpha">
   <h2>Contact Lists</h2>
+  <p>Lists are customized groups of contacts that you can create on the fly.</p>
   <% unless current_user.blank? %>
     <h4><%= link_to icon('add') + ' Add New', new_contact_cart_path, :class => 'dialog-form', :title => 'New Contact List' %></h4>
   <% end %>	
