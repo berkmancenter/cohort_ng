@@ -20,7 +20,7 @@
   <body>
     <div class="container_12" id="header_wrapper">
       <div class="header">
-        <div class="grid_4 alpha"><%= link_to(image_tag("logo.jpg"), root_url) %></div>
+        <div class="grid_4 alpha"></div>
         <div class="grid_4" id="messages">
           <% [:notice,:error,:alert].each do|flash_type| %>
             <% unless flash[flash_type].blank? %>
@@ -46,10 +46,11 @@
 
     <div class="container_12">
       <div class="body">
-        <div class="grid_2 alpha">
+        <div class="grid_3 alpha">
+		  <%= link_to(image_tag("logo.jpg"), root_url) %>
           <%= render :partial => 'shared/actions' %>
         </div>
-		<div class="grid_10 omega">
+		<div class="grid_9 omega">
           <!--<div class="breadcrumbs"><%= breadcrumbs.render(:format => :inline, :separator => ' &raquo; ') %></div>-->
 		  <% unless current_user.blank? %>
 		    <div id="cog-text">

@@ -41,9 +41,19 @@
 	margin-right: 0px;
 }
 
+.grid_3 {
+	margin-right: 0px;
+}
+
+.grid_9 {
+	margin-left: 0px;
+	border: 1px dashed #87b6d9;
+	padding-left: 10px;
+}
+
 .grid_10 {
 	margin-left: 0px;
-	border: 2px solid black;
+	border: 1px dashed #87b6d9;
 	padding-left: 10px;
 }
 
@@ -101,7 +111,8 @@
 }
 
 .container_12 .grid_9 {
-	width:880px;
+	width:886px;
+	min-height: 560px;
 }
 
 .container_12 .grid_10 {
