@@ -1,4 +1,4 @@
-<div class="grid_9 alpha">
+<div class="grid_8 alpha">
   <h2>Contacts</h2>
   <% unless current_user.blank? %>
     <h4><%= link_to(icon('add') + ' Add New', new_contact_path, :class => 'dialog-form', :title => "New Contact") %></h4>
@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="grid_9 alpha">
+<div class="grid_8 alpha">
   <h2>Contact Lists</h2>
   <p>Lists are customized groups of contacts that you can create on the fly.</p>
   <% unless current_user.blank? %>
