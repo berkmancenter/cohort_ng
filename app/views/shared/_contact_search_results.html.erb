@@ -75,6 +75,7 @@ function toggle3() {
 	  <h3><a id="displayText" href="javascript:toggle();" class="access-account">Add to Contact List</a></h3>
 	  <div id ="toggleText" style="display: none">
 		<p>
+			New List: <%= text_field_tag :contact_list_new %><br />
 			Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name"), :include_blank => true) %>
 		</p>
 	  </div>
