@@ -36,11 +36,13 @@ class ContactCartsController < BaseController
       redirect_to :back and return
     end
       
-    unless params[:contact_list].blank?
-      @contact_cart = ContactCart.find_or_create_by_id(params[:contact_list].to_i)
-      unless @contact_cart
-        # autovivify
-        @contact_cart = ContactCart.create(:name => "Contact List created on #{Time.now.to_s(:compact_datetime)}", :global => true)
+    unless params[:contact_list].blank? && params[:contact_list_new].blank?
+      if params[:contact_list_new].blank?
+        @contact_cart = ContactCart.find(params[:contact_list].to_i)
+      else
+        @contact_cart = ContactCart.create(:name => params[:contact_list_new], :global => true)
+        current_user.has_role!(:owner, @contact_cart)
+        current_user.has_role!(:creator, @contact_cart)
       end
       
       object_ids.each do |id|

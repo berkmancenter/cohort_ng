@@ -86,6 +86,11 @@ h3{
     font-size: 16px;
 }
 
+h5 a{
+    font-size: 12px;
+	text-decoration: none;
+}
+
 dt{
   font-weight: bold;
 }

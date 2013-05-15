@@ -1,56 +1,3 @@
-<script language="javascript">
-function toggle() {
-	var ele = document.getElementById("toggleText");
-	var text = document.getElementById("displayText");
-	if(ele.style.display == "block") {
-    		ele.style.display = "none";
-		text.innerHTML = "Add to Contact List";
-  	}
-	else {
-		ele.style.display = "block";
-		text.innerHTML = "Add to Contact List";
-	}
-} 
-
-function toggle1() {
-	var ele = document.getElementById("toggleText1");
-	var text = document.getElementById("displayText1");
-	if(ele.style.display == "block") {
-    		ele.style.display = "none";
-		text.innerHTML = "Add Note";
-  	}
-	else {
-		ele.style.display = "block";
-		text.innerHTML = "Add Note";
-	}
-}
-
-function toggle2() {
-	var ele = document.getElementById("toggleText2");
-	var text = document.getElementById("displayText2");
-	if(ele.style.display == "block") {
-    		ele.style.display = "none";
-		text.innerHTML = "Add Task";
-  	}
-	else {
-		ele.style.display = "block";
-		text.innerHTML = "Add Task";
-	}
-}
-
-function toggle3() {
-	var ele = document.getElementById("toggleText3");
-	var text = document.getElementById("displayText3");
-	if(ele.style.display == "block") {
-    		ele.style.display = "none";
-		text.innerHTML = "Add Tags";
-  	}
-	else {
-		ele.style.display = "block";
-		text.innerHTML = "Add Tags";
-	}
-}
-</script>
 <noscript>Please enable Javascript.</noscript>
 
 <% form_tag({:controller => 'contact_carts', :action => 'add_group'}, :id => 'contacts_form') do %>
@@ -71,21 +18,22 @@ function toggle3() {
 	<br />
 	
 	
-	<h1>Bulk Actions</h1>
-	  <h3><a id="displayText" href="javascript:toggle();" class="access-account">Add to Contact List</a></h3>
+	<h2>Bulk Actions</h2>
+	  <h5><a id="displayText" href="javascript:toggle();" class="access-account">Add to Contact List <%= icon('arrow_right') %></a></h5>
 	  <div id ="toggleText" style="display: none">
 		<p>
+			New List: <%= text_field_tag :contact_list_new %><br />
 			Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name"), :include_blank => true) %>
 		</p>
 	  </div>
-	  <h3><a id="displayText1" href="javascript:toggle1();" class="access-account">Add Note</a></h3>
+	  <h5><a id="displayText1" href="javascript:toggle1();" class="access-account">Add Note <%= icon('arrow_right') %></a></h5>
 	  <div id ="toggleText1" style="display: none">
 		<p>
 			Type: <%= select_tag(:note_type, options_for_select(Note.note_type_options_for_select)) %><br />
 			Note: <%= text_area_tag :note %>
 		</p>
 	  </div>
-	  <h3><a id="displayText2" href="javascript:toggle2();" class="access-account">Add Task</a></h3>
+	  <h5><a id="displayText2" href="javascript:toggle2();" class="access-account">Add Task <%= icon('arrow_right') %></a></h5>
 	  <div id ="toggleText2" style="display: none">
 		<p>
 			Task: <%= text_area_tag :task %><br />
@@ -94,7 +42,7 @@ function toggle3() {
 			Owner: <%= select_tag :owner, options_from_collection_for_select(User.all, "id", "email"), :include_blank => true %>
 		</p>
 	  </div>
-	  <h3><a id="displayText3" href="javascript:toggle3();" class="access-account">Add Tags</a></h3>
+	  <h5><a id="displayText3" href="javascript:toggle3();" class="access-account">Add Tags <%= icon('arrow_right') %></a></h5>
 	  <div id ="toggleText3" style="display: none">
 		<p>
 			Tags: <%= text_area_tag :hierarchical_tag_list, nil, :class => 'tag_list' %>

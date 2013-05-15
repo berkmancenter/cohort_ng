@@ -2,9 +2,9 @@
   <% unless current_user.blank? %>
   
     <% if params[:select_for_contact_cart].blank? %>
-      <td><span style="font-size: .70em; margin-left: 5px;">
-  	  <%= link_to(icon('note_edit') + ' Edit', edit_contact_cart_path(contact_cart),:class => 'dialog-form', :title => 'Edit contact list') %> 
-  	  <%= link_to(icon('note_delete') + ' Delete',contact_cart_path(contact_cart), :method => :delete, :title => 'Delete contact list', :class => 'delete delete-contact_cart') %>
+      <td><a href="#" class="control" id="contact-control-<%= contact_cart.id %>"><%= icon('cog') %></a>
+	  <span style="font-size: .70em; margin-left: 5px;">
+  	  <%= link_to(icon('note_edit') + '', edit_contact_cart_path(contact_cart),:class => 'dialog-form', :title => 'Edit contact list') %> 
     </span></td>
       <td><%= link_to(contact_cart, contact_cart, :class => 'dialog-show') %></td>
     <% else %>
@@ -14,5 +14,10 @@
 	    </span></td>
       <td><%= link_to(contact_cart, contact_cart, :class => 'select_for_contact_cart', :data_contact_cart_id => contact_cart.id) %></td>
     <% end %>
+  	<% unless current_user.blank? %><span id="contact-control-<%= contact_cart.id %>-target" style="display: none;">
+	    <%= link_to(icon('note_edit') + ' Edit',edit_contact_cart_path(contact_cart),:class => 'dialog-form', :title => 'Edit contact list') %><br/>
+	    <%= link_to(icon('note_delete') + ' Delete',contact_cart_path(contact_cart), :method => :delete, :title => 'Delete contact list', :class => 'delete delete-contact_cart') %>
+	  </span>
+	<% end %>
   <% end %>
 </tr>
