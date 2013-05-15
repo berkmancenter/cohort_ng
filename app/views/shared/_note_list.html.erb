@@ -12,9 +12,9 @@
 	<tr>
       <td class="note-<%= n.id %>">
       <% unless current_user.blank? %>
+	    <a href="#" class="control" id="contact-control-<%= n.id %>"><%= icon('cog') %></a>
         <span style="font-size: .70em; margin-left: 5px;">
-	  <%= link_to(icon('note_edit') + ' Edit', edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %>
-	  <%= link_to(icon('note_delete') + ' Delete',note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %></span> 
+	  <%= link_to(icon('note_edit') + '', edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %></span> 
       <% end %>
 	  </td> 
       <td><%= link_to(truncate(n.note,:length => 60, :separator => ' '),n, :class => 'dialog-show') %></td>
@@ -22,6 +22,12 @@
 	    <td><%= link_to(n.contact, contact_path(n.contact), :class => 'dialog-show') %></td>
 	  <% else %>
 	    <td>Nobody</td>
+	  <% end %>
+	
+	  <% unless current_user.blank? %><span id="contact-control-<%= n.id %>-target" style="display: none;">
+	    <%= link_to(icon('note_edit') + ' Edit Note',edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %><br/>
+	    <%= link_to(icon('note_delete') + ' Delete Note',note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %>
+	  </span>
 	  <% end %>
 	</tr>  
     <% end %>
