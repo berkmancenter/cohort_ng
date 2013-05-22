@@ -1,6 +1,38 @@
-<h2>Upload file for Data Import</h2>
-<p>More details about file formats here. . . but csv.</p>
+<h2>Import Contact Data Into Cohort</h2>
+<p>You can upload existing contact lists, such as ones previously saved as spreadsheets, (as .csv files) for import into the system. Cohort will de-duplicate contacts based on email addresses, i.e. if a contact already exists in the database that is listed within the spreadsheet you are uploading, it won't recreate the person's entry in the system. However, if there is additional information included in the file you are uploading, such as tags, the system will add those to the existing contact.</p>
+<br />
+<h3>How to Upload a File</h3>
+<p>Use this <%= link_to "template", "#{ENV["RAILS_RELATIVE_URL_ROOT"]}ImportTemplate.csv" %>, with data inputted under appropriate headers, in order to upload contacts into the system. Please be sure the data is as clean as possible. Extraneous or out of place data uploaded to cannot be undone! The spreadsheet should contain at least one tag that includes information about the list and its origins (please be sure to tag with the proper scheme within the hierarchy, if applicable; you can see the hierarchy of tags by clicking on the "Tags" link on the sidebar). The header of the spreadsheet acts as the top level tag, and data inputted under it will be nested within that category.</p>
+<br />
 
+<h4>Headers for CSV File</h4>
+<br />
+<ul>
+	<li><strong>first_name</strong></li>
+	<li><strong>last_name</strong></li>
+	<li><strong>email_addresses</strong> - If there is more than one, comma separate list. Note that contacts will be de-duped by email.</li>
+	<li><strong>title</strong></li>
+	<li><strong>address_1</strong></li>
+	<li><strong>address_2</strong><li>
+	<li><strong>city</strong></li>
+	<li><strong>state</strong></li>
+	<li><strong>postal_code</strong></li>
+	<li><strong>country</strong></li>
+	<li><strong>notes</strong></li>
+	<li><strong>phone_numbers</strong> - If there is more than one, comma separate list.</li>
+	<br />
+	Note: The following fields are used for tagging. If the contact requires multiples (i.e. more than one Organization), you will need to add additional columns with the same parent tag heading.
+	<br /><br />
+	<li><strong>People</strong> - 'People' will be the parent for the tag entered in the column.</li>
+	<li><strong>Projects</strong> - 'Projects' will be the parent for the tag entered in the column.</li>
+	<li><strong>Events</strong> - 'Events' will be the parent for the tag entered in the column.</li>
+	<li><strong>Organizations</strong> - 'Organizations' will be the parent for the tag entered in the column.</li>
+	<li><strong>Topic</strong> - 'Topic' will be the parent for the tag entered in the column.</li>
+	<li><strong>Other</strong> - 'Other' will be the parent for the tag entered in the column.</li>
+	<li><strong>tags</strong> - Do not enter anything in this field, use the formula provided in template. </li>
+</ul>
+
+<br /><br />
 <% if @import_errors %>
   <h3 class="error">The following records couldn't be imported.</h3>
   <% @import_errors.each do|err| %>
@@ -15,6 +47,6 @@
     <%= f.input(:imported_file, :as => 'file', :label => 'Upload a file') %>
   <% end %>
   <% f.buttons do %>
-    <%= f.commit_button('Upload File') %>
+    <%= f.submit 'Upload File', :class => 'button' %>
   <% end %>
 <% end %>

@@ -2,9 +2,13 @@
   <h1><%= title %></h1>
 <% end %>
 <% unless @contact_carts.blank? %>
-  <ul class="resultlist">
-    <%= render :partial => 'shared/lines/contact_cart', :collection => @contact_carts %>
-  </ul>
+<table>
+  <tr>
+    <th>Actions</th>	
+    <th>Name</th>
+  </tr>
+  <%= render :partial => 'shared/lines/contact_cart', :collection => @contact_carts %>
+</table>
   <%= will_paginate(@contact_carts) %>
 <% else %>
   <h2>None found.</h2>

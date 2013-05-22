@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130117155643) do
+ActiveRecord::Schema.define(:version => 20130507202717) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_type", :limit => 20,  :default => "unknown"
@@ -67,6 +67,10 @@ ActiveRecord::Schema.define(:version => 20130117155643) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
+    t.string   "website"
+    t.string   "twitter"
+    t.string   "facebook"
+    t.string   "linkedin"
   end
 
   add_index "contacts", ["active"], :name => "index_contacts_on_active"
@@ -117,10 +121,10 @@ ActiveRecord::Schema.define(:version => 20130117155643) do
   add_index "log_items", ["log_item_type"], :name => "index_log_items_on_log_item_type"
 
   create_table "notes", :force => true do |t|
-    t.string   "note",       :limit => 4096,                        :null => false
-    t.string   "note_type",  :limit => 50,   :default => "general"
+    t.string   "note",       :limit => 12288,                        :null => false
+    t.string   "note_type",  :limit => 50,    :default => "general"
     t.datetime "due_date"
-    t.integer  "priority",                   :default => 50
+    t.integer  "priority",                    :default => 50
     t.integer  "contact_id"
     t.datetime "created_at"
     t.datetime "updated_at"

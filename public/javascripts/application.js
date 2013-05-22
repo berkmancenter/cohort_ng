@@ -26,7 +26,9 @@ $(document).ready(function(){
         $.hideGlobalSpinnerNode();
       },
       error: function(xhr,textStatus,errorStr){
-        $.showMajorError(textStatus);
+        if (xhr.status !== 0 && xhr.readyState !== 0) {
+		  $.showMajorError(textStatus);
+		}
       }
     }
   });
@@ -63,7 +65,7 @@ $(document).ready(function(){
         $.showGlobalSpinnerNode();
       },
       error: function(jqXHR, textStatus, errorThrown){
-        $.showMajorError(textStatus);
+		$.showMajorError(textStatus);
       },
       complete: function(){
         $.hideGlobalSpinnerNode();
@@ -167,3 +169,55 @@ $(document).ready(function(){
   });
 
 });
+
+function toggle() {
+	var ele = document.getElementById("toggleText");
+	var text = document.getElementById("displayText");
+	if(ele.style.display == "block") {
+    		ele.style.display = "none";
+		text.innerHTML = "Add to Contact List <img src='/images/icons/arrow_right.png' />";
+  	}
+	else {
+		ele.style.display = "block";
+		text.innerHTML = "Add to Contact List <img src='/images/icons/arrow_right.png' />";
+	}
+} 
+
+function toggle1() {
+	var ele = document.getElementById("toggleText1");
+	var text = document.getElementById("displayText1");
+	if(ele.style.display == "block") {
+    		ele.style.display = "none";
+		text.innerHTML = "Add Note <img src='/images/icons/arrow_right.png' />";
+  	}
+	else {
+		ele.style.display = "block";
+		text.innerHTML = "Add Note <img src='/images/icons/arrow_right.png' />";
+	}
+}
+
+function toggle2() {
+	var ele = document.getElementById("toggleText2");
+	var text = document.getElementById("displayText2");
+	if(ele.style.display == "block") {
+    		ele.style.display = "none";
+		text.innerHTML = "Add Task <img src='/images/icons/arrow_right.png' />";
+  	}
+	else {
+		ele.style.display = "block";
+		text.innerHTML = "Add Task <img src='/images/icons/arrow_right.png' />";
+	}
+}
+
+function toggle3() {
+	var ele = document.getElementById("toggleText3");
+	var text = document.getElementById("displayText3");
+	if(ele.style.display == "block") {
+    		ele.style.display = "none";
+		text.innerHTML = "Add Tags <img src='/images/icons/arrow_right.png' />";
+  	}
+	else {
+		ele.style.display = "block";
+		text.innerHTML = "Add Tags <img src='/images/icons/arrow_right.png' />";
+	}
+}

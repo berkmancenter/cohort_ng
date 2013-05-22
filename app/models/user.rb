@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, #:registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
 
   acts_as_authorization_subject  :association_name => :roles
@@ -12,12 +12,13 @@ class User < ActiveRecord::Base
 
   include CohortModelExtensions
 
-  has_many :notes, :dependent => :destroy
-  has_many :log_items, :dependent => :destroy
+  has_many :notes#, :dependent => :destroy
+  has_many :log_items#, :dependent => :destroy
 
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
 
   before_destroy :check_if_deleteable
+  #after_create :post_save_hooks
 
   def create_random_password
     #eliminate capital I and lowercase l and uppercase O to minimize confusion
@@ -34,6 +35,21 @@ class User < ActiveRecord::Base
 
   def self.system_user
     self.find_by_email('importer-no-reply@example.com')
+  end
+  
+  def self.random_password(size = 11)
+    chars = (('a'..'z').to_a + ('0'..'9').to_a) - %w(i o 0 1 l 0)
+    (1..size).collect{|a| chars[rand(chars.size)] }.join
+  end
+  
+  def post_save_hooks
+    Email.create(
+      :from => DEFAULT_MAILER_SENDER,
+      :reply_to => DEFAULT_MAILER_SENDER,
+      :to => self.email,
+      :subject => "Your Cohort Account Has Been Created",
+      :body => %Q|<p>Welcome to Cohort.</p><p>Your login is: #{self.email}. Please visit <a href="#{ROOT_URL}/users/password/new">Inscriptio</a> to create a new password and log into your account.</p>|
+    )
   end
 
 end

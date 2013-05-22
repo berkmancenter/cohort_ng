@@ -1,6 +1,7 @@
 <% unless title.blank? %>
   <h1><%= title %></h1>
 <% end %>
+
 <% unless @contacts.blank? %>
   <table>
     <tr>
@@ -12,7 +13,7 @@
     </tr>
     <%= render :partial => 'shared/lines/contact', :collection => @contacts %>
   </table>
-  
+
   <%= will_paginate(@contacts) %>
 <% else %>
   <h2>None found.</h2>
