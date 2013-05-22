@@ -1,22 +1,34 @@
-<li class="document document-<%= document.id %> document_type_<%= document.document_type %>">
+<tr class="document document-<%= document.id %> document_type_<%= document.document_type %>">
+<td>
 <% unless current_user.blank? %>
   <a href="#" class="control" id="document-control-<%= document.id %>"><%= icon('cog') %></a>
-<% end %>
-<%= link_to(document.name, document_path(document), :class => 'dialog-show') %>
-<% unless document.document_type.blank? %>
-  <span class="document_type"> - <%=  Document::DOCUMENT_TYPES[document.document_type] %></span>
-<% end %>
-<% unless document.description.blank? %>
-  <span class="description"><%= truncate(document.description,:length => 100) %></span>
-<% end %>
-<% if document.is_displayable_image? %>
-  <%= link_to(raw(image_tag(document.thumb_url('25x25'))), document.file_attachment.url, :target => '_blank') %><br/>
-<% end %>
-<%= link_to('download', document.file_attachment.url, :target => "_blank") %>, <%= (document.file_attachment.file.size / 1024) %> kb <%= document.file_attachment.file.extension %>
-<% unless current_user.blank? %>
   <span id="document-control-<%= document.id %>-target" style="display:none;">
     <%= link_to(icon('page_edit') + ' Edit Document', edit_document_path(document)) %><br/>
     <%= link_to(icon('page_delete') + ' Delete Document', document_path(document), :method => :delete, :class => 'delete delete-document', :confirm => 'Are you sure?') %>
-  </span>
+  </span>	
 <% end %>
-</li>
+</td>
+<td><%= link_to(document.name, document_path(document), :class => 'dialog-show') %></td>
+<td>
+<% unless document.document_type.blank? %>
+  <span class="document_type"><%=  Document::DOCUMENT_TYPES[document.document_type] %></span>
+<% end %>
+</td>
+<td>
+<% unless document.description.blank? %>
+  <span class="description"><%= truncate(document.description,:length => 100) %></span>
+<% end %>
+</td>
+<td>
+<% if document.is_displayable_image? %>
+  <%= link_to(raw(image_tag(document.thumb_url('25x25'))), document.file_attachment.url, :target => '_blank') %><br/>
+<% end %>
+</td>
+<td>
+  <%= document.created_at %>
+</td>
+<td>
+<%= link_to('download', document.file_attachment.url, :target => "_blank") %>, <%= (document.file_attachment.file.size / 1024) %> kb <%= document.file_attachment.file.extension %>
+</td>
+
+</tr>

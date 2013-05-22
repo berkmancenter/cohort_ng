@@ -16,7 +16,7 @@ body{
   border-top-right-radius: 10px;
   background-color: #ffffff;
   float: left;
-  border: 2px white;
+  border: 1px white;
   border-style: solid solid none solid;
 }
 
@@ -24,6 +24,7 @@ body{
   font-size: 48px;
   font-weight: normal;
   margin-left: 10px;
+  color: #000f45;
 }
 
 .header h1 a{
@@ -74,6 +75,7 @@ h1, h2, h3{
     font-size: 24px;
     margin-bottom: .5em;
     margin-top: .5em;
+	color: #000f45;
 }
 
 h2{
@@ -82,6 +84,11 @@ h2{
 
 h3{
     font-size: 16px;
+}
+
+h5 a{
+    font-size: 12px;
+	text-decoration: none;
 }
 
 dt{
@@ -135,7 +142,7 @@ dd{
 }
 
 .action-item{
-  border-bottom: 2px solid black;
+  border-bottom: 1px dashed #87b6d9;
   padding: 20px;
   padding-right: 10px;
 }
@@ -369,4 +376,5 @@ form.formtastic fieldset > ol > li.required{
   font-size: .90em;
   float: right;
   text-align: right;
+  padding-right: 10px;
 }

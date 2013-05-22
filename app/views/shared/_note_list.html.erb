@@ -2,30 +2,36 @@
   <h1><%= title %></h1>
 <% end %>
 <% unless @notes.blank? %>
-  <ul class="resultlist">
+<table>
+  <tr>
+    <th>Actions</th>	
+    <th>Note Preview</th>
+	<th>On Contact</th>
+  </tr>
     <% @notes.each do |n| %>
-      <li class="note-<%= n.id %>">
+	<tr>
+      <td class="note-<%= n.id %>">
       <% unless current_user.blank? %>
-        <a href="#" class="control" id="note-control-<%= n.id %>"><%= icon('cog') %></a>
-      <% end %>
-      <%= link_to(truncate(n.note,:length => 60, :separator => ' '),n, :class => 'dialog-show') %> on 
-	  <% unless n.contact.nil? || n.contact.blank? %>
-	    <%= link_to(n.contact, contact_path(n.contact), :class => 'dialog-show') %>
-	  <% else %>
-	    Nobody
-	  <% end %>		
-      <% unless current_user.blank? %>
-        <span id="note-control-<%= n.id %>-target" style="display: none;"><%= link_to(icon('note_edit') + ' Edit note', edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %><br/><%= link_to(icon('note_delete') + ' Delete note',note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %></span>
-      <% end %>
-	  
-      <% unless current_user.blank? %>
+	    <a href="#" class="control" id="contact-control-<%= n.id %>"><%= icon('cog') %></a>
         <span style="font-size: .70em; margin-left: 5px;">
-		  <%= link_to(icon('note_edit') + ' Edit', edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %>
-		  <%= link_to(icon('note_delete') + ' Delete',note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %></span>
+	  <%= link_to(icon('note_edit') + '', edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %></span> 
       <% end %>
-      </li>
+	  </td> 
+      <td><%= link_to(truncate(n.note,:length => 60, :separator => ' '),n, :class => 'dialog-show') %></td>
+	  <% unless n.contact.nil? || n.contact.blank? %>
+	    <td><%= link_to(n.contact, contact_path(n.contact), :class => 'dialog-show') %></td>
+	  <% else %>
+	    <td>Nobody</td>
+	  <% end %>
+	
+	  <% unless current_user.blank? %><span id="contact-control-<%= n.id %>-target" style="display: none;">
+	    <%= link_to(icon('note_edit') + ' Edit Note',edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %><br/>
+	    <%= link_to(icon('note_delete') + ' Delete Note',note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %>
+	  </span>
+	  <% end %>
+	</tr>  
     <% end %>
-  </ul>
+</table>
   <%= will_paginate(@notes) %>
 <% else %>
   <h2>None found.</h2>

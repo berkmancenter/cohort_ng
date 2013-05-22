@@ -1,29 +1,60 @@
-<% unless contact_query.blank? || contact_query.results.blank? %>
-  <h1>Search Results</h1>
-  <h3><%= page_entries_info contact_query.results %></h3>
-  <table>
-    <tr>
-	  <th>&nbsp;</th>	
-      <th>Name</th>
-      <th>Email</th>
-      <th>Organization</th>
-  	  <th>Last Updated</th>
-    </tr>
-	
-	<% form_tag({:controller => 'contact_carts', :action => 'add_group'}, :id => 'contacts_form') do %>
-	
-	  <%= check_box_tag('check_all', 'check_all', false,  :onClick => "$$('#contacts_form input.check').each(function(box){box.checked=($('check_all').checked)?true:false});")%> Select All <br /><br />
+<noscript>Please enable Javascript.</noscript>
+
+<% form_tag({:controller => 'contact_carts', :action => 'add_group'}, :id => 'contacts_form') do %>
+  <% unless contact_query.blank? || contact_query.results.blank? %>
+    <h1>Search Results</h1>
+    <h3><%= page_entries_info contact_query.results %></h3>
+	<br />
+    <table>
+	  <tr>
+	    <th>Actions</th>	
+        <th>Name</th>
+        <th>Email</th>
+        <th>Organization</th>
+  	    <th>Last Updated</th>
+      </tr>
       <%= render :partial => 'shared/lines/contact_search_result', :collection => contact_query.results %>
+    </table>
+	<br />
 	
-  	  <tr>
-		  <td colspan=3>Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name")) %></td>
-	  </tr>
-  	  <tr>
-		  <td colspan=3><%= submit_tag 'Add to Contact List' %></td>
-	  </tr>
-	<% end %>
-  </table>
-  <%= will_paginate(contact_query.results) %>
-<% else %>
-  <h2>None found.</h2>
-<% end %>
+	
+	<h2>Bulk Actions</h2>
+	  <h5><a id="displayText" href="javascript:toggle();" class="access-account">Add to Contact List <%= icon('arrow_right') %></a></h5>
+	  <div id ="toggleText" style="display: none">
+		<p>
+			New List: <%= text_field_tag :contact_list_new %><br />
+			Choose List: <%= select_tag(:contact_list, options_from_collection_for_select(ContactCart.all_available(current_user), "id", "name"), :include_blank => true) %>
+		</p>
+	  </div>
+	  <h5><a id="displayText1" href="javascript:toggle1();" class="access-account">Add Note <%= icon('arrow_right') %></a></h5>
+	  <div id ="toggleText1" style="display: none">
+		<p>
+			Type: <%= select_tag(:note_type, options_for_select(Note.note_type_options_for_select)) %><br />
+			Note: <%= text_area_tag :note %>
+		</p>
+	  </div>
+	  <h5><a id="displayText2" href="javascript:toggle2();" class="access-account">Add Task <%= icon('arrow_right') %></a></h5>
+	  <div id ="toggleText2" style="display: none">
+		<p>
+			Task: <%= text_area_tag :task %><br />
+			Priority: <%= select_tag(:priority, options_for_select((0..100).to_a)) %><br />
+			Due Date: <%= date_select(:due_date, Date.today) %><br />
+			Owner: <%= select_tag :owner, options_from_collection_for_select(User.all, "id", "email"), :include_blank => true %>
+		</p>
+	  </div>
+	  <h5><a id="displayText3" href="javascript:toggle3();" class="access-account">Add Tags <%= icon('arrow_right') %></a></h5>
+	  <div id ="toggleText3" style="display: none">
+		<p>
+			Tags: <%= text_area_tag :hierarchical_tag_list, nil, :class => 'tag_list' %>
+			<div class="clear"></div>
+		</p>
+	  </div>
+	  <p>
+		<%= submit_tag 'Submit' %>
+	  </p>	
+    
+    <%= will_paginate(contact_query.results) %>
+  <% else %>
+    <h2>None found.</h2>
+  <% end %>
+<% end %>  

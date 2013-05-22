@@ -4,5 +4,6 @@
   <%= f.inputs do %>
     <%= render :partial => 'shared/forms/note_fields', :locals => {:f => f } %>
     <%= f.input :contact_id, :as => :hidden %>
+    <%= f.input :note_type, :as => :hidden %>
   <% end %>
 <% end %>

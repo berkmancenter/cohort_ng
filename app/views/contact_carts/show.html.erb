@@ -12,3 +12,10 @@
     </ul>
   </div>
 </div>
+<br />
+
+<% unless current_user.blank? %>
+  <% emails = "" %>
+  <% @contact_cart.contacts.collect {|contact| emails += contact.emails[0].email + ", "  } %>
+  <p><%= mail_to(emails, raw("#{icon('note_add')} Email List"), :target => "blank") %></p>
+<% end %>

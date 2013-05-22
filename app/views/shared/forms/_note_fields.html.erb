@@ -1,6 +1,7 @@
-<%= f.input :note_type, :collection => Note.note_type_options_for_select %>
+
 <% unless @note.nil? || @note.note_type == 'task' %>
   <%= f.input :note, :as => :text, :input_html => { :rows => 5 } %>
+  <%= f.input :priority, :as => :hidden, :input_html => {:value => ''} %>
 <% else %>
   <%= f.input :note, :as => :text, :input_html => { :rows => 5 } %>
   <%= f.input :priority, :as => :select, :collection => (0..100).to_a, :hint => '1 is high, 100 is low.' %>

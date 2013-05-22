@@ -1,6 +1,18 @@
 <% unless @documents.blank? %>
   <div class="documents">
-  <%= render :partial => 'shared/lines/document', :collection => @documents %>
+	<table>
+	    <tr>
+		  <th>Actions</th>	
+	      <th>Name</th>
+	      <th>Type</th>
+	      <th>Description</th>
+		  <th>Image</th>	
+		  <th>Uploaded On</th>
+		  <th>Download</th>
+	    </tr>
+	    <%= render :partial => 'shared/lines/document', :collection => @documents %>
+	  </table>
+  
   <div class="clear"></div>
   <%= will_paginate(@documents) %>
   </div>

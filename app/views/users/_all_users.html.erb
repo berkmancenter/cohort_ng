@@ -1,0 +1,18 @@
+<h2>Users</h2>
+
+<p><%= link_to(icon('add') + ' Add New', new_user_path, :class => 'dialog-form', :title => "New User") %></p>
+<br />
+<% unless @users.blank? %>
+  <table>
+    <tr>
+	  <th>Actions</th>	
+      <th>Email</th>
+    </tr>
+    <%= render :partial => 'shared/lines/user', :collection => @users %>
+  </table>
+  
+  <%= will_paginate(@users) %>
+<% else %>
+  <h2>None found.</h2>
+<% end %>
+

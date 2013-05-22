@@ -1,13 +1,13 @@
 class TagsController < BaseController
   def index
-    breadcrumbs.add('Tags', tags_path)
-    @tags = ActsAsTaggableOn::Tag.where(:ancestry => nil).paginate(:order => 'name', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
+    #breadcrumbs.add('Tags', tags_path)
+    #@tags = ActsAsTaggableOn::Tag.where(:ancestry => nil).paginate(:order => 'name', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
     #@tags = @tags.sort_by{|t| t.hierarchical_name(' :: ')}
   end
   
   def display
     breadcrumbs.add('Tags', tags_path)
-    @tags = ActsAsTaggableOn::Tag.where(:ancestry => nil).paginate(:order => 'name', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
+    @tags = ActsAsTaggableOn::Tag.where(:ancestry => nil).order('name').paginate(:order => 'name', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
     #@tags = @tags.sort_by{|t| t.hierarchical_name(' :: ')}
     negotiate_list_query_response('tag_all')
   end
@@ -28,7 +28,7 @@ class TagsController < BaseController
 
   def children
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
-    @children = @tag.children
+    @children = @tag.children.order('name')
     respond_to do|f|
       f.html{ render :layout => ! request.xhr? }
     end

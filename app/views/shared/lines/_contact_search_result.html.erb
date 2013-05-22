@@ -2,8 +2,8 @@
 <tr class="contact-<%= contact.id %>">
   
     <% unless current_user.blank? %>
-	  <td><%= check_box_tag 'contacts_to_list[]', contact.id, false, :class => 'check' %></td>
-      <td><a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('cog') %></a>
+	  <td><%= check_box_tag 'contacts_to_list[]', contact.id, false, :class => 'check' %>
+      <a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('cog') %></a>
 	  <span style="font-size: .70em; margin-left: 5px;"><%= link_to(icon('user_edit'),edit_contact_path(contact), :title => 'Edit Contact', :class => 'dialog-form') %></span></td>
     <% end %>
     <td><%= link_to(contact, contact_path(contact), :class => 'dialog-show') %></td>
@@ -18,6 +18,15 @@
     <% end %>
   
   <td><%= mail_to(contact.emails[0].email) %></td>
-  <td><%= render :partial => 'shared/tag_list_for_display', :object => contact.organizations %></td>
+  <% unless contact.tags.empty? %>
+    <% unless contact.organizations[0].nil? %>
+      <td><span class="tagMatches"><%= link_to(contact.organizations[0],tag_path(contact.organizations[0])) %></span></td> 
+    <% else %>
+      <td></td>	 
+    <% end %>	
+  <% else %>
+    <td></td>  
+  <% end %>
+  
   <td><%= contact.updated_at %></td>
 </tr>
