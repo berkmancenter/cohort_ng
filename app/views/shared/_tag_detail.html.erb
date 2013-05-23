@@ -1,7 +1,7 @@
 <span class="tlist depth_<%= tag_detail.depth %>" id="tag_<%= tag_detail.id %>">
 	<% unless current_user.blank? %>
 		<%= link_to(raw(icon('cog')), controls_tag_path(tag_detail), :class => "dialog-show") %> 
-	    <%= link_to(icon('cross'), tag_path(tag_detail), :class => "delete", :data_redirect_to => '/') %>
+	    <%= link_to(icon('cross'), tag_path(tag_detail), :class => "delete", :data_redirect_to => '/tags') %>
 	<% end %>
 	<%= link_to(tag_detail.hierarchical_name(' :: '),tag_path(tag_detail)) %>
 </span>

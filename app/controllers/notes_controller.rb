@@ -11,6 +11,10 @@ class NotesController < BaseController
   def show
     breadcrumbs.add('Note', note_path(params[:id]))
     @note = Note.find(params[:id])
+    @role = Role.find(:first, :conditions=>{:name => 'owner', :authorizable_type => 'Note', :authorizable_id => @note.id})
+    unless @role.nil?
+      @owners = @role.users
+    end
     respond_to do |format|
       format.js { }
       format.html { render :layout => ! request.xhr? }

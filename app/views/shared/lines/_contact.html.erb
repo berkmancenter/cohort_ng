@@ -1,9 +1,9 @@
 <tr class="contact-<%= contact.id %>">
 <% unless current_user.blank? %>
-  <td><a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('cog') %></a>
+  <td><%= check_box_tag 'contacts_to_list[]', contact.id, false, :class => 'check' %>
+  <a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('cog') %></a>
     <span style="font-size: .70em; margin-left: 5px;">
-      <%= link_to(icon('user_edit') + ' Edit',edit_contact_path(contact), :title => 'Edit Contact', :class => 'dialog-form') %> 
-      <%= link_to(icon('user_delete') + ' Delete',contact_path(contact), :title => 'Delete Contact', :method => :delete, :class => 'delete delete-contact') %>
+      <%= link_to(icon('user_edit') + '',edit_contact_path(contact), :title => 'Edit Contact', :class => 'dialog-form') %> 
     </span>
   </td>
 <% end %>

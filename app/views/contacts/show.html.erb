@@ -1,9 +1,19 @@
-<h1><%= @contact %></h1>
-<% unless current_user.blank? %>
-  <%= link_to(raw("#{icon('user_edit')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %> <br />
-<% end %>
 
-<%= link_to "Google #{@contact}", "https://www.google.com/search?q=#{@contact.first_name}+#{@contact.last_name}", :target => "_blank" %>
+<span style="float:left; width:60%">
+  <h1><%= @contact %></h1>
+</span>
+
+<span style="float:right; text-align:right; width:40%; margin:12px 0 25px 0;">
+	<%= link_to(raw("#{icon('google')} Google #{@contact}"), "https://www.google.com/search?q=#{@contact.first_name}+#{@contact.last_name}", :target => "_blank") %>
+</span>
+
+
+
+
+  <% unless current_user.blank? %>
+    <%= link_to(raw("#{icon('user_edit')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %> <br />
+  <% end %>
+
 
 <div class="tabs" style="margin: 1em 0 1em 0em;">
   <ul>
@@ -15,10 +25,13 @@
     <% end %>
   </ul>
   <div id="about-<%= @contact.id %>">
-    <% unless @contact.birthday.blank? %>
-	  <h2 class="contact_section_header">Birthday</h2>
-      <%= @contact.birthday %>
-	  <div class="clear"></div>
+	<% @notes = Note.paginate(:conditions => ["note_type = 'about' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
+    <% unless @notes.empty? %>
+      <h2 class="contact_section_header collapsable">About</h2>
+      <div class="notes">
+        <%= render :partial => 'shared/note_list', :locals => {:title => "" } %>
+      </div>
+      <div class="clear"></div>
     <% end %>
 
 	<% unless @contact.tags.empty? %>
@@ -63,7 +76,7 @@
       <div class="clear"></div>
     <% end %>
 	
-    <% @notes = Note.paginate(:conditions => ["note_type  <> 'task' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
+    <% @notes = Note.paginate(:conditions => ["note_type = 'general' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
     <% unless @notes.empty? %>
       <h2 class="contact_section_header collapsable">Notes</h2>
       <div class="notes">
@@ -80,6 +93,16 @@
       </div>
       <div class="clear"></div>
     <% end %>
+
+	<h2 class="contact_section_header">Miscellaneous</h2>
+	<% unless @contact.birthday.blank? %>
+	  Website: <%= link_to @contact.website, @contact.website, :target => "blank" %><br />
+	  Twitter: <%= link_to @contact.twitter, @contact.twitter, :target => "blank" %><br />
+	  Facebook: <%= link_to @contact.facebook, @contact.facebook, :target => "blank" %><br />
+	  LinkedIn: <%= link_to @contact.linkedin, @contact.linkedin, :target => "blank" %><br /><br />
+	  Birthday: <%= @contact.birthday %>
+	  <div class="clear"></div>
+    <% end %>
 	
     <h2 class="contact_section_header">Additional Info</h2>
 	Date Added: <%= @contact.created_at %><br />
@@ -93,5 +116,6 @@
   <p><%= link_to(raw("#{icon('note_add')} New note"),new_note_path(:contact_id => @contact.id, :type => 'general'),:class => 'dialog-form', :title => "Add Note") %></p>
   <p><%= link_to(raw("#{icon('note_add')} New task"),new_note_path(:contact_id => @contact.id, :type => 'task'),:class => 'dialog-form', :title => "Add Task") %></p>
   <p><%= link_to(raw("#{icon('page_add')} New document"),new_document_path(:contact_id => @contact.id),:class => 'dialog-form', :title => "Add Document") %></p>
+  <p><%= link_to(raw("#{icon('note_add')} Add About Text"),new_note_path(:contact_id => @contact.id, :type => 'about'),:class => 'dialog-form', :title => "Add About") %></p>
 <% end %>  
 

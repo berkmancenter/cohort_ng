@@ -113,11 +113,13 @@ CohortNg::Application.routes.draw do
 
   resources :contacts do
     collection do
-      get :quick  
+      get :quick
     end
   end    
 
   devise_for :users
+  
+  resources :users
 
   root :to => "base#index"
 

@@ -29,21 +29,81 @@ class ContactCartsController < BaseController
   end
   
   def add_group
-    @contact_cart = ContactCart.find_or_create_by_id(params[:contact_list].to_i)
-    unless @contact_cart
-      # autovivify
-      @contact_cart = ContactCart.create(:name => "Contact List created on #{Time.now.to_s(:compact_datetime)}", :global => true)
-    end
-    object_ids = params[:contacts_to_list]
     @message = ''
-    
-    object_ids.each do |id|
-      contact_input = Contact.find(id.to_i) 
-      unless @contact_cart.contact_sources.collect{|cs| cs.contact_input}.include?(contact_input)
-        ContactSource.create!(:contact_input => contact_input, :contact_cart => @contact_cart)
-        @message += "\n" + "Added #{contact_input.first_name} #{contact_input.last_name}. Cheers!"
+    object_ids = params[:contacts_to_list]
+    if object_ids.nil?
+      flash[:error] = "Please select contacts."
+      redirect_to :back and return
+    end
+      
+    unless params[:contact_list].blank? && params[:contact_list_new].blank?
+      if params[:contact_list_new].blank?
+        @contact_cart = ContactCart.find(params[:contact_list].to_i)
       else
-        @message += "\n" + "#{contact_input.first_name} #{contact_input.last_name} was already in this contact list."
+        @contact_cart = ContactCart.create(:name => params[:contact_list_new], :global => true)
+        current_user.has_role!(:owner, @contact_cart)
+        current_user.has_role!(:creator, @contact_cart)
+      end
+      
+      object_ids.each do |id|
+        contact_input = Contact.find(id.to_i) 
+        unless @contact_cart.contact_sources.collect{|cs| cs.contact_input}.include?(contact_input)
+          ContactSource.create!(:contact_input => contact_input, :contact_cart => @contact_cart)
+          @message += "\n" + "Added #{contact_input.first_name} #{contact_input.last_name}. Cheers!"
+        else
+          @message += "\n" + "#{contact_input.first_name} #{contact_input.last_name} was already in this contact list."
+        end
+      end  
+    end 
+    unless params[:note].blank?
+      object_ids.each do |id|
+        contact_input = Contact.find(id.to_i)
+        @note = Note.new
+        @note = Note.create(:contact_id => id, :note_type => params[:note_type], :note => params[:note])
+        
+        if @note.save
+          current_user.has_role!(:owner, @note)
+          current_user.has_role!(:creator, @note)
+          @message += "\n" + "Added note on #{contact_input.first_name} #{contact_input.last_name}."
+        else
+          @message = "\n" + "We couldn't add that note. <br />#{@note.errors.full_messages.join('<br/>')}"
+        end
+      end
+    end
+    unless params[:task].blank?
+      object_ids.each do |id|
+        contact_input = Contact.find(id.to_i)
+        @task = Note.new
+        @task = Note.create(:contact_id => id, :note_type => 'task', :note => params[:task], :priority => params[:priority], :due_date => Date.parse(params[:due_date].to_a.sort.collect{|c| c[1]}.join("-")).to_s)
+        
+        if @task.save
+          if params[:owner] == "" || params[:owner].nil?
+            current_user.has_role!(:owner, @task)
+            current_user.has_role!(:creator, @task)
+          else
+            User.find(params[:owner].to_i).has_role!(:owner, @task)  
+            current_user.has_role!(:creator, @task)
+          end
+          @message += "\n" + "Added note on #{contact_input.first_name} #{contact_input.last_name}."
+        else
+          @message = "\n" + "We couldn't add that note. <br />#{@note.errors.full_messages.join('<br/>')}"
+        end
+      end
+    end
+    unless params[:hierarchical_tag_list].blank?
+      object_ids.each do |id|
+        contact_input = Contact.find(id.to_i)
+        tags = contact_input.hierarchical_tag_list
+        contact_input.hierarchical_tag_list = tags + ", " + params[:hierarchical_tag_list]
+        
+        contact_input.tags.each do |string_tag|
+          tag = ActsAsTaggableOn::Tag.find(string_tag)
+          contacts_to_reindex = tag.taggings.collect{|tg| tg.taggable.id}
+          if tag.save
+            Contact.where(:id => contacts_to_reindex).solr_index(:batch_size => 100)
+          end
+        end
+        @message += "\n" + "Added tags on #{contact_input.first_name} #{contact_input.last_name}."
       end
     end
     

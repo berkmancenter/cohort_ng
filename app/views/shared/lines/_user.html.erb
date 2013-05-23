@@ -1,0 +1,11 @@
+<tr>	
+  <td>
+    <span style="font-size: .70em; margin-left: 5px;">  
+	  <%= link_to(icon('user_edit') + ' Edit', edit_user_path(user), :title => 'Edit User', :class => 'dialog-form') %>
+	  <% unless user == current_user %>
+        <%= link_to(icon('user_delete') + ' Delete', user_path(user), :title => 'Delete User', :method => :delete, :class => 'delete delete-user') %>
+      <% end %>	
+    </span>	
+  </td>	
+  <td><%= link_to(user.email, user ) %></td>
+</tr>
