@@ -39,6 +39,13 @@
     <%= render :partial => 'shared/note_list', :locals => {:title => "" } %>
 	<br />
   <% end %>
+
+  <% @notes = Note.paginate(:conditions => ["note_type = 'about' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
+  <%= f.inputs :name => '&#9654; About Text ' + ((@notes.size > 0) ? "(#{@notes.size})" : '' ), :class => 'collapsable' do %> 
+    <%= link_to(raw("#{icon('note_add')} New About Text"),new_note_path(:contact_id => @contact.id, :type => 'about'),:class => 'dialog-form', :title => "Add About Text") %><br />
+    <%= render :partial => 'shared/note_list', :locals => {:title => "" } %>
+    <br />
+  <% end %>
   
   <% @notes = Note.paginate(:conditions => ["note_type = 'task' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
   <%= f.inputs :name => '&#9654; Tasks ' + ((@notes.size > 0) ? "(#{@notes.size})" : '' ), :class => 'collapsable' do %> 

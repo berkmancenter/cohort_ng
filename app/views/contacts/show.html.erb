@@ -28,7 +28,7 @@
 	<% @notes = Note.paginate(:conditions => ["note_type = 'about' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
     <% unless @notes.empty? %>
       <h2 class="contact_section_header collapsable">About</h2>
-      <div class="notes">
+      <div class="notes about">
         <%= render :partial => 'shared/note_list', :locals => {:title => "" } %>
       </div>
       <div class="clear"></div>

@@ -267,6 +267,12 @@ form.formtastic fieldset > ol > li {
   line-height: 1.6em;
 }
 
+.about{
+  border: 1px solid #df7e0a;
+  padding: 10px;
+  background-color: #f7ec9b;
+}
+
 table tr{
    text-align: left;
 }
