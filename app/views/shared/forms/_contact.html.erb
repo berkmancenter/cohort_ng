@@ -33,7 +33,7 @@
     <%= f.input :hierarchical_tag_list, :as => :hidden, :input_html => {:class => 'hierarchical_tag_list'} %>
   <% end %>
   
-  <% @notes = Note.paginate(:conditions => ["note_type <> 'task' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
+  <% @notes = Note.paginate(:conditions => ["note_type = 'general' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
   <%= f.inputs :name => 'Notes ' + ((@notes.size > 0) ? "(#{@notes.size})" : '' ) do %>
     <%= link_to(raw("#{icon('note_add')} New note"),new_note_path(:contact_id => @contact.id, :type => 'general'),:class => 'dialog-form', :title => "Add Note") %><br />
     <%= render :partial => 'shared/note_list', :locals => {:title => "" } %>
