@@ -95,16 +95,16 @@
     <% end %>
 
 	<h2 class="contact_section_header">Miscellaneous</h2>
-	  <% unless @contact.website == "http://" %>
+	  <% unless @contact.website.blank? || @contact.website == "http://" %>
 		Website: <%= link_to @contact.website, @contact.website, :target => "blank" %><br />	
 	  <% end %>
-	  <% unless @contact.twitter == "http://" %>
+	  <% unless @contact.twitter.blank? || @contact.twitter == "http://" %>
 		Twitter: <%= link_to @contact.twitter, @contact.twitter, :target => "blank" %><br />
 	  <% end %>	
-	  <% unless @contact.twitter == "http://" %>
+	  <% unless @contact.facebook.blank? || @contact.facebook == "http://" %>
 		Facebook: <%= link_to @contact.facebook, @contact.facebook, :target => "blank" %><br />
 	  <% end %>		
-	  <% unless @contact.twitter == "http://" %>
+	  <% unless @contact.linkedin.blank? || @contact.linkedin == "http://" %>
 		LinkedIn: <%= link_to @contact.linkedin, @contact.linkedin, :target => "blank" %><br />
 	  <% end %>		
 	  <% unless @contact.birthday.nil? %>
