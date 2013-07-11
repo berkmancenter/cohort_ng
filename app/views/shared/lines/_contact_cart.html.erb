@@ -6,7 +6,7 @@
 	  <span style="font-size: .70em; margin-left: 5px;">
   	  <%= link_to(icon('note_edit') + '', edit_contact_cart_path(contact_cart),:class => 'dialog-form', :title => 'Edit contact list') %> 
     </span></td>
-      <td><%= link_to(contact_cart, contact_cart, :class => 'dialog-show') %></td>
+      <td><%= link_to(contact_cart, contact_cart) %></td>
     <% else %>
       <td><span style="font-size: .70em; margin-left: 5px;">
 	  	  <%= link_to(icon('note_edit') + ' Edit', edit_contact_cart_path(contact_cart),:class => 'dialog-form', :title => 'Edit contact list') %> 
