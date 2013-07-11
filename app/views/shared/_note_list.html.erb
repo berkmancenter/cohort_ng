@@ -7,6 +7,8 @@
     <th>Actions</th>	
     <th>Note Preview</th>
 	<th>On Contact</th>
+	<th>Created On</th>
+	<th>Updated On</th>
   </tr>
     <% @notes.each do |n| %>
 	<tr>
@@ -23,6 +25,8 @@
 	  <% else %>
 	    <td>Nobody</td>
 	  <% end %>
+	  <td><%= n.created_at.strftime("%Y-%m-%d") %></td>
+	  <td><%= n.updated_at.strftime("%Y-%m-%d") %></td>
 	
 	  <% unless current_user.blank? %><span id="contact-control-<%= n.id %>-target" style="display: none;">
 	    <%= link_to(icon('note_edit') + ' Edit Note',edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %><br/>

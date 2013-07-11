@@ -1,10 +1,31 @@
-<li class="contact_source-<%= contact_source.id %>">
+<tr class="contact_source-<%= contact_source.id %>">
+<td>
 <% unless current_user.blank? %>
   <a href="#" class="control" id="contact_source-control-<%= contact_source.id %>"><%= icon('cog') %></a>
 <% end %>
-  <%= link_to(contact_source.contact_input, contact_source.contact_input, :class => 'dialog-show') %>
+</td>
+  
+<td><%= link_to(contact_source.contact_input, contact_source.contact_input, :class => 'dialog-show') %></td>
+<% unless contact_source.contact_input.emails[0].nil? %>
+  <td><%= mail_to(contact_source.contact_input.emails[0].email) %></td>
+<% else %>
+  <td></td>  
+<% end %>
+
+<% unless contact_source.contact_input.tags.empty? %>
+  <% unless contact_source.contact_input.organizations[0].nil? %>
+    <td><span class="tagMatches"><%= link_to(contact_source.contact_input.organizations[0],tag_path(contact_source.contact_input.organizations[0])) %></span></td> 
+  <% else %>
+    <td></td>	 
+  <% end %>	
+<% else %>
+  <td></td>  
+<% end %>
+
+<td><%= contact_source.contact_input.updated_at.strftime("%Y-%m-%d") %></td>
+
 <% unless current_user.blank? %><span id="contact_source-control-<%= contact_source.id %>-target" style="display: none;">
 <%= link_to(icon('user_delete') + ' Delete contact from list',contact_source_path(contact_source), :title => 'Delete contact_source', :method => :delete, :class => 'delete delete-contact_source') %>
 </span>
 <% end %>
-</li>
+</tr>

@@ -54,7 +54,9 @@
           <!--<div class="breadcrumbs"><%= breadcrumbs.render(:format => :inline, :separator => ' &raquo; ') %></div>-->
 		  <% unless current_user.blank? %>
 		    <div id="cog-text">
-		      Click on the <%= icon('cog') %> for more actions.
+		      Click on the <%= icon('cog') %> for more actions.<br/>
+			  <a href="https://cyber.law.harvard.edu/team/wiki/Guide_to_Cohort">Guide to Cohort</a>
+			  <h4><%= link_to(icon('add') + 'Add New Contact', new_contact_path, :class => 'dialog-form', :title => "New Contact") %></h4>
 		    </div>	
 		  <% end %>	
           <div class="main">
