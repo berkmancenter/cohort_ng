@@ -95,11 +95,21 @@
     <% end %>
 
 	<h2 class="contact_section_header">Miscellaneous</h2>
-	  Website: <%= link_to @contact.website, @contact.website, :target => "blank" %><br />
-	  Twitter: <%= link_to @contact.twitter, @contact.twitter, :target => "blank" %><br />
-	  Facebook: <%= link_to @contact.facebook, @contact.facebook, :target => "blank" %><br />
-	  LinkedIn: <%= link_to @contact.linkedin, @contact.linkedin, :target => "blank" %><br /><br />
-	  Birthday: <%= @contact.birthday %>
+	  <% unless @contact.website == "http://" %>
+		Website: <%= link_to @contact.website, @contact.website, :target => "blank" %><br />	
+	  <% end %>
+	  <% unless @contact.twitter == "http://" %>
+		Twitter: <%= link_to @contact.twitter, @contact.twitter, :target => "blank" %><br />
+	  <% end %>	
+	  <% unless @contact.twitter == "http://" %>
+		Facebook: <%= link_to @contact.facebook, @contact.facebook, :target => "blank" %><br />
+	  <% end %>		
+	  <% unless @contact.twitter == "http://" %>
+		LinkedIn: <%= link_to @contact.linkedin, @contact.linkedin, :target => "blank" %><br />
+	  <% end %>		
+	  <% unless @contact.birthday.nil? %>
+		<br />Birthday: <%= @contact.birthday %>
+	  <% end %>		
 	  <div class="clear"></div>
 	
     <h2 class="contact_section_header">Additional Info</h2>
