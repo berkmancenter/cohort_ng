@@ -1,5 +1,5 @@
 <div class="address">
-  <div class="address_type"><%= address.address_type.titleize unless address.email_type == 'unknown' %></div>
+  <div class="address_type"><%= address.address_type.titleize unless address.address_type == 'unknown' %></div>
   <% if ! address.address_1.blank? %>
     <%= address.address_1 %><br/>
   <% end %>
