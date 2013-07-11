@@ -1,5 +1,8 @@
-<p>Welcome <%= @resource.email %>!</p>
+<p>Welcome to Cohort, <%= @resource.email %>!</p>
 
-<p>You can confirm your account through the link below:</p>
+<p>To begin using Cohort, you will need to confirm your account using the link below. Please be sure to take a few minutes to read our (short!) <a href="https://cyber.law.harvard.edu/team/wiki/Guide_to_Cohort">Guide to Cohort</a> to familiarize yourself with the tool before you start using it.</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p><%= link_to 'Confirm My Cohort Account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+Thanks!
+Cohort Team

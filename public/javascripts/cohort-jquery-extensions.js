@@ -194,6 +194,7 @@ $.extend({
     $(rootClass).live('click',function(e){
       e.preventDefault();
       var dialogTitle = $(this).attr('title');
+      var dialogHref = $(this).attr('href');
       $.retainTabStateFromLink(this);
       $.ajax({
         cache: false,
@@ -209,7 +210,7 @@ $.extend({
           $.showMajorError(xhr);
         },
         success: function(html){
-          var dialogNode = $('<div></div>');
+          var dialogNode = $('<div class="dialog-show-content"></div>').data('href', dialogHref);
           $(dialogNode).append(html);
           $(dialogNode).dialog({
             title: dialogTitle,
@@ -355,6 +356,45 @@ $.extend({
                     $('#messages').append('<div class="flash flash-notice">Added that contact.</div>');
                     $('#messages .flash-notice').effect('pulsate').hide('fade');
 
+                    var parentDialogContent = cmdTabs.closest('.dialog-show-content');
+                    if ( parentDialogContent.length > 0 ) {
+                      $.ajax({
+                        cache: false,
+                        dataType: 'html',
+                        url: parentDialogContent.data('href'),
+                        beforeSend: function(){
+                          $.showGlobalSpinnerNode();
+                        },
+                        complete: function(){
+                          $.hideGlobalSpinnerNode();
+                        },
+                        success: function(html){
+                          // destroy existing tabs
+                          parentDialogContent.find('.tabs').tabs('destroy');
+
+                          // replace html
+                          parentDialogContent.html(html);
+
+                          // create new tabs
+                          parentDialogContent.find('.tabs').tabs({
+                            ajaxOptions: {
+                              cache: false,
+                              dataType: 'html',
+                              beforeSend: function(){
+                                $.showGlobalSpinnerNode();
+                              },
+                              complete: function(){
+                                $.hideGlobalSpinnerNode();
+                              },
+                              error: function(xhr,textStatus,errorStr){
+                                $.showMajorError(textStatus);
+                              }
+                            }
+                          });
+
+                        }
+                      });
+                    }
                   },
                   complete: function(){
                     $.hideInteriorSpinnerNode('objectEdit');
