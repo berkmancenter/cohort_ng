@@ -1,5 +1,7 @@
 <div class="contact_cart_<%= @contact_cart.id %>">
   <h1><%= @contact_cart.name %></h1>
+  <p><%= @contact_cart.description %></p>
+  <br />
   <div class="tabs">
     <ul>
       <% if @contact_cart.active_contact_input_types.include?('Contact') %>
