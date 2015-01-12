@@ -8,7 +8,7 @@ Time::DATE_FORMATS[:compact_date_with_year] = '%b %d, %Y'
 Time::DATE_FORMATS[:compact_date] = '%b %d'
 PRODUCTION_HOST_NAME = 'cohort.dev.berkmancenter.org'
 
-CohortNg::Application.config.organization_root_tag = ActsAsTaggableOn::Tag.where(:ancestry => nil, :name => "Organizations").first
+CohortNg::Application.config.organization_root_tag = ActsAsTaggableOn::Tag.where(:ancestry => nil, :name => "Organization").first
 
 ActsAsTaggableOn::Tag.class_eval{
   def contacts

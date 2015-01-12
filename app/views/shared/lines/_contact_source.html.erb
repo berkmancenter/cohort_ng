@@ -13,8 +13,8 @@
 <% end %>
 
 <% unless contact_source.contact_input.tags.empty? %>
-  <% unless contact_source.contact_input.organizations[0].nil? %>
-    <td><span class="tagMatches"><%= link_to(contact_source.contact_input.organizations[0],tag_path(contact_source.contact_input.organizations[0])) %></span></td> 
+  <% unless contact_source.contact_input.organization[0].nil? %>
+    <td><span class="tagMatches"><%= link_to(contact_source.contact_input.organization[0],tag_path(contact_source.contact_input.organization[0])) %></span></td> 
   <% else %>
     <td></td>	 
   <% end %>	

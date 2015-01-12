@@ -39,10 +39,10 @@
       <%= render :partial => 'shared/tag_list_for_display', :object => @contact.tags %> 
 	<% end %>  
 
-    <% unless @contact.tags.empty? || @contact.organizations.empty? %>
-      <h2 class="contact_section_header">Organizations</h2>
-      <div class="organizations">
-        <%= render :partial => 'shared/lines/organization', :collection => @contact.organizations %>
+    <% unless @contact.tags.empty? || @contact.organization.empty? %>
+      <h2 class="contact_section_header">Organization</h2>
+      <div class="organization">
+        <%= render :partial => 'shared/lines/organization', :collection => @contact.organization %>
       </div>
       <div class="clear"></div>
     <% end %>

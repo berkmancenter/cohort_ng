@@ -76,7 +76,7 @@ namespace :cohort do
       end
     end
 
-    orgs = ActsAsTaggableOn::Tag.create(:name => 'Organizations')
+    orgs = ActsAsTaggableOn::Tag.create(:name => 'Organization')
     ['Networked organizations','Oxford Internet Institute','MIT','Stanford','University of St. Gallen','Aspen Institute','Gruter Institute','University of Toronto','Yale','Brown University','University of Berkeley California','Princeton University','New York University','Harvard University'].each do |org|
       tag = ActsAsTaggableOn::Tag.create(:name => org, :parent => orgs)
       if org == 'MIT'
