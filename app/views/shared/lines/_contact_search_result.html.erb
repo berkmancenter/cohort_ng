@@ -17,10 +17,10 @@
       </span>
     <% end %>
   
-  <td><%= mail_to(contact.emails[0].email) %></td>
+  <td><%= mail_to(contact.emails[0].email) unless contact.emails.empty? %></td>
   <% unless contact.tags.empty? %>
     <% unless contact.organizations[0].nil? %>
-      <td><span class="tagMatches"><%= link_to(contact.organizations[0],tag_path(contact.organizations[0])) %></span></td> 
+      <td><span class="tagMatches"><%= link_to(contact.organizations[0].name.truncate(20),tag_path(contact.organizations[0])) %></span></td> 
     <% else %>
       <td></td>	 
     <% end %>	
