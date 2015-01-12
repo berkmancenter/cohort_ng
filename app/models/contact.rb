@@ -84,16 +84,16 @@ class Contact < ActiveRecord::Base
     self.documents.collect{|d| [d.name.to_s.downcase, d.content.to_s.downcase, d.file_name.to_s.downcase].join(' ')}
   end
 
-  def organizations
+  def organization
     organization_root_tag_id = CohortNg::Application.config.organization_root_tag.id
-    organizations = ActsAsTaggableOn::Tag.search do
+    organization = ActsAsTaggableOn::Tag.search do
       all_of do
         with :id, self.tag_ids
         with :ancestor_ids, organization_root_tag_id
       end
     end
-    organizations.execute
-    organizations.results
+    organization.execute
+    organization.results
   end
 
   searchable(:include => [:addresses, :emails, :notes, :tags, :documents]) do
