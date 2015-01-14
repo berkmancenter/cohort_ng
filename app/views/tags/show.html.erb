@@ -1,4 +1,13 @@
-<h2>Tag: "<%= link_to(@tag.hierarchical_name, tag_path(@tag)) %>"</h2>
+<h2>Tag: 
+<% tree = [] %>
+<% @tag.ancestry.nil? ? tree << @tag.id : tree = @tag.ancestry.split("/").collect{|t| t.to_i} << @tag.id %>
+<% tree.each do |t| %>
+  "<%= link_to(ActsAsTaggableOn::Tag.find(t).name, tag_path(t)) %>" 
+  <% unless tree.last == t %>
+    ->
+  <% end %>	
+<% end %>
+</h2>
 
 <div class="grid_8 alpha">
   <div class="tabs">
