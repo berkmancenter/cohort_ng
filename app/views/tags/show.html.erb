@@ -12,8 +12,8 @@
 <div class="grid_8 alpha">
   <div class="tabs">
     <ul>
+	  <li><%= link_to 'Related Tags', related_tag_path(@tag) %></li>	
       <li><%= link_to('Contacts', url_for(:controller => :contact_query, :action => :tag_contacts, :id => @tag.id)) %></li>
-      <li><%= link_to 'Related Tags', related_tag_path(@tag) %></li>
 	  <li><%= link_to 'Tools', controls_tag_path(@tag) %></li>
     </ul>
   </div>
