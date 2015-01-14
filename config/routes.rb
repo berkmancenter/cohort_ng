@@ -63,6 +63,7 @@ CohortNg::Application.routes.draw do
     
     member do
       get :children
+      get :no_children
       post :merge
       get :controls
       get :related

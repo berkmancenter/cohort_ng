@@ -1,3 +1,4 @@
+<div class="tlist_detail_<%= tag_detail.id %>">
 <span class="tlist depth_<%= tag_detail.depth %>" id="tag_<%= tag_detail.id %>">
 	<% unless current_user.blank? %>
 		<%= link_to(raw(icon('cog')), controls_tag_path(tag_detail), :class => "dialog-show") %> 
@@ -6,6 +7,8 @@
 	<%= link_to(tag_detail.hierarchical_name(' :: '),tag_path(tag_detail)) %>
 </span>
 <% unless tag_detail.children.blank? %> 
+  <%= icon('arrow_left', :class => "collapse_tag", :data_tag_id => tag_detail.id ) %>
   <%= icon('arrow_right', :class => "expand_tag", :data_tag_id => tag_detail.id ) %><br/>
 <% end %>
 <div class="clear"></div>
+</div>

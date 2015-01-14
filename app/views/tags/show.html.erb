@@ -1,4 +1,4 @@
-<h2>Tag: "<%= @tag.hierarchical_name %>"</h2>
+<h2>Tag: "<%= link_to(@tag.hierarchical_name, tag_path(@tag)) %>"</h2>
 
 <div class="grid_8 alpha">
   <div class="tabs">

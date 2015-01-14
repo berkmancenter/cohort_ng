@@ -13,7 +13,7 @@ class ContactCartsController < BaseController
     message = ''
     unless @contact_cart.contact_sources.collect{|cs| cs.contact_input}.include?(contact_input)
       ContactSource.create!(:contact_input => contact_input, :contact_cart => @contact_cart)
-      message = 'Added that item. Cheers!'
+      message = 'Added that item.'
     else
       message = 'That item was already in this contact list.'
     end
@@ -49,7 +49,7 @@ class ContactCartsController < BaseController
         contact_input = Contact.find(id.to_i) 
         unless @contact_cart.contact_sources.collect{|cs| cs.contact_input}.include?(contact_input)
           ContactSource.create!(:contact_input => contact_input, :contact_cart => @contact_cart)
-          @message += "\n" + "Added #{contact_input.first_name} #{contact_input.last_name}. Cheers!"
+          @message += "\n" + "Added #{contact_input.first_name} #{contact_input.last_name}."
         else
           @message += "\n" + "#{contact_input.first_name} #{contact_input.last_name} was already in this contact list."
         end
