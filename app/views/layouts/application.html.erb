@@ -22,7 +22,7 @@
       <div class="header">
         <div class="grid_4 alpha"></div>
         <div class="grid_4" id="messages">
-          <% [:notice,:error,:alert].each do|flash_type| %>
+  		  <% [:notice,:error,:alert].each do|flash_type| %>
             <% unless flash[flash_type].blank? %>
               <div class="flash flash-<%= flash_type %>">
                 <%= flash[flash_type] %>
