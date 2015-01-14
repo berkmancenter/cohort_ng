@@ -16,7 +16,7 @@
       <% unless current_user.blank? %>
 	    <a href="#" class="control" id="contact-control-<%= n.id %>"><%= icon('cog') %></a>
         <span style="font-size: .70em; margin-left: 5px;">
-	  <%= link_to(icon('note_edit') + '', edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %></span> 
+	  <%= link_to(icon('pencil') + '', edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %></span> 
       <% end %>
 	  </td> 
       <td><%= link_to(truncate(n.note,:length => 60, :separator => ' '),n, :class => 'dialog-show') %></td>

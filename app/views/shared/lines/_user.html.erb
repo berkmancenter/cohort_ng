@@ -1,9 +1,9 @@
 <tr>	
   <td>
     <span style="font-size: .70em; margin-left: 5px;">  
-	  <%= link_to(icon('user_edit') + ' Edit', edit_user_path(user), :title => 'Edit User', :class => 'dialog-form') %>
+	  <%= link_to(icon('pencil'), edit_user_path(user), :title => 'Edit User', :class => 'dialog-form') %>
 	  <% unless user == current_user %>
-        <%= link_to(icon('user_delete') + ' Delete', user_path(user), :title => 'Delete User', :method => :delete, :class => 'delete delete-user') %>
+        <%= link_to(icon('cross'), user_path(user), :title => 'Delete User', :method => :delete, :class => 'delete delete-user') %>
       <% end %>	
     </span>	
   </td>	

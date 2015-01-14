@@ -11,7 +11,7 @@
 
 
   <% unless current_user.blank? %>
-    <%= link_to(raw("#{icon('user_edit')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %> <br />
+    <%= link_to(raw("#{icon('pencil')} Edit Contact"),edit_contact_path(@contact), :title => 'Edit Contact', :class => 'dialog-form smalltext') %> <br />
   <% end %>
 
 
