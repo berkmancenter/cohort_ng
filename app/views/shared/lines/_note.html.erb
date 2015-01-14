@@ -2,7 +2,7 @@
   <% unless current_user.blank? %>
     <div class="icon-container">
       <%= link_to(icon('note_delete'), note_path(note), :method => :delete,:class => 'delete delete-note', :title => 'Delete note.') %>
-      <%= link_to(icon('note_edit'), edit_note_path(note), :class => 'dialog-form', :title => 'Edit note.') %>
+      <%= link_to(icon('pencil'), edit_note_path(note), :class => 'dialog-form', :title => 'Edit note.') %>
     </div>
   <% end %>
   <div class="note_content">

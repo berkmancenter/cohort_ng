@@ -4,7 +4,7 @@
     <% unless current_user.blank? %>
 	  <td><%= check_box_tag 'contacts_to_list[]', contact.id, false, :class => 'check' %>
       <a href="#" class="control" id="contact-control-<%= contact.id %>"><%= icon('cog') %></a>
-	  <span style="font-size: .70em; margin-left: 5px;"><%= link_to(icon('user_edit'),edit_contact_path(contact), :title => 'Edit Contact', :class => 'dialog-form') %></span></td>
+	  <span style="font-size: .70em; margin-left: 5px;"><%= link_to(icon('pencil'),edit_contact_path(contact), :title => 'Edit Contact', :class => 'dialog-form') %></span></td>
     <% end %>
     <td><%= link_to(contact, contact_path(contact), :class => 'dialog-show') %></td>
     <% unless current_user.blank? %><span id="contact-control-<%= contact.id %>-target" style="display: none;">
