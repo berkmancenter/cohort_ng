@@ -45,8 +45,9 @@
 	  <h5><a id="displayText3" href="javascript:toggle3();" class="access-account">Add Tags <%= icon('arrow_right') %></a></h5>
 	  <div id ="toggleText3" style="display: none">
 		<p>
-			Tags: <%= text_area_tag :hierarchical_tag_list, nil, :class => 'tag_list' %>
+		    Tags: <%= text_area_tag :hierarchical_tags_for_edit, '', :class => 'quick_tag_list' %>
 			<div class="clear"></div>
+			<%= hidden_field_tag :hierarchical_tag_list, :class => 'hierarchical_tag_list' %>
 		</p>
 	  </div>
 	  <p>
