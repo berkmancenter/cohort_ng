@@ -2,10 +2,10 @@
   <h1>Documents</h1>
   <div class="tabs">
     <ul>
+	  <li><%= link_to('New', document_query_new_path) %></li>
       <% unless current_user.blank? %>
         <li><%= link_to('Mine', document_query_yours_path) %></li>
       <% end %>
-      <li><%= link_to('New', document_query_new_path) %></li>
       <li><%= link_to('Updated', document_query_recent_path) %></li>
     </ul>
   </div>

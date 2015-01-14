@@ -5,10 +5,10 @@
   <% form_tag({:controller => 'contact_carts', :action => 'add_group'}, :id => 'contacts_form') do %>
   <div class="tabs">
     <ul>
+	  <li><%= link_to('New', contact_query_new_path) %></li>	
       <% unless current_user.blank? %>
         <li><%= link_to('Mine', contact_query_yours_path) %></li>
       <% end %>
-      <li><%= link_to('New', contact_query_new_path) %></li>
       <li><%= link_to('Updated', contact_query_recent_path) %></li>
     </ul>
 	
@@ -55,10 +55,10 @@
   <h2>Notes</h2>
   <div class="tabs">
     <ul>
+	  <li><%= link_to('New', note_query_new_path) %></li>	 
       <% unless current_user.blank? %>
         <li><%= link_to('Mine', note_query_yours_path) %></li>
       <% end %>
-      <li><%= link_to('New', note_query_new_path) %></li>
       <li><%= link_to('Updated', note_query_recent_path) %></li>
     </ul>
   </div>
