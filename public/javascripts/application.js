@@ -167,6 +167,25 @@ $(document).ready(function(){
       }
     }
   });
+  
+  $('.collapse_tag').live({
+    click: function(e){
+      var node = this;
+	  var tagid = '.tlist_detail_' + $(this).attr('data_tag_id');
+      $(node).attr('expanded',(($(node).attr('expanded') == undefined) ? 0 : 1));
+      e.preventDefault();
+      if($(node).attr('expanded') == 0){
+        $.ajax({
+          cache: false,
+          dataType: 'html',
+          url: $.rootPath() + 'tags/' + $(this).attr('data_tag_id') + '/no_children',
+          success: function(html){
+            $(tagid).replaceWith(html);
+          }
+        });
+      }
+    }
+  });
 
 });
 

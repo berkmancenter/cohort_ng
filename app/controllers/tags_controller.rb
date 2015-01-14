@@ -33,6 +33,16 @@ class TagsController < BaseController
       f.html{ render :layout => ! request.xhr? }
     end
   end
+  
+  def no_children
+    p "in here"
+    @tags = []
+    @tags << ActsAsTaggableOn::Tag.find(params[:id])
+    #@children = @tag.children.order('name')
+    respond_to do|f|
+      f.html{ render :layout => ! request.xhr? }
+    end
+  end
 
   def merge
     tag = ActsAsTaggableOn::Tag.find(params[:id])
