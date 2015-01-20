@@ -6,10 +6,13 @@
   <%= f.input :note, :as => :text, :input_html => { :rows => 5 } %>
   <%= f.input :priority, :as => :select, :collection => (0..100).to_a, :hint => '1 is high, 100 is low.' %>
   <%= f.input :due_date, :as => :string, :input_html => {:class => 'datepicker'}, :hint => 'In YYYY-MM-DD format' %>
+  <li>
   <%= label_tag "Owner " %>
   <% unless @owners.nil? %>
     <%= select_tag :owner, options_from_collection_for_select(User.all, "id", "email", @owners[0].id), :include_blank => true %>
   <% else %>
     <%= select_tag :owner, options_from_collection_for_select(User.all, "id", "email"), :include_blank => true %>  
-  <% end %>  
+  <% end %>
+  </li> 
+  <%= f.input :complete, :as => :boolean %>
 <% end %>  

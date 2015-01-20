@@ -33,7 +33,8 @@
 			Task: <%= text_area_tag :task %><br />
 			Priority: <%= select_tag(:priority, options_for_select((0..100).to_a)) %><br />
 			Due Date: <%= date_select(:due_date, Date.today) %><br />
-			Owner: <%= select_tag :owner, options_from_collection_for_select(User.all, "id", "email"), :include_blank => true %>
+			Owner: <%= select_tag :owner, options_from_collection_for_select(User.all, "id", "email"), :include_blank => true %><br />
+			Complete? <%= check_box_tag :complete %>
 		</p>
 	  </div>
 	  <h5><a id="displayText3" href="javascript:toggle3();" class="access-account">Add Tags <%= icon('arrow_right') %></a></h5>
