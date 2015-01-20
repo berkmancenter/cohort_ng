@@ -33,24 +33,19 @@
       </div>
       <div class="clear"></div>
     <% end %>
-
-	<% unless @contact.tags.empty? %>
-	  <h2 class="contact_section_header">Tags</h2>
-      <%= render :partial => 'shared/tag_list_for_display', :object => @contact.tags %> 
-	<% end %>  
-
+	
+    <% unless @contact.title.blank? %>
+      <h2 class="contact_section_header">Title</h2>
+	  <%= @contact.title %>
+	  <div class="clear"></div>
+    <% end %>
+	
     <% unless @contact.tags.empty? || @contact.organization.empty? %>
       <h2 class="contact_section_header">Organization</h2>
       <div class="organization">
         <%= render :partial => 'shared/lines/organization', :collection => @contact.organization %>
       </div>
       <div class="clear"></div>
-    <% end %>
-	
-    <% unless @contact.title.blank? %>
-      <h2 class="contact_section_header">Title</h2>
-	  <%= @contact.title %>
-	  <div class="clear"></div>
     <% end %>
 	
     <% unless @contact.emails.blank? %>
@@ -60,6 +55,29 @@
       </div>
       <div class="clear"></div>
     <% end %>
+	
+	<h2 class="contact_section_header">Additional Contact Info</h2>
+	  <% unless @contact.website.blank? || @contact.website == "http://" %>
+		Website: <%= link_to @contact.website, @contact.website, :target => "blank" %><br />	
+	  <% end %>
+	  <% unless @contact.twitter.blank? || @contact.twitter == "http://" %>
+		Twitter: <%= link_to @contact.twitter, @contact.twitter, :target => "blank" %><br />
+	  <% end %>	
+	  <% unless @contact.facebook.blank? || @contact.facebook == "http://" %>
+		Facebook: <%= link_to @contact.facebook, @contact.facebook, :target => "blank" %><br />
+	  <% end %>		
+	  <% unless @contact.linkedin.blank? || @contact.linkedin == "http://" %>
+		LinkedIn: <%= link_to @contact.linkedin, @contact.linkedin, :target => "blank" %><br />
+	  <% end %>		
+	  <% unless @contact.birthday.nil? %>
+		<br />Birthday: <%= @contact.birthday %>
+	  <% end %>		
+	  <div class="clear"></div>
+
+	<% unless @contact.tags.empty? %>
+	  <h2 class="contact_section_header">Tags</h2>
+      <%= render :partial => 'shared/tag_list_for_display', :object => @contact.tags %> 
+	<% end %>  
 
     <% unless @contact.phone_numbers.blank? %>
       <h2 class="contact_section_header">Phone numbers</h2>
@@ -93,26 +111,8 @@
       </div>
       <div class="clear"></div>
     <% end %>
-
-	<h2 class="contact_section_header">Miscellaneous</h2>
-	  <% unless @contact.website.blank? || @contact.website == "http://" %>
-		Website: <%= link_to @contact.website, @contact.website, :target => "blank" %><br />	
-	  <% end %>
-	  <% unless @contact.twitter.blank? || @contact.twitter == "http://" %>
-		Twitter: <%= link_to @contact.twitter, @contact.twitter, :target => "blank" %><br />
-	  <% end %>	
-	  <% unless @contact.facebook.blank? || @contact.facebook == "http://" %>
-		Facebook: <%= link_to @contact.facebook, @contact.facebook, :target => "blank" %><br />
-	  <% end %>		
-	  <% unless @contact.linkedin.blank? || @contact.linkedin == "http://" %>
-		LinkedIn: <%= link_to @contact.linkedin, @contact.linkedin, :target => "blank" %><br />
-	  <% end %>		
-	  <% unless @contact.birthday.nil? %>
-		<br />Birthday: <%= @contact.birthday %>
-	  <% end %>		
-	  <div class="clear"></div>
 	
-    <h2 class="contact_section_header">Additional Info</h2>
+    <h2 class="contact_section_header">Contact Management</h2>
 	Date Added: <%= @contact.created_at %><br />
 	Last Modified: <%= @contact.updated_at %>
 	<div class="clear"></div>
