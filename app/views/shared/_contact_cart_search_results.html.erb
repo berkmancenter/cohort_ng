@@ -1,0 +1,15 @@
+<noscript>Please enable Javascript.</noscript>
+
+<% unless cart_query.blank? || cart_query.results.blank? %>
+<table>
+  <tr>
+    <th>Actions</th>	
+    <th>Name</th>
+  </tr>
+  <%= render :partial => 'shared/lines/contact_cart', :collection => cart_query.results %>
+</table>
+  <%= will_paginate(cart_query.results) %>
+<% else %>
+  <h2>None found.</h2>
+<% end %>
+

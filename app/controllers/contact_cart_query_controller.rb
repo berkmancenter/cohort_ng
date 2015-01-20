@@ -37,5 +37,27 @@ class ContactCartQueryController < BaseController
 
   def chooser
   end
+  
+  def search
+    @cart_query = Sunspot.new_search(ContactCart)
+    @cart_query.build do
+      unless params[:q].blank?
+        fulltext params[:q].strip
+      end
+      paginate :page => params[:page], :per_page => cookies[:per_page] || ContactCart.per_page
+    end
+    @cart_query.execute!
+    respond_to do |format|
+      format.html {
+        if request.xhr?
+          render :partial => 'shared/contact_cart_search_results', :locals => {:cart_query => @cart_query} 
+        else 
+          render 
+        end
+      }
+      format.js { render :layout => ! request.xhr? }
+      format.xml  { render :xml => @cart_query.results }
+    end  
+  end
 
 end
