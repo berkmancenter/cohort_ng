@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507202717) do
+ActiveRecord::Schema.define(:version => 20150120161135) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_type", :limit => 20,  :default => "unknown"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20130507202717) do
     t.integer  "contact_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "complete"
   end
 
   add_index "notes", ["contact_id"], :name => "index_notes_on_contact_id"

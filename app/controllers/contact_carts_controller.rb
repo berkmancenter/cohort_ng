@@ -74,7 +74,7 @@ class ContactCartsController < BaseController
       object_ids.each do |id|
         contact_input = Contact.find(id.to_i)
         @task = Note.new
-        @task = Note.create(:contact_id => id, :note_type => 'task', :note => params[:task], :priority => params[:priority], :due_date => Date.parse(params[:due_date].to_a.sort.collect{|c| c[1]}.join("-")).to_s)
+        @task = Note.create(:contact_id => id, :note_type => 'task', :note => params[:task], :priority => params[:priority], :complete => params[:complete], :due_date => Date.parse(params[:due_date].to_a.sort.collect{|c| c[1]}.join("-")).to_s)
         
         if @task.save
           if params[:owner] == "" || params[:owner].nil?
