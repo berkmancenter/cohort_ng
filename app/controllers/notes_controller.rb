@@ -70,8 +70,8 @@ class NotesController < BaseController
     respond_to do |format|
       if @note.save
         flash[:notice] = "Marked as complete."
-        format.js { render :text => '' }
-        format.html {redirect_to :back }
+        format.js { render :text => nil }
+        format.html {render :text => '', :layout => ! request.xhr? }
       else 
         flash[:notice] = "We couldn't mark that note as complete."
         format.js { render :text => "We couldn't mark that note as complete. <br />#{@note.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }

@@ -34,7 +34,7 @@
 	  <% unless current_user.blank? %><span id="contact-control-<%= n.id %>-target" style="display: none;">
 	    <%= link_to(icon('note_edit') + ' Edit Note',edit_note_path(n),:class => 'dialog-form', :title => 'Edit note') %><br/>
 		<% unless @task.nil? %>
-		  <%= link_to(icon('note_go') + ' Mark Complete',complete_notes_path(:id => n.id), :title => 'Mark Complete') %><br/>
+		  <%= link_to(icon('note_go') + ' Mark Complete',complete_notes_path(:id => n.id), :class => 'complete delete-note', :title => 'Mark Complete') %><br/>
 		<% end %>
 	    <%= link_to(icon('note_delete') + ' Delete Note',note_path(n), :method => :delete, :title => 'Delete note', :class => 'delete delete-note') %>
 	  </span>

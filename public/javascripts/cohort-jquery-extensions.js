@@ -148,6 +148,64 @@ $.extend({
       }
       }).dialog('open');
     });
+	
+    $('a.complete').live('click', function(e){
+      e.preventDefault();
+      //$.retainTabStateFromBeautyTip(this);
+      var cmdTabs = $(this).closest('.tabs');
+      var objectType = '';
+      var classList = $(this).attr('class').split(/\s+/)
+      $(classList).each(function(index, item){
+        if(item.match(/^complete\-/i)){
+          objectType = item.split('-')[1];
+        }
+      });
+      var completeUrl = $(this).attr('href');
+      var redirectTo = $(this).attr('data_redirect_to');
+      var confirmMessage = ($(this).attr('message')) ? $(this).attr('message') : 'Are you sure you want to mark as complete?';
+      var confirmNode = $('<div><p>' + confirmMessage + '</p></div>');
+      $(confirmNode).dialog({
+        title: 'Please confirm',
+        modal: true,
+        width: 600,
+        buttons: {
+          Cancel: function(){
+            $(confirmNode).dialog('close');
+          },
+          'Yes': function(){
+            $.ajax({
+              cache: false,
+              type: 'POST',
+              url: completeUrl,
+              dataType: 'html',
+            data: {'_method': 'complete'},
+            beforeSend: function(){
+              $.showGlobalSpinnerNode();
+            },
+            error: function(xhr){
+              $.showMajorError(xhr);
+            },
+            complete: function(){
+              $.hideGlobalSpinnerNode();
+            },
+            success: function(){
+              if(redirectTo != undefined){
+                window.location.href = redirectTo;
+              } else {
+                //$.refreshActiveTabPane();
+                $.refreshTabPane(cmdTabs);
+                $.updateLists(objectType);
+                $(confirmNode).dialog('close');
+              }
+            }
+          });
+        }
+      },
+      close: function(){
+        $(confirmNode).remove();
+      }
+      }).dialog('open');
+    });
   },
 
   /* 
