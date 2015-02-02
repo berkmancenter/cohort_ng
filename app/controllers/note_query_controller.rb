@@ -15,6 +15,7 @@ class NoteQueryController < BaseController
     if current_user
       breadcrumbs.add('My Tasks', note_query_upcoming_path)
       @notes = Note.to_dos.joins(:accepted_roles => [:users]).paginate(:conditions => ["roles.name = ? and roles.authorizable_type = ? and roles_users.user_id = ? and note_type = ? and (complete is false or complete is NULL)",'owner','Note', current_user.id,'task'], :order => 'due_date desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
+      @task = true
       @complete = Note.to_dos.joins(:accepted_roles => [:users]).paginate(:conditions => ["roles.name = ? and roles.authorizable_type = ? and roles_users.user_id = ? and note_type = ? and complete is true",'owner','Note', current_user.id,'task'], :order => 'due_date desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
     end
     negotiate_list_query_response('note')
@@ -23,6 +24,7 @@ class NoteQueryController < BaseController
   def all_upcoming
     breadcrumbs.add('All Tasks', note_query_all_upcoming_path)
     @notes = Note.to_dos.paginate(:conditions => ["note_type = ? and (complete is false or complete is NULL)",'task'], :order => 'due_date desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
+    @task = true
     @complete = Note.to_dos.paginate(:conditions => ["note_type = ? and complete is true",'task'], :order => 'due_date desc', :page => params[:page], :per_page => params[:per_page] || Note.per_page)
     negotiate_list_query_response('note')
   end

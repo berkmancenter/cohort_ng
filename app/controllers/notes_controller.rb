@@ -63,6 +63,22 @@ class NotesController < BaseController
       format.html { render :layout => ! request.xhr? }
     end
   end
+  
+  def complete
+    @note = Note.find(params[:id])
+    @note.complete = true
+    respond_to do |format|
+      if @note.save
+        flash[:notice] = "Marked as complete."
+        format.js { render :text => '' }
+        format.html {redirect_to :back }
+      else 
+        flash[:notice] = "We couldn't mark that note as complete."
+        format.js { render :text => "We couldn't mark that note as complete. <br />#{@note.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
+        format.html { render :text => "We couldn't mark that note as complete. <br />#{@note.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity, :layout => ! request.xhr? }
+      end
+    end
+  end  
 
   def update
     @note = Note.find(params[:id])

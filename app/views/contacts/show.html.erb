@@ -103,8 +103,10 @@
       <div class="clear"></div>
     <% end %>
 	
-    <% @notes = Note.paginate(:conditions => ["note_type = 'task' and contact_id = ?", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
-    <% unless @notes.empty? %>
+    <% @notes = Note.paginate(:conditions => ["note_type = 'task' and contact_id = ? and (complete is false or complete is NULL)", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
+	<% @complete = Note.paginate(:conditions => ["note_type = 'task' and contact_id = ? and complete is true", @contact.id], :order => 'created_at desc', :page => params[:page], :per_page => 3) %>
+	<% @task = true %>
+    <% unless @notes.empty? and @complete.empty? %>
       <h2 class="collapsable">Tasks</h2>
       <div class="tasks">
         <%= render :partial => 'shared/note_list', :locals => {:title => "" } %>
