@@ -93,6 +93,10 @@ CohortNg::Application.routes.draw do
     collection do
       get :tasks
       get :complete
+      post :complete
+    end
+    member do
+      post :complete
     end
   end
 
