@@ -90,11 +90,11 @@ class ContactCartsController < BaseController
         end
       end
     end
-    unless params[:hierarchical_tag_list].blank?
+    unless params[:hierarchical_tags_for_edit].blank?
       object_ids.each do |id|
         contact_input = Contact.find(id.to_i)
         tags = contact_input.hierarchical_tag_list
-        contact_input.hierarchical_tag_list = tags + ", " + params[:hierarchical_tag_list]
+        contact_input.hierarchical_tag_list = tags + ", " + params[:hierarchical_tags_for_edit]
         
         contact_input.tags.each do |string_tag|
           tag = ActsAsTaggableOn::Tag.find(string_tag)
