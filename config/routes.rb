@@ -92,6 +92,7 @@ CohortNg::Application.routes.draw do
   resources :notes do
     collection do
       get :tasks
+      get :complete
     end
   end
 
