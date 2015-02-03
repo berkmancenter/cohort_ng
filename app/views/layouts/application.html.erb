@@ -15,6 +15,7 @@
     <%= javascript_include_tag 'jquery.hoverIntent.minified.js' %>
     <%= javascript_include_tag 'jquery.bt.js' %>
     <%= javascript_include_tag 'application.js' %>
+	<%= include_gritter %>
     <%= csrf_meta_tag %>
   </head>
   <body>
@@ -22,10 +23,11 @@
       <div class="header">
         <div class="grid_4 alpha"></div>
         <div class="grid_4" id="messages">
+			<%= gflash :success => "#{flash[:notice]}" %>
   		  <% [:notice,:error,:alert].each do|flash_type| %>
             <% unless flash[flash_type].blank? %>
               <div class="flash flash-<%= flash_type %>">
-                <%= flash[flash_type] %>
+				<%= flash[flash_type] %>
               </div>
             <% end %>
           <% end %>

@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 require 'rubygems'
 
 gem "rails", "~> 3.0.20"
@@ -9,7 +9,7 @@ gem 'pg'
 gem "devise"
 gem 'sunspot_rails'
 gem 'sunspot_solr'
-gem 'carmen'
+gem 'carmen', '0.2.13'
 gem 'ancestry'
 gem 'acts_as_list', '0.1.4'
 # This is a custom hacked version of acts-as-taggable-on that lives here:
@@ -21,6 +21,8 @@ gem 'acl9'
 gem 'nokogiri'
 gem 'rake', '0.9.2.2'
 gem 'breadcrumbs'
+gem 'i18n', '0.5.0'
+gem "gritter", "0.6.3"
 
 group :development, :test do
   gem 'silent-postgres'

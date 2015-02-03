@@ -108,6 +108,7 @@ class ContactCartsController < BaseController
     end
     
     respond_to do|format|
+      gflash :success => "Success!"
       flash[:notice] = @message
       format.js{ redirect_to :back }
       format.html{ redirect_to :back }
