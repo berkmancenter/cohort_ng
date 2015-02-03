@@ -21,6 +21,7 @@ gem 'acl9'
 gem 'nokogiri'
 gem 'rake', '0.9.2.2'
 gem 'breadcrumbs'
+gem "gritter", "0.6.3"
 
 group :development, :test do
   gem 'silent-postgres'

@@ -64,7 +64,7 @@ class TagsController < BaseController
       # Just reindex.
       tag.solr_index
     end
-    flash[:notice] = 'Merged.'
+    gflash :success => 'Merged.'
     redirect_to acts_as_taggable_on_tag_path(new_tag) and return
   end
 
@@ -89,9 +89,9 @@ class TagsController < BaseController
     tag.parent_id = params[:acts_as_taggable_on_tag][:parent_id]
     if tag.save
       Contact.where(:id => contacts_to_reindex).solr_index(:batch_size => 100)
-      flash[:notice] = 'We updated that tag.'
+      gflash :success => 'We updated that tag.'
     else
-      flash[:error] = "We couldn't update that tag. It might be a duplicate of another or validate another constraint we're imposing. Try again!"
+      gflash :error => "We couldn't update that tag. It might be a duplicate of another or validate another constraint we're imposing. Try again!"
     end
     redirect_to tag_path(tag) and return
   end
@@ -101,7 +101,7 @@ class TagsController < BaseController
     contacts_to_reindex = tag.taggings.collect{|tg| tg.taggable.id}
     tag.destroy
     Contact.where(:id => contacts_to_reindex).solr_index(:batch_size => 100)
-    flash[:notice] = 'We deleted that tag.'
+    gflash :success => 'We deleted that tag.'
     redirect_to tags_path and return
   end
 
