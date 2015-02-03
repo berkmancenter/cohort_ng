@@ -411,7 +411,7 @@ $.extend({
                     $(dialogNode).dialog('close');
                     //$.refreshActiveTabPane();
                     $.refreshTabPane(cmdTabs);
-					$.gritter.add({image:'/images/gritter/success.png',title:'Update made.',text:''});
+					$.gritter.add({image:'/images/gritter/success.png',title:'Success',text:'Update made.'});
                     //$('#messages').append('<div class="flash flash-notice">Added that contact.</div>');
                     $('#messages .flash-notice').effect('pulsate').hide('fade');
 

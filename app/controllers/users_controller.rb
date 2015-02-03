@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     
     respond_to do|format|
       if @user.save
-        flash[:notice] = "Created that user"
+        gflash :success => "Created that user"
         format.js {render :text => '', :layout => ! request.xhr? }
         format.html {render :text => '', :layout => ! request.xhr? }
       else
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     @user.attributes = params[:user] 
     respond_to do|format|
       if @user.save
-        flash[:notice] = "Updated that user"
+        gflash :success => "Updated that user"
         format.js { render :text => nil }
         format.html {render :text => 'success', :layout => ! request.xhr?}
       else

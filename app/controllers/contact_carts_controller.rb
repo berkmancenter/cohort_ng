@@ -32,7 +32,7 @@ class ContactCartsController < BaseController
     @message = ''
     object_ids = params[:contacts_to_list]
     if object_ids.nil?
-      flash[:error] = "Please select contacts."
+      gflash :error => "Please select contacts."
       redirect_to :back and return
     end
       
@@ -108,8 +108,7 @@ class ContactCartsController < BaseController
     end
     
     respond_to do|format|
-      gflash :success => "Success!"
-      flash[:notice] = @message
+      gflash :success => @message
       format.js{ redirect_to :back }
       format.html{ redirect_to :back }
     end
@@ -135,7 +134,7 @@ class ContactCartsController < BaseController
       if @contact_cart.save
         current_user.has_role!(:owner, @contact_cart)
         current_user.has_role!(:creator, @contact_cart)
-        flash[:notice] = "Added that contact list"
+        gflash :success => "Added that contact list"
         format.js { }
         format.html {render :text => '', :layout => request.xhr? }
       else
@@ -168,7 +167,7 @@ class ContactCartsController < BaseController
     respond_to do|format|
       if @contact_cart.save
         current_user.has_role!(:editor, @contact_cart)
-        flash[:notice] = "Updated that contact list"
+        gflash :success => "Updated that contact list"
         format.js { render :text => nil }
         format.html { render :text => "success", :layout => ! request.xhr?}
       else
@@ -188,11 +187,11 @@ class ContactCartsController < BaseController
     @contact_cart = ContactCart.find(params[:id])
     respond_to do |format|
       if @contact_cart.destroy
-        flash[:notice] = "Removed that contact list"
+        gflash :success => "Removed that contact list"
         format.js { render :text => nil }
         format.html { render :text => 'success', :layout => ! request.xhr? }
       else 
-        flash[:notice] = "We couldn't remove that contact list"
+        gflash :success => "We couldn't remove that contact list"
         format.js { 
           render :text => "We couldn't remove that contact list. <br />#{@contact_cart.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity 
         }

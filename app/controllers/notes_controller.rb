@@ -41,7 +41,7 @@ class NotesController < BaseController
           User.find(params[:owner].to_i).has_role!(:owner, @note)  
           current_user.has_role!(:creator, @note)
         end  
-        flash[:notice] = "Added that note"
+        gflash :success => "Added that note"
         format.js { render :text => ''}
         format.html { render :text => '', :layout => ! request.xhr? }
       else
@@ -69,11 +69,11 @@ class NotesController < BaseController
     @note.complete = true
     respond_to do |format|
       if @note.save
-        flash[:notice] = "Marked as complete."
+        gflash :success => "Marked as complete."
         format.js { render :text => nil }
         format.html {render :text => '', :layout => ! request.xhr? }
       else 
-        flash[:notice] = "We couldn't mark that note as complete."
+        gflash :success => "We couldn't mark that note as complete."
         format.js { render :text => "We couldn't mark that note as complete. <br />#{@note.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
         format.html { render :text => "We couldn't mark that note as complete. <br />#{@note.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity, :layout => ! request.xhr? }
       end
@@ -91,7 +91,7 @@ class NotesController < BaseController
           User.find(params[:owner].to_i).has_role!(:owner, @note)  
           current_user.has_role!(:editor, @note)
         end 
-        flash[:notice] = "Updated that note"
+        gflash :success => "Updated that note"
         format.js { render :text => ''}
         format.html { render :text => '', :layout => ! request.xhr? }
       else
@@ -105,11 +105,11 @@ class NotesController < BaseController
     @note = Note.find(params[:id])
     respond_to do |format|
       if @note.destroy
-        flash[:notice] = "Removed that note"
+        gflash :success => "Removed that note"
         format.js { render :text => nil }
         format.html {render :text => '', :layout => ! request.xhr? }
       else 
-        flash[:notice] = "We couldn't remove that note"
+        gflash :success => "We couldn't remove that note"
         format.js { render :text => "We couldn't remove that note. <br />#{@note.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
         format.html { render :text => "We couldn't remove that note. <br />#{@note.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity, :layout => ! request.xhr? }
       end
