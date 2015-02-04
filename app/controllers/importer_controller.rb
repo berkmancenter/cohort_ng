@@ -22,16 +22,16 @@ class ImporterController < BaseController
     file_name = "#{RAILS_ROOT}/tmp/imported_files/#{SecureRandom.uuid}"
     FileUtils.cp uploaded_file.tempfile, file_name
     session[:imported_file_name] = file_name
-    flash[:notice] = 'Uploaded file.'
+    gflash :success => 'Uploaded file.'
     redirect_to(:action => :import)
   rescue
-    flash[:error] = "We couldn't accept that file. Please check the format"
+    gflash :error => "We couldn't accept that file. Please check the format"
     redirect_to(:action => :index)
   end
 
   def import
     if session[:imported_file_name].nil?
-      flash[:notice] = 'Please upload a file first!'
+      gflash :success => 'Please upload a file first!'
       redirect_to(:action => :index)
     end
 
@@ -45,7 +45,7 @@ class ImporterController < BaseController
       i = i + 1
       if i == 1
         if ! csv.headers.include?('email_addresses')
-          flash[:error] = 'Your upload didn\'t include the required "email_addresses" field'
+          gflash :error => 'Your upload didn\'t include the required "email_addresses" field'
           throw Exception
         end
         logger.warn('header row!')
@@ -94,11 +94,11 @@ class ImporterController < BaseController
 
     end
 
-    flash[:notice] = 'Imported that file. Please see below for any import errors that might\'ve occurred.'
+    gflash :success => 'Imported that file. Please see below for any import errors that might\'ve occurred.'
     render :action => :index
 
   rescue Exception => e
-    flash[:error] = "An error! Oh noes! #{e.inspect}"
+    gflash :error => "An error! Oh noes! #{e.inspect}"
     redirect_to(:action => :index)
   end
 
