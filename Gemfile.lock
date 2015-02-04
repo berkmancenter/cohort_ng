@@ -6,7 +6,7 @@ GIT
       rails (~> 3.0.15)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     abstract (1.0.0)
     acl9 (0.12.3)
@@ -106,14 +106,13 @@ GEM
     rsolr (1.0.10)
       builder (>= 2.1.2)
     silent-postgres (0.1.1)
-    sunspot (2.1.1)
+    sunspot (2.0.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
-    sunspot_rails (2.1.1)
+    sunspot_rails (2.0.0)
       nokogiri
-      rails (>= 3)
-      sunspot (= 2.1.1)
-    sunspot_solr (2.1.1)
+      sunspot (= 2.0.0)
+    sunspot_solr (2.0.0)
     thor (0.14.6)
     treetop (1.4.15)
       polyglot
@@ -146,6 +145,7 @@ DEPENDENCIES
   rails (~> 3.0.20)
   rake (= 0.9.2.2)
   silent-postgres
-  sunspot_rails
-  sunspot_solr
+  sunspot (= 2.0.0)
+  sunspot_rails (= 2.0.0)
+  sunspot_solr (= 2.0.0)
   will_paginate
