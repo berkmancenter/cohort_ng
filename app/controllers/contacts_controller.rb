@@ -33,7 +33,7 @@ class ContactsController < BaseController
       if @contact.save
         current_user.has_role!(:owner, @contact)
         current_user.has_role!(:creator, @contact)
-        flash[:notice] = "Created that contact"
+        gflash :success => "Created that contact"
         format.js {render :text => '', :layout => ! request.xhr? }
         format.html {render :text => '', :layout => ! request.xhr? }
       else
@@ -58,7 +58,7 @@ class ContactsController < BaseController
     respond_to do|format|
       if @contact.save
         current_user.has_role!(:editor, @contact)
-        flash[:notice] = "Updated that contact"
+        gflash :success => "Updated that contact"
         format.js { render :text => nil }
         format.html {render :text => 'success', :layout => ! request.xhr?}
       else
@@ -78,11 +78,11 @@ class ContactsController < BaseController
     @contact = Contact.find(params[:id])
     respond_to do |format|
       if @contact.destroy
-        flash[:notice] = "Removed that contact"
+        gflash :success => "Removed that contact"
         format.js { render :text => nil }
         format.html { render :text => nil, :layout => ! request.xhr? }
       else 
-        flash[:notice] = "We couldn't remove that contact"
+        gflash :success => "We couldn't remove that contact"
         format.js { render :text => "We couldn't remove that contact. <br />#{@contact.errors.full_messages.join('<br/>')}", :status => :unprocessable_entity }
         format.html { render :action => :index, :layout => ! request.xhr? }
       end
