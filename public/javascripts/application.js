@@ -119,7 +119,7 @@ $(document).ready(function(){
       $.data(document.body, 'selected_object_type', objectType);
       $.data(document.body, 'selected_object_id', objectId);
       // Open a dialog to select the list.
-      var dialog = $('<div id="add-contact-to-list"><h1>Contact lists</h1><div class="subtabs"><ul><li><a href="/contact_cart_query/yours">Mine</a></li><li><a href="/contact_cart_query/all">All</a></li><li><a href="/contact_cart_query/your_private">Private</a></li></ul></div></div>');
+      var dialog = $('<div id="add-contact-to-list"><h1>Contact lists</h1><div class="subtabs"><ul><li><a href="' + $.rootPath() + 'contact_cart_query/yours">Mine</a></li><li><a href="' + $.rootPath() + 'contact_cart_query/all">All</a></li><li><a href="' + $.rootPath() + 'contact_cart_query/your_private">Private</a></li></ul></div></div>');
       $(dialog).dialog({
         title: 'Add "'+ objectTitle + '" to a contact list',
         modal: true,
@@ -196,11 +196,11 @@ function toggle() {
 	var text = document.getElementById("displayText");
 	if(ele.style.display == "block") {
     		ele.style.display = "none";
-		text.innerHTML = "Add to Contact List <img src='/images/icons/arrow_right.png' />";
+		text.innerHTML = "Add to Contact List <img src='" + $.rootPath() + "images/icons/arrow_right.png' />";
   	}
 	else {
 		ele.style.display = "block";
-		text.innerHTML = "Add to Contact List <img src='/images/icons/arrow_right.png' />";
+		text.innerHTML = "Add to Contact List <img src='" + $.rootPath() + "images/icons/arrow_right.png' />";
 	}
 } 
 
@@ -209,11 +209,11 @@ function toggle1() {
 	var text = document.getElementById("displayText1");
 	if(ele.style.display == "block") {
     		ele.style.display = "none";
-		text.innerHTML = "Add Note <img src='/images/icons/arrow_right.png' />";
+		text.innerHTML = "Add Note <img src='" + $.rootPath() + "images/icons/arrow_right.png' />";
   	}
 	else {
 		ele.style.display = "block";
-		text.innerHTML = "Add Note <img src='/images/icons/arrow_right.png' />";
+		text.innerHTML = "Add Note <img src='" + $.rootPath() + "images/icons/arrow_right.png' />";
 	}
 }
 
@@ -222,11 +222,11 @@ function toggle2() {
 	var text = document.getElementById("displayText2");
 	if(ele.style.display == "block") {
     		ele.style.display = "none";
-		text.innerHTML = "Add Task <img src='/images/icons/arrow_right.png' />";
+		text.innerHTML = "Add Task <img src='" + $.rootPath() + "images/icons/arrow_right.png' />";
   	}
 	else {
 		ele.style.display = "block";
-		text.innerHTML = "Add Task <img src='/images/icons/arrow_right.png' />";
+		text.innerHTML = "Add Task <img src='" + $.rootPath() + "images/icons/arrow_right.png' />";
 	}
 }
 
@@ -235,10 +235,10 @@ function toggle3() {
 	var text = document.getElementById("displayText3");
 	if(ele.style.display == "block") {
     		ele.style.display = "none";
-		text.innerHTML = "Add Tags <img src='/images/icons/arrow_right.png' />";
+		text.innerHTML = "Add Tags <img src='" + $.rootPath() + "images/icons/arrow_right.png' />";
   	}
 	else {
 		ele.style.display = "block";
-		text.innerHTML = "Add Tags <img src='/images/icons/arrow_right.png' />";
+		text.innerHTML = "Add Tags <img src='" + $.rootPath() + "images/icons/arrow_right.png' />";
 	}
 }
