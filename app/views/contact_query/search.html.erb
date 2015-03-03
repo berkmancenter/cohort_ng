@@ -1,16 +1,18 @@
-<div class="tabs">
-  <ul>
-    <li><a href="#contacts">Contacts</a></li>
-    <li><%= link_to('Tags', tag_query_search_path(:q => params[:q])) %></li>
-	<li><%= link_to('Contact Lists', contact_cart_query_search_path(:q => params[:q])) %></li>
-  </ul>
+<div class="grid_8 alpha">
+  <h2>Tools</h2>
+  <div class="tabs">
+    <ul>
+      <li><a href="#contacts">Contacts</a></li>
+      <li><%= link_to('Tags', tag_query_search_path(:q => params[:q])) %></li>
+  	<li><%= link_to('Contact Lists', contact_cart_query_search_path(:q => params[:q])) %></li>
+    </ul>
 
-  <div id="contacts">
-    <div class="contact search" >
-      <div class="list">
-        <%= render :partial => 'shared/contact_search_results', :locals => {:contact_query => @contact_query} %>
+    <div id="contacts">
+      <div class="contact search" >
+        <div class="list">
+          <%= render :partial => 'shared/contact_search_results', :locals => {:contact_query => @contact_query} %>
+        </div>
       </div>
     </div>
   </div>
-
 </div>
