@@ -1,11 +1,76 @@
-== Cohort, the next generation
+Cohort, The Next Generation
+============
 
-== See Also
+Description
+-----------
 
-* Uses the silk icon set from famfamfam.com
+Cohort is a custom Client Relationship Management system.
 
-== License
+Code Repository
+---------------
 
-This application is licensed under the GPL, version 3.
+https://github.com/berkmancenter/cohort_ng
 
+User Documentation
+------------------
 
+We're in the process of finalizing user documentation, but once it's up this will get updated with a pointer to it.
+
+Requirements
+------------
+
+* Ruby 1.9.2 and a bunch of gems included in the Gemfile
+* Rails 3.0.20
+* A modern postgres database server.
+* A Solr environment.
+* A webserver capable of interfacing with Rails applications. Ideally, apache or nginx with mod_passenger installed.
+* Linux or OSX. Linux would be easier.
+
+Setup
+-----
+
+* Install requirements (see above)
+* Checkout the code
+  * `git clone https://github.com/berkmancenter/cohort_ng`
+* Install libraries
+  * `bundle install`
+* Configure the database
+  * `cp config/database.yml.example config/database.yml`
+  * Setup a postgres user and update `config/database.yml` accordingly
+  * `cp config/sunspot.yml.example config/sunspot.yml`
+  * Update `config/database.yml` accordingly
+  * `rake db:create`
+  * `rake db:setup`
+  * `rake db:migrate`
+  * `bundle exec rake sunspot:solr:start`
+
+Issue Tracker
+-------------
+
+We maintain a closed-to-the-public [issue tracker] (https://cyber.law.harvard.edu/projectmanagement/projects/cohort/issues). Any additional issues can be added to the [GitHub issue tracker](https://github.com/berkmancenter/cohort_ng/issues).
+
+To Do
+-----
+
+The current to do items can be found within the [issue tracker] (https://cyber.law.harvard.edu/projectmanagement/projects/cohort/issues).
+
+### Technologies
+
+* [Rails](http://rubyonrails.org/)
+* [Redmine](http://www.redmine.org)
+* [Sunspot Solr](https://github.com/sunspot/sunspot)
+
+Contributors
+------------
+
+[Anita Patel] (https://github.com/apatel)
+
+License
+-------
+
+This application is open source and released under the terms of the GNU General Public License v3 (GPL).
+
+Copyright
+---------
+
+Copyright &copy; 2015 President and Fellows of Harvard College
